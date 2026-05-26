@@ -4,432 +4,233 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TripKit — Everything for your next trip</title>
-<meta name="description" content="Tell us where you're going. We put together everything you need — hotels, transport, gear, activities. All in one kit.">
+<meta name="description" content="Tell us where you're going. Get the perfect kit — hotels, transport, gear and more.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ── Reset & Tokens ─────────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --ink:      #0e0e12;
-  --ink2:     #18181f;
-  --ink3:     #22222c;
-  --fog:      rgba(255,255,255,0.06);
-  --fog2:     rgba(255,255,255,0.10);
-  --border:   rgba(255,255,255,0.08);
-  --border2:  rgba(255,255,255,0.14);
-  --text:     #f2f0eb;
-  --text2:    rgba(242,240,235,0.5);
-  --text3:    rgba(242,240,235,0.25);
-  --amber:    #f0a500;
-  --amber2:   rgba(240,165,0,0.12);
-  --amber3:   rgba(240,165,0,0.06);
-  --teal:     #00c9a7;
-  --teal2:    rgba(0,201,167,0.1);
-  --red:      #ff6b6b;
-  --ff-display: 'Fraunces', Georgia, serif;
-  --ff-body:    'DM Sans', system-ui, sans-serif;
-  --ff-mono:    'DM Mono', monospace;
-  --r:  10px;
-  --r2: 16px;
-  --r3: 24px;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#ffffff;--off:#f8f7f4;--off2:#f0ede8;--line:#e8e4de;--line2:#d8d3cb;
+  --text:#1a1814;--text2:#6b6560;--text3:#a8a29c;
+  --amber:#c8860a;--amber-bg:#fff8eb;--amber-line:#fde9a8;
+  --teal:#0a7a6b;--teal-bg:#edfaf7;--teal-line:#a8ece3;
+  --ff-display:'Instrument Serif',Georgia,serif;
+  --ff-body:'Plus Jakarta Sans',system-ui,sans-serif;
+  --r:8px;--r2:14px;--r3:20px;
+  --shadow:0 1px 3px rgba(0,0,0,0.06),0 4px 16px rgba(0,0,0,0.04);
+  --shadow2:0 2px 8px rgba(0,0,0,0.08),0 12px 32px rgba(0,0,0,0.06);
 }
+html{background:var(--white);color:var(--text);font-family:var(--ff-body);font-size:16px;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{min-height:100vh;overflow-x:hidden}
+button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
+a{color:inherit;text-decoration:none}
+::selection{background:#fde9a8;color:#7a5200}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--off)}
+::-webkit-scrollbar-thumb{background:var(--line2);border-radius:2px}
 
-html { background: var(--ink); color: var(--text); font-family: var(--ff-body); font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
-body { min-height: 100vh; overflow-x: hidden; }
-a { color: inherit; text-decoration: none; }
-button { font-family: var(--ff-body); cursor: pointer; border: none; }
-::selection { background: var(--amber2); color: var(--amber); }
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{opacity:.4}50%{opacity:1}100%{opacity:.4}}
+@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.au{animation:fadeUp .5s cubic-bezier(.16,1,.3,1) both}
+.d1{animation-delay:.06s}.d2{animation-delay:.12s}.d3{animation-delay:.2s}
+.d4{animation-delay:.28s}.d5{animation-delay:.38s}
+.page{display:none;min-height:100vh}
+.page.active{display:block}
 
-/* ── Scrollbar ──────────────────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--ink); }
-::-webkit-scrollbar-thumb { background: var(--ink3); border-radius: 2px; }
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:58px;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-logo{font-family:var(--ff-display);font-size:22px;letter-spacing:-.3px;cursor:pointer;color:var(--text)}
+.nav-logo em{font-style:italic;color:var(--amber)}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-link{font-size:13px;color:var(--text2);padding:6px 12px;border-radius:var(--r);cursor:pointer;transition:all .15s}
+.nav-link:hover{background:var(--off);color:var(--text)}
 
-/* ── Animations ─────────────────────────────────────────────────────────── */
-@keyframes fadeUp   { from { opacity:0; transform:translateY(24px) } to { opacity:1; transform:translateY(0) } }
-@keyframes fadeIn   { from { opacity:0 } to { opacity:1 } }
-@keyframes shimmer  { 0% { background-position:-200% 0 } 100% { background-position:200% 0 } }
-@keyframes pulse    { 0%,100% { opacity:1 } 50% { opacity:0.4 } }
-@keyframes spin     { to { transform:rotate(360deg) } }
-@keyframes slideIn  { from { opacity:0; transform:translateX(20px) } to { opacity:1; transform:translateX(0) } }
-@keyframes floatUp  { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-6px) } }
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 24px 60px;position:relative;text-align:center;background:var(--white);overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,#d4cec6 1px,transparent 1px);background-size:28px 28px;opacity:.4;pointer-events:none}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 50%,transparent 40%,rgba(248,247,244,.8) 100%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;width:100%;max-width:700px;margin:0 auto}
+.hero-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;letter-spacing:.04em;background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-line);border-radius:999px;padding:5px 14px;margin-bottom:28px}
+.hero-pill-dot{width:5px;height:5px;border-radius:50%;background:var(--amber)}
+.hero-h1{font-family:var(--ff-display);font-size:clamp(3rem,6.5vw,5rem);font-weight:400;line-height:1.05;letter-spacing:-1.5px;color:var(--text);margin-bottom:18px}
+.hero-h1 em{font-style:italic;color:var(--amber)}
+.hero-sub{font-size:16px;color:var(--text2);line-height:1.7;max-width:440px;margin:0 auto 44px}
 
-.au  { animation: fadeUp  0.6s cubic-bezier(0.16,1,0.3,1) both }
-.ai  { animation: fadeIn  0.5s ease both }
-.d1  { animation-delay: 0.05s }
-.d2  { animation-delay: 0.12s }
-.d3  { animation-delay: 0.20s }
-.d4  { animation-delay: 0.30s }
-.d5  { animation-delay: 0.42s }
+/* SEARCH */
+.search-card{background:var(--white);border:1px solid var(--line);border-radius:var(--r3);padding:20px;box-shadow:var(--shadow2);margin-bottom:28px;text-align:left}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.form-field{background:var(--off);border:1px solid var(--line);border-radius:var(--r);padding:11px 14px;transition:border-color .15s}
+.form-field:focus-within{border-color:var(--line2);background:var(--white)}
+.form-field label{display:block;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:3px}
+.form-field input,.form-field select{width:100%;background:none;border:none;outline:none;font-size:14px;color:var(--text);font-family:var(--ff-body);font-weight:500;appearance:none;-webkit-appearance:none}
+.form-field input::placeholder{color:var(--text3);font-weight:400}
+.form-field select option{background:var(--white)}
+.duration-row{display:flex;align-items:center;gap:8px}
+.duration-row input[type=number]{width:60px;font-weight:600}
+.duration-unit{font-size:13px;color:var(--text2)}
+.travellers-extra{display:none;margin-top:8px;padding-top:8px;border-top:1px solid var(--line);gap:8px}
+.travellers-extra.show{display:flex;flex-wrap:wrap}
+.te-field{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text2)}
+.te-field input{width:48px;background:var(--white);border:1px solid var(--line);border-radius:6px;padding:4px 8px;font-size:13px;font-family:var(--ff-body);text-align:center;outline:none;color:var(--text)}
+.search-btn{width:100%;background:var(--text);color:var(--white);border-radius:var(--r);padding:14px;font-size:15px;font-weight:600;letter-spacing:-.1px;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.search-btn:hover{background:#2d2a26;transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.search-btn:active{transform:translateY(0)}
 
-/* ── Pages ──────────────────────────────────────────────────────────────── */
-.page { display: none; min-height: 100vh; }
-.page.active { display: block; }
+/* CHIPS */
+.chips-wrap{position:relative;z-index:1}
+.chips-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chip{font-size:13px;color:var(--text2);background:var(--white);border:1px solid var(--line);border-radius:999px;padding:7px 16px;cursor:pointer;transition:all .15s;font-weight:400}
+.chip:hover{border-color:var(--line2);color:var(--text);background:var(--off)}
 
-/* ══════════════════════════════════════════════════════════════════════════
-   NAV
-══════════════════════════════════════════════════════════════════════════ */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 32px; height: 60px;
-  background: rgba(14,14,18,0.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 0.5px solid var(--border);
-}
-.nav-logo { font-family: var(--ff-display); font-size: 20px; font-weight: 400; letter-spacing: -0.3px; cursor: pointer; }
-.nav-logo em { font-style: italic; color: var(--amber); }
-.nav-links { display: flex; align-items: center; gap: 24px; }
-.nav-link { font-size: 13px; color: var(--text2); transition: color 0.2s; cursor: pointer; }
-.nav-link:hover { color: var(--text); }
+/* DESTINATIONS */
+.destinations{padding:80px 40px;background:var(--off)}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px}
+.section-title{font-family:var(--ff-display);font-size:30px;font-weight:400;letter-spacing:-.5px;color:var(--text)}
+.section-note{font-size:13px;color:var(--text3)}
+.dest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.dest-card{border-radius:var(--r2);overflow:hidden;cursor:pointer;aspect-ratio:4/3;position:relative;border:1px solid var(--line);transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s}
+.dest-card:hover{transform:translateY(-4px);box-shadow:var(--shadow2)}
+.dest-img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.dest-card:hover .dest-img{transform:scale(1.04)}
+.dest-gradient{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,12,8,.75) 0%,rgba(0,0,0,.15) 55%,transparent 100%)}
+.dest-badge{position:absolute;top:12px;left:12px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:3px 10px;border-radius:999px}
+.dest-badge.hot{background:rgba(220,38,38,.85);color:#fff}
+.dest-badge.new{background:rgba(10,122,107,.85);color:#fff}
+.dest-badge.top{background:rgba(200,134,10,.85);color:#fff}
+.dest-info{position:absolute;bottom:0;left:0;right:0;padding:18px}
+.dest-city{font-size:22px;font-weight:500;color:#fff;letter-spacing:-.3px;margin-bottom:3px}
+.dest-meta{font-size:12px;color:rgba(255,255,255,.6)}
 
-/* ══════════════════════════════════════════════════════════════════════════
-   HOME PAGE
-══════════════════════════════════════════════════════════════════════════ */
-.home-hero {
-  min-height: 100vh;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 100px 24px 60px;
-  position: relative; text-align: center; overflow: hidden;
-}
+/* HOW */
+.how{padding:80px 40px;background:var(--white)}
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:40px}
+.how-num{font-family:var(--ff-display);font-size:42px;font-weight:400;color:var(--line2);line-height:1;margin-bottom:14px;font-style:italic}
+.how-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px}
+.how-desc{font-size:13px;color:var(--text2);line-height:1.65}
 
-/* Background texture */
-.home-hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(240,165,0,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,201,167,0.04) 0%, transparent 50%),
-    radial-gradient(ellipse 30% 30% at 80% 60%, rgba(240,165,0,0.04) 0%, transparent 50%);
-  pointer-events: none;
-}
+/* FOOTER */
+.footer{border-top:1px solid var(--line);padding:32px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;background:var(--white)}
+.footer-logo{font-family:var(--ff-display);font-size:18px;font-weight:400;color:var(--text)}
+.footer-logo em{font-style:italic;color:var(--amber)}
+.footer-links{display:flex;gap:20px}
+.footer-link{font-size:12px;color:var(--text3);cursor:pointer;transition:color .15s}
+.footer-link:hover{color:var(--text2)}
+.footer-copy{font-size:12px;color:var(--text3)}
 
-/* Grid overlay */
-.home-hero::after {
-  content: '';
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 20%, transparent 80%);
-  pointer-events: none; opacity: 0.4;
-}
+/* RESULTS */
+.results-page{padding-top:58px;background:var(--off);min-height:100vh}
+.trip-hero{background:var(--white);border-bottom:1px solid var(--line);padding:36px 40px}
+.trip-hero-inner{max-width:1080px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.trip-title{font-family:var(--ff-display);font-size:38px;font-weight:400;letter-spacing:-.8px;margin-bottom:10px;line-height:1.1}
+.trip-title em{font-style:italic;color:var(--amber)}
+.trip-tags{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.trip-tag{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text2);background:var(--off);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.trip-edit{font-size:13px;color:var(--amber);font-weight:500;cursor:pointer;padding:6px 0;transition:opacity .15s}
+.trip-edit:hover{opacity:.7}
+.trip-stats{display:flex;gap:12px;flex-shrink:0}
+.trip-stat{background:var(--off);border:1px solid var(--line);border-radius:var(--r2);padding:12px 20px;text-align:center}
+.trip-stat-val{font-family:var(--ff-display);font-size:24px;font-weight:400;color:var(--text);letter-spacing:-.5px}
+.trip-stat-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-top:2px}
+.results-body{max-width:1080px;margin:0 auto;padding:36px 40px}
 
-.hero-eyebrow {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--amber);
-  background: var(--amber3);
-  border: 0.5px solid rgba(240,165,0,0.2);
-  border-radius: 999px; padding: 5px 16px;
-  margin-bottom: 28px; position: relative;
-}
-.hero-eyebrow::before {
-  content: ''; width: 6px; height: 6px; border-radius: 50%;
-  background: var(--amber); animation: pulse 2s infinite;
-}
+/* KIT SECTION */
+.kit-section{margin-bottom:44px}
+.kit-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.kit-head-left{display:flex;align-items:center;gap:12px}
+.kit-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.kit-icon.stay{background:#fff8eb;border:1px solid #fde9a8}
+.kit-icon.transport{background:#edfaf7;border:1px solid #a8ece3}
+.kit-icon.activities{background:#f0eeff;border:1px solid #d4ccf7}
+.kit-icon.gear{background:#fef2f1;border:1px solid #fcd4d0}
+.kit-icon.insurance{background:#f0f9ff;border:1px solid #bae6fd}
+.kit-title{font-size:18px;font-weight:600;color:var(--text)}
+.kit-count{font-size:12px;font-weight:500;color:var(--text3);background:var(--off2);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
 
-.hero-h1 {
-  font-family: var(--ff-display);
-  font-size: clamp(3rem, 7vw, 5.5rem);
-  font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -2px;
-  color: var(--text);
-  margin-bottom: 20px;
-  position: relative;
-  max-width: 820px;
-}
-.hero-h1 em { font-style: italic; color: var(--amber); }
+/* ADV CARDS */
+.adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.adv-card{background:var(--white);border:1px solid var(--line);border-radius:var(--r2);padding:18px;cursor:pointer;transition:all .2s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;position:relative;overflow:hidden}
+.adv-card:hover{border-color:var(--line2);box-shadow:var(--shadow);transform:translateY(-2px)}
+.adv-card.featured{border-color:var(--amber-line);background:var(--amber-bg)}
+.adv-card.featured:hover{border-color:var(--amber);box-shadow:0 4px 16px rgba(200,134,10,.1)}
+.adv-badge{position:absolute;top:14px;right:14px;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;padding:3px 8px;border-radius:999px}
+.adv-badge.best{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-line)}
+.adv-badge.pop{background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-line)}
+.adv-logo-wrap{width:48px;height:48px;border-radius:12px;border:1px solid var(--line);margin-bottom:14px;overflow:hidden;background:var(--off);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.adv-logo-wrap img{width:40px;height:40px;object-fit:contain}
+.adv-fallback{font-size:15px;font-weight:600;color:var(--text2);font-family:var(--ff-display);font-style:italic}
+.adv-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.adv-tagline{font-size:12px;color:var(--text2);line-height:1.55;margin-bottom:14px;flex:1}
+.adv-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.adv-country{font-size:11px;color:var(--text3)}
+.adv-btn{font-size:12px;font-weight:600;padding:6px 14px;border-radius:7px;background:var(--off);border:1px solid var(--line);color:var(--text);transition:all .15s}
+.adv-btn:hover{background:var(--text);color:var(--white);border-color:var(--text)}
+.adv-card.featured .adv-btn{background:var(--amber);color:var(--white);border-color:var(--amber)}
+.adv-card.featured .adv-btn:hover{background:#a06d06}
+.see-more-row{margin-top:12px;display:flex;justify-content:center}
+.see-more-btn{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--text2);background:var(--white);border:1px solid var(--line);border-radius:999px;padding:9px 22px;transition:all .15s}
+.see-more-btn:hover{border-color:var(--line2);color:var(--text);box-shadow:var(--shadow)}
 
-.hero-sub {
-  font-size: 16px; color: var(--text2); line-height: 1.7;
-  max-width: 460px; margin: 0 auto 48px; position: relative;
-}
+/* MAYBE */
+.maybe-section{background:var(--white);border:1px solid var(--line);border-radius:var(--r2);padding:20px 24px;margin-bottom:44px}
+.maybe-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.maybe-icon{font-size:16px}
+.maybe-title{font-size:14px;font-weight:600;color:var(--text)}
+.maybe-sub{font-size:12px;color:var(--text3);margin-left:auto}
+.maybe-cats{display:flex;flex-wrap:wrap;gap:8px}
+.maybe-cat{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text2);background:var(--off);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer;transition:all .15s}
+.maybe-cat:hover{border-color:var(--amber-line);color:var(--amber);background:var(--amber-bg)}
+.maybe-cat-icon{font-size:14px}
 
-/* Search form */
-.search-wrap {
-  width: 100%; max-width: 620px;
-  background: var(--ink2);
-  border: 0.5px solid var(--border2);
-  border-radius: var(--r3);
-  padding: 20px;
-  box-shadow: 0 0 0 1px rgba(240,165,0,0.05), 0 32px 64px rgba(0,0,0,0.5);
-  position: relative; margin-bottom: 32px;
-}
-.search-wrap::before {
-  content: '';
-  position: absolute; inset: -1px;
-  border-radius: calc(var(--r3) + 1px);
-  background: linear-gradient(135deg, rgba(240,165,0,0.15), transparent 40%, rgba(0,201,167,0.05));
-  z-index: -1;
-}
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;z-index:200;background:rgba(26,24,20,.5);backdrop-filter:blur(6px)}
+.modal-bg.open{display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .2s ease both}
+.modal{width:100%;max-width:780px;background:var(--white);border:1px solid var(--line);border-radius:var(--r3) var(--r3) 0 0;padding:28px 28px 40px;max-height:85vh;overflow-y:auto;animation:slideUp .3s cubic-bezier(.16,1,.3,1) both;position:relative}
+.modal-handle{width:36px;height:4px;background:var(--line2);border-radius:2px;margin:0 auto 24px}
+.modal-close{position:absolute;top:20px;right:20px;width:30px;height:30px;border-radius:50%;background:var(--off);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--text2);cursor:pointer;transition:all .15s;line-height:1}
+.modal-close:hover{background:var(--line);color:var(--text)}
+.modal-title{font-family:var(--ff-display);font-size:24px;font-weight:400;letter-spacing:-.4px;margin-bottom:4px}
+.modal-sub{font-size:13px;color:var(--text3);margin-bottom:24px}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-.form-field {
-  background: var(--fog); border: 0.5px solid var(--border);
-  border-radius: var(--r); padding: 11px 14px;
-  transition: border-color 0.2s;
-}
-.form-field:focus-within { border-color: var(--border2); }
-.form-field label { display: block; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); margin-bottom: 4px; }
-.form-field select,
-.form-field input {
-  width: 100%; background: none; border: none; outline: none;
-  font-size: 14px; color: var(--text); font-family: var(--ff-body);
-  appearance: none; -webkit-appearance: none;
-}
-.form-field select option { background: var(--ink2); }
+/* LOADING */
+.loading{display:none;position:fixed;inset:0;z-index:300;background:var(--white);flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.loading.show{display:flex}
+.loading-ring{width:44px;height:44px;border:2px solid var(--line2);border-top-color:var(--amber);border-radius:50%;animation:spin .8s linear infinite}
+.loading-dest{font-family:var(--ff-display);font-size:32px;font-style:italic;color:var(--amber)}
+.loading-text{font-size:14px;color:var(--text3);animation:shimmer 1.5s ease infinite}
 
-.search-btn {
-  width: 100%;
-  background: var(--amber);
-  color: var(--ink);
-  border: none; border-radius: var(--r);
-  padding: 14px 24px;
-  font-size: 15px; font-weight: 500;
-  letter-spacing: -0.2px;
-  transition: all 0.2s;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-}
-.search-btn:hover { background: #fdb32b; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(240,165,0,0.25); }
-.search-btn:active { transform: translateY(0); }
+/* STATIC */
+.static-wrap{padding:100px 40px 80px;max-width:680px;margin:0 auto}
+.static-wrap h1{font-family:var(--ff-display);font-size:38px;font-weight:400;letter-spacing:-.8px;margin-bottom:6px}
+.static-wrap h1 em{font-style:italic;color:var(--amber)}
+.static-date{font-size:12px;color:var(--text3);margin-bottom:44px;font-family:monospace}
+.static-wrap h2{font-size:15px;font-weight:600;color:var(--text);margin:32px 0 10px;padding-top:32px;border-top:1px solid var(--line)}
+.static-wrap p{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:12px}
+.static-wrap a{color:var(--amber)}
 
-/* Example chips */
-.chips-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; position: relative; }
-.chip {
-  font-size: 12px; color: var(--text2);
-  background: var(--fog); border: 0.5px solid var(--border);
-  border-radius: 999px; padding: 6px 14px;
-  cursor: pointer; transition: all 0.2s;
-}
-.chip:hover { border-color: var(--border2); color: var(--text); background: var(--fog2); }
-
-/* Popular destinations */
-.destinations { padding: 80px 32px; }
-.section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 28px; }
-.section-title { font-family: var(--ff-display); font-size: 28px; font-weight: 400; letter-spacing: -0.5px; }
-.section-sub { font-size: 13px; color: var(--text3); }
-.dest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
-.dest-card {
-  border-radius: var(--r2); overflow: hidden; cursor: pointer;
-  position: relative; aspect-ratio: 4/3;
-  border: 0.5px solid var(--border);
-  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s;
-}
-.dest-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-.dest-bg {
-  position: absolute; inset: 0;
-  background-size: cover; background-position: center;
-}
-.dest-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, transparent 100%); }
-.dest-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; }
-.dest-city { font-size: 20px; font-weight: 500; color: #fff; letter-spacing: -0.3px; margin-bottom: 4px; }
-.dest-meta { font-size: 12px; color: rgba(255,255,255,0.55); }
-.dest-badge { position: absolute; top: 14px; right: 14px; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 999px; }
-.dest-badge.hot { background: rgba(255,107,107,0.2); color: var(--red); border: 0.5px solid rgba(255,107,107,0.3); }
-.dest-badge.new { background: var(--teal2); color: var(--teal); border: 0.5px solid rgba(0,201,167,0.3); }
-.dest-badge.top { background: var(--amber2); color: var(--amber); border: 0.5px solid rgba(240,165,0,0.3); }
-
-/* Destination BG colors */
-.bg-barcelona { background: linear-gradient(135deg, #1a2535 0%, #2d3a1a 50%, #352a15 100%); }
-.bg-amsterdam { background: linear-gradient(135deg, #0f2a1a 0%, #1a2a35 50%, #2a2535 100%); }
-.bg-prague    { background: linear-gradient(135deg, #1f1a2a 0%, #2a1a1f 50%, #1a1f2a 100%); }
-.bg-rome      { background: linear-gradient(135deg, #2a1f10 0%, #352a15 50%, #2a2010 100%); }
-.bg-lisbon    { background: linear-gradient(135deg, #102a2a 0%, #1a2a20 50%, #252a10 100%); }
-.bg-vienna    { background: linear-gradient(135deg, #1a1a2a 0%, #251a25 50%, #2a2030 100%); }
-
-/* Destination icons (emoji overlay) */
-.dest-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -60%); font-size: 48px; opacity: 0.15; animation: floatUp 4s ease-in-out infinite; }
-
-/* How it works */
-.how-section { padding: 80px 32px; border-top: 0.5px solid var(--border); }
-.how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; margin-top: 40px; }
-.how-step { }
-.how-num { font-family: var(--ff-mono); font-size: 40px; color: var(--amber); opacity: 0.4; line-height: 1; margin-bottom: 14px; }
-.how-title { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
-.how-desc { font-size: 13px; color: var(--text2); line-height: 1.65; }
-
-/* Footer */
-.footer {
-  border-top: 0.5px solid var(--border);
-  padding: 32px;
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
-  gap: 16px;
-}
-.footer-logo { font-family: var(--ff-display); font-size: 16px; font-weight: 400; }
-.footer-logo em { font-style: italic; color: var(--amber); }
-.footer-links { display: flex; gap: 20px; }
-.footer-link { font-size: 12px; color: var(--text3); transition: color 0.2s; cursor: pointer; }
-.footer-link:hover { color: var(--text2); }
-.footer-copy { font-size: 12px; color: var(--text3); }
-
-/* ══════════════════════════════════════════════════════════════════════════
-   RESULTS PAGE
-══════════════════════════════════════════════════════════════════════════ */
-.results-page { padding-top: 60px; }
-
-.trip-banner {
-  background: linear-gradient(135deg, var(--ink2) 0%, rgba(240,165,0,0.05) 100%);
-  border-bottom: 0.5px solid var(--border);
-  padding: 32px;
-}
-.trip-banner-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
-.trip-title { font-family: var(--ff-display); font-size: 36px; font-weight: 400; letter-spacing: -0.8px; margin-bottom: 6px; }
-.trip-title em { font-style: italic; color: var(--amber); }
-.trip-meta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-.trip-tag { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text2); }
-.trip-tag-icon { font-size: 14px; }
-.trip-stats { display: flex; gap: 12px; }
-.trip-stat { background: var(--fog); border: 0.5px solid var(--border); border-radius: var(--r); padding: 10px 16px; text-align: center; }
-.trip-stat-val { font-size: 20px; font-weight: 500; color: var(--text); letter-spacing: -0.5px; font-family: var(--ff-display); }
-.trip-stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text3); margin-top: 2px; }
-
-.results-body { max-width: 1100px; margin: 0 auto; padding: 40px 32px; }
-
-/* Section */
-.kit-section { margin-bottom: 48px; }
-.kit-section-head {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 20px; padding-bottom: 14px;
-  border-bottom: 0.5px solid var(--border);
-}
-.kit-section-left { display: flex; align-items: center; gap: 10px; }
-.kit-section-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-.kit-section-icon.stay       { background: rgba(240,165,0,0.12); }
-.kit-section-icon.transport  { background: rgba(0,201,167,0.1); }
-.kit-section-icon.activities { background: rgba(167,139,250,0.1); }
-.kit-section-icon.gear       { background: rgba(250,204,21,0.1); }
-.kit-section-title { font-size: 17px; font-weight: 500; color: var(--text); }
-.kit-section-count { font-size: 12px; color: var(--text3); background: var(--fog); border: 0.5px solid var(--border); border-radius: 999px; padding: 3px 10px; }
-.kit-section-budget { font-size: 13px; color: var(--text2); }
-
-/* Advertiser cards */
-.adv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.adv-card {
-  background: var(--fog);
-  border: 0.5px solid var(--border);
-  border-radius: var(--r2);
-  padding: 20px;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
-  position: relative; overflow: hidden;
-  display: flex; flex-direction: column;
-}
-.adv-card::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, var(--amber3) 0%, transparent 60%);
-  opacity: 0; transition: opacity 0.25s;
-}
-.adv-card:hover { border-color: var(--border2); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
-.adv-card:hover::before { opacity: 1; }
-.adv-card.featured { border-color: rgba(240,165,0,0.25); background: rgba(240,165,0,0.04); }
-.adv-card.featured::before { opacity: 0.5; }
-
-.adv-badge {
-  position: absolute; top: 14px; right: 14px;
-  font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em;
-  padding: 3px 9px; border-radius: 999px;
-}
-.adv-badge.best { background: var(--amber2); color: var(--amber); border: 0.5px solid rgba(240,165,0,0.25); }
-.adv-badge.popular { background: var(--teal2); color: var(--teal); border: 0.5px solid rgba(0,201,167,0.25); }
-
-.adv-logo {
-  width: 48px; height: 48px; border-radius: 12px;
-  background: var(--fog2); margin-bottom: 14px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 15px; font-weight: 500; color: var(--text2);
-  position: relative; flex-shrink: 0;
-  border: 0.5px solid var(--border);
-  font-family: var(--ff-display);
-}
-.adv-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
-.adv-tagline { font-size: 12px; color: var(--text2); line-height: 1.5; margin-bottom: 14px; flex: 1; }
-.adv-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
-.adv-country { font-size: 11px; color: var(--text3); }
-.adv-btn {
-  font-size: 12px; font-weight: 500;
-  padding: 7px 14px; border-radius: 8px;
-  background: var(--fog2); border: 0.5px solid var(--border2);
-  color: var(--text); transition: all 0.2s;
-}
-.adv-btn:hover { background: var(--amber); color: var(--ink); border-color: var(--amber); }
-.adv-card.featured .adv-btn { background: var(--amber); color: var(--ink); border-color: var(--amber); }
-
-/* See more / alternatives */
-.see-more-row { display: flex; align-items: center; justify-content: center; margin-top: 14px; }
-.see-more-btn {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 13px; color: var(--text2);
-  background: none; border: 0.5px solid var(--border);
-  border-radius: 999px; padding: 8px 20px;
-  transition: all 0.2s;
-}
-.see-more-btn:hover { border-color: var(--border2); color: var(--text); background: var(--fog); }
-
-/* Alternatives modal */
-.modal-overlay {
-  display: none; position: fixed; inset: 0; z-index: 200;
-  background: rgba(14,14,18,0.85); backdrop-filter: blur(12px);
-  align-items: flex-end; justify-content: center;
-}
-.modal-overlay.open { display: flex; animation: fadeIn 0.2s ease both; }
-.modal {
-  width: 100%; max-width: 720px;
-  background: var(--ink2);
-  border: 0.5px solid var(--border2);
-  border-radius: var(--r3) var(--r3) 0 0;
-  padding: 28px;
-  max-height: 80vh; overflow-y: auto;
-  animation: slideIn 0.3s cubic-bezier(0.16,1,0.3,1) both;
-}
-.modal-handle { width: 40px; height: 4px; background: var(--border2); border-radius: 2px; margin: 0 auto 24px; }
-.modal-title { font-family: var(--ff-display); font-size: 22px; font-weight: 400; letter-spacing: -0.4px; margin-bottom: 6px; }
-.modal-sub { font-size: 13px; color: var(--text2); margin-bottom: 24px; }
-.modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.modal-close { position: absolute; top: 20px; right: 20px; background: var(--fog); border: 0.5px solid var(--border); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--text2); cursor: pointer; }
-.modal { position: relative; }
-
-/* Loading state */
-.loading-overlay { display: none; position: fixed; inset: 0; z-index: 300; background: var(--ink); align-items: center; justify-content: center; flex-direction: column; gap: 20px; }
-.loading-overlay.show { display: flex; }
-.loading-spinner { width: 40px; height: 40px; border: 2px solid var(--border2); border-top-color: var(--amber); border-radius: 50%; animation: spin 0.8s linear infinite; }
-.loading-text { font-size: 14px; color: var(--text2); }
-.loading-dest { font-family: var(--ff-display); font-size: 28px; color: var(--amber); font-style: italic; }
-
-/* ── Static pages ─────────────────────────────────────────────────────── */
-.static-page { padding: 100px 32px 60px; max-width: 720px; margin: 0 auto; }
-.static-page h1 { font-family: var(--ff-display); font-size: 36px; font-weight: 400; letter-spacing: -0.8px; margin-bottom: 8px; }
-.static-page h1 em { font-style: italic; color: var(--amber); }
-.static-page .page-date { font-size: 12px; color: var(--text3); margin-bottom: 40px; font-family: var(--ff-mono); }
-.static-page h2 { font-size: 16px; font-weight: 500; color: var(--text); margin: 32px 0 10px; }
-.static-page p { font-size: 14px; color: var(--text2); line-height: 1.8; margin-bottom: 14px; }
-.static-page a { color: var(--amber); }
-
-/* ── Responsive ─────────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .nav { padding: 0 16px; }
-  .home-hero { padding: 90px 16px 48px; }
-  .hero-h1 { font-size: 2.6rem; letter-spacing: -1px; }
-  .form-row { grid-template-columns: 1fr; }
-  .dest-grid { grid-template-columns: 1fr 1fr; }
-  .adv-grid { grid-template-columns: 1fr; }
-  .modal-grid { grid-template-columns: 1fr; }
-  .trip-banner-inner { flex-direction: column; align-items: flex-start; }
-  .results-body { padding: 24px 16px; }
-  .destinations, .how-section { padding: 48px 16px; }
-  .footer { flex-direction: column; align-items: flex-start; padding: 24px 16px; }
+@media(max-width:768px){
+  .nav{padding:0 16px}
+  .hero{padding:90px 16px 48px}
+  .hero-h1{font-size:2.8rem;letter-spacing:-.8px}
+  .form-grid{grid-template-columns:1fr}
+  .dest-grid{grid-template-columns:1fr 1fr}
+  .how-grid{grid-template-columns:1fr 1fr}
+  .adv-grid{grid-template-columns:1fr}
+  .modal-grid{grid-template-columns:1fr}
+  .trip-hero{padding:24px 16px}
+  .results-body{padding:24px 16px}
+  .destinations,.how,.footer{padding-left:16px;padding-right:16px}
+  .trip-stats{display:none}
 }
 </style>
 </head>
 <body>
 
-<!-- ── Nav ──────────────────────────────────────────────────────────────── -->
 <nav class="nav">
   <div class="nav-logo" onclick="showPage('home')">Trip<em>Kit</em></div>
   <div class="nav-links">
@@ -439,179 +240,129 @@ button { font-family: var(--ff-body); cursor: pointer; border: none; }
   </div>
 </nav>
 
-<!-- ── Loading overlay ──────────────────────────────────────────────────── -->
-<div class="loading-overlay" id="loadingOverlay">
-  <div class="loading-spinner"></div>
+<div class="loading" id="loading">
+  <div class="loading-ring"></div>
   <div class="loading-dest" id="loadingDest">Barcelona</div>
   <div class="loading-text">Building your trip kit…</div>
 </div>
 
-<!-- ── Modal: alternatives ──────────────────────────────────────────────── -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+<div class="modal-bg" id="modalBg" onclick="closeModal(event)">
   <div class="modal">
     <div class="modal-handle"></div>
-    <span class="modal-close" onclick="closeModal()">×</span>
-    <div class="modal-title" id="modalTitle">More options</div>
-    <div class="modal-sub" id="modalSub">All advertisers in this category</div>
+    <button class="modal-close" onclick="closeModal()">&#215;</button>
+    <div class="modal-title" id="modalTitle">All options</div>
+    <div class="modal-sub" id="modalSub"></div>
     <div class="modal-grid" id="modalGrid"></div>
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════════════════════════════════
-     PAGE: HOME
-════════════════════════════════════════════════════════════════════════ -->
 <div class="page active" id="page-home">
-
-  <section class="home-hero">
-    <div class="hero-eyebrow au">Your trip, fully packed</div>
-    <h1 class="hero-h1 au d1">
-      Where are you<br>going <em>next?</em>
-    </h1>
-    <p class="hero-sub au d2">Tell us your destination and we'll put together everything you need — hotels, transport, gear, activities. One kit, ready to go.</p>
-
-    <div class="search-wrap au d3">
-      <div class="form-row">
-        <div class="form-field">
-          <label for="dest">Destination</label>
-          <input type="text" id="dest" placeholder="e.g. Barcelona, Rome…" />
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-pill au"><div class="hero-pill-dot"></div>Smart trip planning</div>
+      <h1 class="hero-h1 au d1">Where are you<br>going <em>next?</em></h1>
+      <p class="hero-sub au d2">Tell us your destination. We assemble everything you need — hotels, transport, gear, activities and more. One kit, ready in seconds.</p>
+      <div class="search-card au d3">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="dest">Destination</label>
+            <input type="text" id="dest" placeholder="Barcelona, Rome, Tokyo…" autocomplete="off">
+          </div>
+          <div class="form-field">
+            <label>Duration</label>
+            <div class="duration-row">
+              <input type="number" id="days" value="5" min="1" max="365">
+              <span class="duration-unit">days</span>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="travellers">Travelling as</label>
+            <select id="travellers" onchange="handleTravellerChange()">
+              <option value="solo">Solo</option>
+              <option value="couple" selected>Couple</option>
+              <option value="family">Family</option>
+              <option value="group">Group</option>
+              <option value="business">Business</option>
+            </select>
+            <div class="travellers-extra" id="travellersExtra">
+              <div class="te-field"><span>Adults</span><input type="number" id="adults" value="2" min="1" max="20"></div>
+              <div class="te-field" id="childrenField" style="display:none"><span>Children</span><input type="number" id="children" value="1" min="0" max="10"></div>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="budget">Budget level</label>
+            <select id="budget">
+              <option value="budget">Budget</option>
+              <option value="mid" selected>Mid-range</option>
+              <option value="comfort">Comfort</option>
+              <option value="luxury">Luxury</option>
+            </select>
+          </div>
         </div>
-        <div class="form-field">
-          <label for="duration">Duration</label>
-          <select id="duration">
-            <option value="3">3 days</option>
-            <option value="5" selected>5 days</option>
-            <option value="7">1 week</option>
-            <option value="14">2 weeks</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <label for="travellers">Travelling</label>
-          <select id="travellers">
-            <option value="solo">Solo</option>
-            <option value="couple" selected>Couple</option>
-            <option value="family">Family</option>
-            <option value="group">Group</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <label for="budget">Budget</label>
-          <select id="budget">
-            <option value="budget">Budget (€300–500)</option>
-            <option value="mid" selected>Mid (€500–1000)</option>
-            <option value="comfort">Comfort (€1000–2000)</option>
-            <option value="luxury">Luxury (€2000+)</option>
-          </select>
+        <button class="search-btn" onclick="buildKit()"><span>Build my trip kit</span><span>&#8594;</span></button>
+      </div>
+      <div class="chips-wrap au d4">
+        <p class="chips-label">Popular right now</p>
+        <div class="chips">
+          <span class="chip" onclick="quickSearch('Barcelona')">Barcelona</span>
+          <span class="chip" onclick="quickSearch('Amsterdam')">Amsterdam</span>
+          <span class="chip" onclick="quickSearch('Rome')">Rome</span>
+          <span class="chip" onclick="quickSearch('Prague')">Prague</span>
+          <span class="chip" onclick="quickSearch('Lisbon')">Lisbon</span>
+          <span class="chip" onclick="quickSearch('Vienna')">Vienna</span>
+          <span class="chip" onclick="quickSearch('Paris')">Paris</span>
+          <span class="chip" onclick="quickSearch('Istanbul')">Istanbul</span>
         </div>
       </div>
-      <button class="search-btn" onclick="buildKit()">
-        <span>Build my trip kit</span>
-        <span>→</span>
-      </button>
-    </div>
-
-    <p class="chips-label au d4">Popular searches</p>
-    <div class="chips au d5">
-      <span class="chip" onclick="quickSearch('Barcelona')">✈ Barcelona</span>
-      <span class="chip" onclick="quickSearch('Amsterdam')">🚲 Amsterdam</span>
-      <span class="chip" onclick="quickSearch('Rome')">🏛 Rome</span>
-      <span class="chip" onclick="quickSearch('Prague')">🏰 Prague</span>
-      <span class="chip" onclick="quickSearch('Lisbon')">🌊 Lisbon</span>
-      <span class="chip" onclick="quickSearch('Vienna')">🎭 Vienna</span>
     </div>
   </section>
 
   <section class="destinations">
-    <div class="section-header">
-      <h2 class="section-title">Popular right now</h2>
-      <span class="section-sub">Updated weekly</span>
+    <div class="section-head">
+      <h2 class="section-title">Popular destinations</h2>
+      <span class="section-note">Updated weekly</span>
     </div>
     <div class="dest-grid">
       <div class="dest-card" onclick="quickSearch('Barcelona')">
-        <div class="dest-bg bg-barcelona"></div>
-        <div class="dest-icon">🌞</div>
-        <div class="dest-overlay"></div>
-        <span class="dest-badge hot">🔥 Trending</span>
-        <div class="dest-info">
-          <div class="dest-city">Barcelona</div>
-          <div class="dest-meta">Spain · 14 services</div>
-        </div>
+        <div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=80')"></div>
+        <div class="dest-gradient"></div><span class="dest-badge hot">Trending</span>
+        <div class="dest-info"><div class="dest-city">Barcelona</div><div class="dest-meta">Spain &middot; 18 services</div></div>
       </div>
       <div class="dest-card" onclick="quickSearch('Amsterdam')">
-        <div class="dest-bg bg-amsterdam"></div>
-        <div class="dest-icon">🌷</div>
-        <div class="dest-overlay"></div>
-        <span class="dest-badge new">✨ New kits</span>
-        <div class="dest-info">
-          <div class="dest-city">Amsterdam</div>
-          <div class="dest-meta">Netherlands · 11 services</div>
-        </div>
+        <div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80')"></div>
+        <div class="dest-gradient"></div><span class="dest-badge new">New kits</span>
+        <div class="dest-info"><div class="dest-city">Amsterdam</div><div class="dest-meta">Netherlands &middot; 14 services</div></div>
       </div>
       <div class="dest-card" onclick="quickSearch('Rome')">
-        <div class="dest-bg bg-rome"></div>
-        <div class="dest-icon">🏛</div>
-        <div class="dest-overlay"></div>
-        <span class="dest-badge top">⭐ Top rated</span>
-        <div class="dest-info">
-          <div class="dest-city">Rome</div>
-          <div class="dest-meta">Italy · 13 services</div>
-        </div>
+        <div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&q=80')"></div>
+        <div class="dest-gradient"></div><span class="dest-badge top">Top rated</span>
+        <div class="dest-info"><div class="dest-city">Rome</div><div class="dest-meta">Italy &middot; 16 services</div></div>
       </div>
       <div class="dest-card" onclick="quickSearch('Prague')">
-        <div class="dest-bg bg-prague"></div>
-        <div class="dest-icon">🏰</div>
-        <div class="dest-overlay"></div>
-        <div class="dest-info">
-          <div class="dest-city">Prague</div>
-          <div class="dest-meta">Czech Republic · 9 services</div>
-        </div>
+        <div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?w=600&q=80')"></div>
+        <div class="dest-gradient"></div>
+        <div class="dest-info"><div class="dest-city">Prague</div><div class="dest-meta">Czech Republic &middot; 12 services</div></div>
       </div>
       <div class="dest-card" onclick="quickSearch('Lisbon')">
-        <div class="dest-bg bg-lisbon"></div>
-        <div class="dest-icon">🌊</div>
-        <div class="dest-overlay"></div>
-        <span class="dest-badge hot">🔥 Trending</span>
-        <div class="dest-info">
-          <div class="dest-city">Lisbon</div>
-          <div class="dest-meta">Portugal · 10 services</div>
-        </div>
+        <div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80')"></div>
+        <div class="dest-gradient"></div><span class="dest-badge hot">Trending</span>
+        <div class="dest-info"><div class="dest-city">Lisbon</div><div class="dest-meta">Portugal &middot; 13 services</div></div>
       </div>
       <div class="dest-card" onclick="quickSearch('Vienna')">
-        <div class="dest-bg bg-vienna"></div>
-        <div class="dest-icon">🎭</div>
-        <div class="dest-overlay"></div>
-        <div class="dest-info">
-          <div class="dest-city">Vienna</div>
-          <div class="dest-meta">Austria · 8 services</div>
-        </div>
+        <div class="dest-img" style="background-image:url('https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=600&q=80')"></div>
+        <div class="dest-gradient"></div>
+        <div class="dest-info"><div class="dest-city">Vienna</div><div class="dest-meta">Austria &middot; 11 services</div></div>
       </div>
     </div>
   </section>
 
-  <section class="how-section">
-    <div class="section-header">
-      <h2 class="section-title">How it works</h2>
-    </div>
+  <section class="how">
+    <div class="section-head"><h2 class="section-title">How it works</h2></div>
     <div class="how-grid">
-      <div class="how-step">
-        <div class="how-num">01</div>
-        <div class="how-title">Tell us your trip</div>
-        <div class="how-desc">Destination, duration, who you're travelling with, and your budget. That's all we need.</div>
-      </div>
-      <div class="how-step">
-        <div class="how-num">02</div>
-        <div class="how-title">Get your kit</div>
-        <div class="how-desc">We instantly pull together the best services for your trip — hotels, flights, transport, gear and more.</div>
-      </div>
-      <div class="how-step">
-        <div class="how-num">03</div>
-        <div class="how-title">Explore alternatives</div>
-        <div class="how-desc">Not what you're looking for? See all options in each category with one click.</div>
-      </div>
-      <div class="how-step">
-        <div class="how-num">04</div>
-        <div class="how-title">Book directly</div>
-        <div class="how-desc">Click any service and go straight to the provider. No middleman, no markup.</div>
-      </div>
+      <div><div class="how-num">01</div><div class="how-title">Tell us your trip</div><div class="how-desc">Destination, duration, who you're travelling with, and budget. 30 seconds.</div></div>
+      <div><div class="how-num">02</div><div class="how-title">Get your kit</div><div class="how-desc">We instantly assemble services across hotels, transport, gear, insurance and more.</div></div>
+      <div><div class="how-num">03</div><div class="how-title">See all options</div><div class="how-desc">Each category shows top picks. Click "See all" to explore every alternative.</div></div>
+      <div><div class="how-num">04</div><div class="how-title">Book directly</div><div class="how-desc">Go straight to the provider. No hidden fees. What you see is what you get.</div></div>
     </div>
   </section>
 
@@ -621,326 +372,271 @@ button { font-family: var(--ff-body); cursor: pointer; border: none; }
       <span class="footer-link" onclick="showPage('privacy')">Privacy Policy</span>
       <span class="footer-link" onclick="showPage('impressum')">Impressum</span>
     </div>
-    <div class="footer-copy">© 2026 TripKit. Affiliate links disclosure: we may earn a commission when you book.</div>
+    <div class="footer-copy">&#169; 2026 TripKit &middot; Affiliate links may earn us a commission</div>
   </footer>
 </div>
 
-<!-- ════════════════════════════════════════════════════════════════════════
-     PAGE: RESULTS
-════════════════════════════════════════════════════════════════════════ -->
 <div class="page" id="page-results">
   <div class="results-page">
-
-    <div class="trip-banner">
-      <div class="trip-banner-inner">
+    <div class="trip-hero">
+      <div class="trip-hero-inner">
         <div>
           <div class="trip-title" id="tripTitle">Your <em>Barcelona</em> kit</div>
-          <div class="trip-meta-row">
-            <span class="trip-tag"><span class="trip-tag-icon">📅</span> <span id="tripDuration">5 days</span></span>
-            <span class="trip-tag"><span class="trip-tag-icon">👥</span> <span id="tripTravellers">Couple</span></span>
-            <span class="trip-tag"><span class="trip-tag-icon">💰</span> <span id="tripBudget">Mid budget</span></span>
+          <div class="trip-tags">
+            <span class="trip-tag" id="tripTagDays">5 days</span>
+            <span class="trip-tag" id="tripTagWho">Couple</span>
+            <span class="trip-tag" id="tripTagBudget">Mid-range</span>
+            <span class="trip-edit" onclick="showPage('home')">Edit trip &#8594;</span>
           </div>
         </div>
         <div class="trip-stats">
-          <div class="trip-stat">
-            <div class="trip-stat-val" id="statServices">15</div>
-            <div class="trip-stat-label">Services</div>
-          </div>
-          <div class="trip-stat">
-            <div class="trip-stat-val" id="statCategories">4</div>
-            <div class="trip-stat-label">Categories</div>
-          </div>
+          <div class="trip-stat"><div class="trip-stat-val" id="statCount">5</div><div class="trip-stat-label">Categories</div></div>
+          <div class="trip-stat"><div class="trip-stat-val" id="statAdv">30+</div><div class="trip-stat-label">Services</div></div>
         </div>
       </div>
     </div>
-
-    <div class="results-body" id="resultsBody">
-      <!-- Injected by JS -->
-    </div>
-
+    <div class="results-body" id="resultsBody"></div>
     <footer class="footer">
       <div class="footer-logo">Trip<em>Kit</em></div>
       <div class="footer-links">
-        <span class="footer-link" onclick="showPage('home')">← New search</span>
+        <span class="footer-link" onclick="showPage('home')">&#8592; New search</span>
         <span class="footer-link" onclick="showPage('privacy')">Privacy</span>
         <span class="footer-link" onclick="showPage('impressum')">Impressum</span>
       </div>
-      <div class="footer-copy">Affiliate disclosure: links may earn us a commission.</div>
+      <div class="footer-copy">Affiliate disclosure: links may earn us a commission</div>
     </footer>
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════════════════════════════════
-     PAGE: PRIVACY
-════════════════════════════════════════════════════════════════════════ -->
 <div class="page" id="page-privacy">
-  <div class="static-page">
+  <div class="static-wrap">
     <h1>Privacy <em>Policy</em></h1>
-    <div class="page-date">Last updated: January 2026</div>
-
-    <h2>1. Who we are</h2>
-    <p>TripKit is a travel affiliate recommendation service. We help users find hotels, transport, activities and travel gear by connecting them with our partner advertisers.</p>
-
-    <h2>2. What data we collect</h2>
-    <p>We do not require registration or login. When you use TripKit, we may collect anonymous usage data such as destination searches and clicks, solely to improve our service. We do not store personally identifiable information.</p>
-
-    <h2>3. Cookies</h2>
-    <p>We use minimal cookies required for the site to function. We do not use tracking cookies for advertising purposes on our own site. Our affiliate partners may set their own cookies when you visit their sites through our links.</p>
-
-    <h2>4. Affiliate links</h2>
-    <p>TripKit contains affiliate links to third-party services. When you click these links and make a purchase or booking, we may earn a commission from the advertiser. This comes at no additional cost to you. Our recommendations are based on relevance to your trip, not commission rates.</p>
-
-    <h2>5. Third-party services</h2>
-    <p>When you follow a link to a partner advertiser, you leave TripKit and are subject to that company's own privacy policy. We recommend reviewing their policies before booking.</p>
-
-    <h2>6. Your rights</h2>
-    <p>Under GDPR, you have the right to access, rectify, or delete any personal data we hold about you. As we collect no personal data, there is typically nothing to access or delete. For any questions, contact us at <a href="mailto:privacy@tripkit.co">privacy@tripkit.co</a>.</p>
-
-    <h2>7. Changes</h2>
-    <p>We may update this privacy policy from time to time. The date at the top of this page indicates when it was last revised.</p>
+    <div class="static-date">Last updated: January 2026</div>
+    <h2>Who we are</h2>
+    <p>TripKit is a travel affiliate recommendation service operated from Germany. We help users find travel services by connecting them with partner advertisers from affiliate networks including Awin, Rakuten and others.</p>
+    <h2>Data we collect</h2>
+    <p>TripKit does not require registration or login. We collect no personally identifiable information. We may collect anonymised usage data solely to improve our service.</p>
+    <h2>Cookies</h2>
+    <p>We use only technically necessary cookies. We do not use advertising cookies or cross-site tracking. Our affiliate partners may set their own cookies when you visit their sites through our links.</p>
+    <h2>Affiliate links</h2>
+    <p>TripKit contains affiliate links. When you click through and make a purchase, we may earn a commission at no additional cost to you. Recommendations are based on relevance, not commission rates.</p>
+    <h2>Your rights (GDPR)</h2>
+    <p>Under GDPR you have the right to access, rectify or delete data we hold. As we collect no personal data, there is typically nothing to provide. Contact: <a href="mailto:privacy@tripkit.co">privacy@tripkit.co</a></p>
   </div>
   <footer class="footer">
     <div class="footer-logo">Trip<em>Kit</em></div>
     <div class="footer-links">
-      <span class="footer-link" onclick="showPage('home')">← Home</span>
+      <span class="footer-link" onclick="showPage('home')">&#8592; Home</span>
       <span class="footer-link" onclick="showPage('impressum')">Impressum</span>
     </div>
   </footer>
 </div>
 
-<!-- ════════════════════════════════════════════════════════════════════════
-     PAGE: IMPRESSUM
-════════════════════════════════════════════════════════════════════════ -->
 <div class="page" id="page-impressum">
-  <div class="static-page">
+  <div class="static-wrap">
     <h1><em>Impressum</em></h1>
-    <div class="page-date">Angaben gemäß § 5 TMG</div>
-
+    <div class="static-date">Angaben gem&#228;&#223; &#167; 5 TMG</div>
     <h2>Verantwortlich</h2>
-    <p>
-      TripKit<br>
-      [Vorname Nachname]<br>
-      [Straße Hausnummer]<br>
-      [PLZ Stadt]<br>
-      Deutschland
-    </p>
-
+    <p>TripKit<br>[Vorname Nachname]<br>[Stra&#223;e Hausnummer]<br>[PLZ Stadt]<br>Deutschland</p>
     <h2>Kontakt</h2>
-    <p>
-      E-Mail: <a href="mailto:info@tripkit.co">info@tripkit.co</a>
-    </p>
-
+    <p>E-Mail: <a href="mailto:info@tripkit.co">info@tripkit.co</a></p>
     <h2>Affiliate-Hinweis</h2>
-    <p>Diese Website enthält Affiliate-Links. Wenn Sie über diese Links einkaufen oder buchen, erhalten wir eine Provision des jeweiligen Anbieters. Für Sie entstehen keine zusätzlichen Kosten. Unsere Empfehlungen basieren ausschließlich auf der Relevanz für Ihre Reise.</p>
-
+    <p>Diese Website enth&#228;lt Affiliate-Links zu Werbepartnern aus Netzwerken wie Awin, Rakuten und weiteren. Bei einem Kauf &#252;ber diese Links erhalten wir eine Provision. F&#252;r Sie entstehen keine zus&#228;tzlichen Kosten.</p>
     <h2>Haftungsausschluss</h2>
-    <p>Die auf dieser Website bereitgestellten Informationen dienen ausschließlich zu Informationszwecken. Preise und Verfügbarkeiten können sich ändern. Wir übernehmen keine Haftung für die Richtigkeit der Angaben auf den verlinkten Seiten der Werbepartner.</p>
-
-    <h2>EU-Streitschlichtung</h2>
-    <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank">https://ec.europa.eu/consumers/odr/</a>. Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+    <p>Preise und Verf&#252;gbarkeiten k&#246;nnen sich &#228;ndern. Wir &#252;bernehmen keine Haftung f&#252;r Angaben auf verlinkten Partnerseiten.</p>
   </div>
   <footer class="footer">
     <div class="footer-logo">Trip<em>Kit</em></div>
     <div class="footer-links">
-      <span class="footer-link" onclick="showPage('home')">← Home</span>
+      <span class="footer-link" onclick="showPage('home')">&#8592; Home</span>
       <span class="footer-link" onclick="showPage('privacy')">Privacy</span>
     </div>
   </footer>
 </div>
 
 <script>
-// ── Data: Advertisers by category and destination ────────────────────────
-
-const ADVERTISERS = {
-  stay: {
-    title: 'Where to stay',
-    icon: '🏨',
-    class: 'stay',
-    all: [
-      { name: 'Marriott', logo: 'M', tagline: 'Premium hotels worldwide. Loyalty points on every stay.', country: 'US · Worldwide', url: 'https://www.marriott.com', featured: true },
-      { name: 'B&B Hotels', logo: 'B', tagline: 'Smart budget hotels in great city locations.', country: 'DE · Europe', url: 'https://www.hotel-bb.com' },
-      { name: 'e-hoi', logo: 'e', tagline: 'Cruise + hotel packages. Best for coastal destinations.', country: 'DE · Europe', url: 'https://www.e-hoi.de', badge: 'popular' },
-      { name: 'DerTour', logo: 'D', tagline: 'Full holiday packages including hotel and flights.', country: 'DE · Worldwide', url: 'https://www.dertour.de' },
-      { name: 'Reisen Aktuell', logo: 'R', tagline: 'Bundled travel deals. Great value for longer trips.', country: 'DE · Europe', url: 'https://www.reisenaktuell.com' },
-      { name: 'Allegro', logo: 'A', tagline: 'Eastern Europe accommodation and travel services.', country: 'PL · Europe', url: 'https://www.allegro.pl' },
-    ]
-  },
-  transport: {
-    title: 'Getting there',
-    icon: '✈️',
-    class: 'transport',
-    all: [
-      { name: 'DerTour', logo: 'D', tagline: 'Flight + hotel packages. Often the best combined price.', country: 'DE · Worldwide', url: 'https://www.dertour.de', featured: true },
-      { name: 'AnyVan', logo: 'V', tagline: 'Airport transfers and city transport. Fixed pricing.', country: 'UK · Europe', url: 'https://www.anyvan.com', badge: 'popular' },
-      { name: 'e-hoi', logo: 'e', tagline: 'Ferry and cruise routes across Europe.', country: 'DE · Europe', url: 'https://www.e-hoi.de' },
-      { name: 'Reisen Aktuell', logo: 'R', tagline: 'Bus and coach travel across Germany and Europe.', country: 'DE · Europe', url: 'https://www.reisenaktuell.com' },
-    ]
-  },
-  activities: {
-    title: 'Things to do',
-    icon: '🎭',
-    class: 'activities',
-    all: [
-      { name: 'Legoland', logo: 'L', tagline: 'Theme park fun for the whole family. Book in advance.', country: 'DE · Europe', url: 'https://www.legoland.com', featured: true },
-      { name: 'Joyn', logo: 'J', tagline: 'Streaming and digital entertainment for your trip.', country: 'DE', url: 'https://www.joyn.de' },
-      { name: 'Fanatics', logo: 'F', tagline: 'Official team merchandise. Local club gear and souvenirs.', country: 'US · Worldwide', url: 'https://www.fanatics.com', badge: 'popular' },
-      { name: 'Marriott', logo: 'M', tagline: 'Hotel spa, dining and experiences packages.', country: 'Worldwide', url: 'https://www.marriott.com' },
-    ]
-  },
-  gear: {
-    title: 'What to pack',
-    icon: '🎒',
-    class: 'gear',
-    all: [
-      { name: 'Refurbed', logo: 'R', tagline: 'Certified refurbished tech. Cameras, phones, tablets.', country: 'AT · Europe', url: 'https://www.refurbed.de', featured: true },
-      { name: 'MandM Direct', logo: 'M', tagline: 'Discounted outdoor and travel clothing. Up to 75% off.', country: 'UK · Europe', url: 'https://www.mandmdirect.com', badge: 'popular' },
-      { name: 'Rose Bikes', logo: 'RB', tagline: 'Cycling gear, bags and accessories for active travel.', country: 'DE · Europe', url: 'https://www.rosebikes.de' },
-      { name: 'Fanatics', logo: 'F', tagline: 'Sportswear and branded travel gear.', country: 'US · Worldwide', url: 'https://www.fanatics.com' },
-      { name: 'Bader', logo: 'B', tagline: 'Fashion, accessories and travel essentials.', country: 'DE', url: 'https://www.bader.de' },
-    ]
-  }
+const CATS={
+  stay:{title:'Where to stay',icon:'&#127968;',cls:'stay',advs:[
+    {name:'Marriott',domain:'marriott.com',tag:'Premium hotels worldwide. Loyalty points every stay.',country:'US',featured:true},
+    {name:'B&amp;B Hotels',domain:'hotel-bb.com',tag:'Smart budget city hotels. Great locations.',country:'DE',badge:'pop'},
+    {name:'e-hoi',domain:'e-hoi.de',tag:'Cruise + hotel packages. Ideal for coastal trips.',country:'DE'},
+    {name:'DerTour',domain:'dertour.de',tag:'Full holiday packages. Hotel, flight, transfers.',country:'DE'},
+    {name:'Reisen Aktuell',domain:'reisenaktuell.com',tag:'Bundled deals. Great value for longer stays.',country:'DE'},
+    {name:'Allegro',domain:'allegro.pl',tag:'Eastern Europe travel and accommodation deals.',country:'PL'},
+    {name:'Hotels.com',domain:'hotels.com',tag:'Huge selection. Collect nights, get a free night.',country:'US'},
+    {name:'Hostelworld',domain:'hostelworld.com',tag:'Hostels and budget stays. Perfect for solo travel.',country:'IE'},
+  ]},
+  transport:{title:'Getting there',icon:'&#9992;&#65039;',cls:'transport',advs:[
+    {name:'DerTour',domain:'dertour.de',tag:'Flights + hotels bundled. Often cheaper than separate.',country:'DE',featured:true},
+    {name:'AnyVan',domain:'anyvan.com',tag:'Airport transfers and city transport. Fixed prices.',country:'UK',badge:'pop'},
+    {name:'e-hoi',domain:'e-hoi.de',tag:'Ferry and cruise routes across Europe.',country:'DE'},
+    {name:'Europcar',domain:'europcar.com',tag:'Car rental across Europe. Wide fleet, flexible.',country:'FR'},
+    {name:'Sixt',domain:'sixt.de',tag:'Premium car rental. Airport and city locations.',country:'DE'},
+    {name:'FlixBus',domain:'flixbus.de',tag:'Budget bus travel across Europe.',country:'DE'},
+    {name:'Trainline',domain:'thetrainline.com',tag:'Rail tickets for Europe. Compare and book fast.',country:'UK'},
+    {name:'Reisen Aktuell',domain:'reisenaktuell.com',tag:'Coach travel across Germany and Europe.',country:'DE'},
+  ]},
+  activities:{title:'Things to do',icon:'&#127917;',cls:'activities',advs:[
+    {name:'Legoland',domain:'legoland.de',tag:'Theme parks across Europe. Great for families.',country:'DE',featured:true},
+    {name:'Fanatics',domain:'fanatics.com',tag:'Official team gear and live event merchandise.',country:'US',badge:'pop'},
+    {name:'GetYourGuide',domain:'getyourguide.com',tag:'Tours, tickets and experiences in 100+ cities.',country:'DE'},
+    {name:'Viator',domain:'viator.com',tag:'Day trips, excursions and local experiences.',country:'US'},
+    {name:'Joyn',domain:'joyn.de',tag:'Entertainment and streaming for your trip.',country:'DE'},
+    {name:'Marriott',domain:'marriott.com',tag:'Spa, dining and hotel experience packages.',country:'US'},
+    {name:'Klook',domain:'klook.com',tag:'Activities and passes. Best for Asia trips.',country:'HK'},
+  ]},
+  gear:{title:'What to pack',icon:'&#127890;',cls:'gear',advs:[
+    {name:'Refurbed',domain:'refurbed.de',tag:'Certified refurb tech. Cameras, phones, tablets.',country:'AT',featured:true},
+    {name:'MandM Direct',domain:'mandmdirect.com',tag:'Discounted outdoor + travel clothing. Up to 75% off.',country:'UK',badge:'pop'},
+    {name:'Rose Bikes',domain:'rosebikes.de',tag:'Cycling gear and accessories for active travel.',country:'DE'},
+    {name:'Fanatics',domain:'fanatics.com',tag:'Branded sportswear and travel gear.',country:'US'},
+    {name:'Bader',domain:'bader.de',tag:'Fashion, accessories and travel essentials.',country:'DE'},
+    {name:'Eneba',domain:'eneba.com',tag:'Digital games and apps for long journeys.',country:'LT'},
+    {name:'wirkaufendeinauto',domain:'wirkaufendeinauto.de',tag:'Sell your car before a long trip abroad.',country:'DE'},
+  ]},
+  insurance:{title:'Travel insurance',icon:'&#128737;&#65039;',cls:'insurance',advs:[
+    {name:'Verivox',domain:'verivox.de',tag:'Compare travel insurance plans side by side.',country:'DE',featured:true},
+    {name:'Check24',domain:'check24.de',tag:'Full insurance comparison. Best rates guaranteed.',country:'DE',badge:'pop'},
+    {name:'HanseMerkur',domain:'hansemerkur.de',tag:'Comprehensive travel insurance. Trusted in Germany.',country:'DE'},
+    {name:'ADAC',domain:'adac.de',tag:'Travel and breakdown cover. ADAC membership perks.',country:'DE'},
+    {name:'Allianz',domain:'allianz-reiseversicherung.de',tag:'Global travel insurance. Medical and cancellation.',country:'DE'},
+  ]}
 };
 
-// ── State ────────────────────────────────────────────────────────────────
+const MAYBE=[
+  {icon:'&#128085;',label:'Clothing &amp; Fashion',key:'fashion'},
+  {icon:'&#128138;',label:'Health &amp; Beauty',key:'health'},
+  {icon:'&#128247;',label:'Cameras &amp; Optics',key:'cameras'},
+  {icon:'&#128241;',label:'Electronics',key:'electronics'},
+  {icon:'&#129528;',label:'Toys &amp; Games',key:'toys'},
+  {icon:'&#128062;',label:'Pets &amp; Supplies',key:'pets'},
+  {icon:'&#127829;',label:'Food &amp; Beverages',key:'food'},
+  {icon:'&#127968;',label:'Home &amp; Garden',key:'home'},
+  {icon:'&#128188;',label:'Luggage &amp; Bags',key:'luggage'},
+  {icon:'&#129368;',label:'Baby &amp; Toddler',key:'baby'},
+  {icon:'&#9973;&#65039;',label:'Sporting Goods',key:'sport'},
+  {icon:'&#128187;',label:'Software &amp; Apps',key:'software'},
+];
 
-let currentTrip = {};
+const MAYBE_ADVS={
+  fashion:[{name:'MandM Direct',domain:'mandmdirect.com',tag:'Designer brands up to 75% off.',country:'UK',featured:true},{name:'Bader',domain:'bader.de',tag:'Fashion, accessories, homewear.',country:'DE'},{name:'Fanatics',domain:'fanatics.com',tag:'Sportswear and branded clothing.',country:'US'}],
+  health:[{name:'Bader',domain:'bader.de',tag:'Health and beauty essentials.',country:'DE',featured:true},{name:'Matratzen Concord',domain:'matratzen-concord.de',tag:'Sleep products for travel recovery.',country:'DE'}],
+  cameras:[{name:'Refurbed',domain:'refurbed.de',tag:'Certified refurb cameras. Save up to 40%.',country:'AT',featured:true}],
+  electronics:[{name:'Refurbed',domain:'refurbed.de',tag:'Refurb phones, tablets, laptops.',country:'AT',featured:true},{name:'Allegro',domain:'allegro.pl',tag:'Electronics at great prices.',country:'PL',badge:'pop'},{name:'Eneba',domain:'eneba.com',tag:'Digital codes and software.',country:'LT'}],
+  toys:[{name:'Legoland',domain:'legoland.de',tag:'Toys, sets and theme park tickets.',country:'DE',featured:true},{name:'Bader',domain:'bader.de',tag:'Toys and games for all ages.',country:'DE'}],
+  pets:[{name:'Bader',domain:'bader.de',tag:'Pet accessories and supplies.',country:'DE',featured:true}],
+  food:[{name:'Allegro',domain:'allegro.pl',tag:'Food products and beverages.',country:'PL',featured:true},{name:'Bader',domain:'bader.de',tag:'Specialty food and drink gifts.',country:'DE'}],
+  home:[{name:'Matratzen Concord',domain:'matratzen-concord.de',tag:'Mattresses and sleep systems.',country:'DE',featured:true},{name:'Bader',domain:'bader.de',tag:'Home goods and furnishings.',country:'DE'}],
+  luggage:[{name:'MandM Direct',domain:'mandmdirect.com',tag:'Bags, backpacks and luggage.',country:'UK',featured:true},{name:'Rose Bikes',domain:'rosebikes.de',tag:'Cycling and travel bags.',country:'DE'}],
+  baby:[{name:'Bader',domain:'bader.de',tag:'Baby clothing and accessories.',country:'DE',featured:true},{name:'Allegro',domain:'allegro.pl',tag:'Baby products and toys.',country:'PL'}],
+  sport:[{name:'Rose Bikes',domain:'rosebikes.de',tag:'Bikes, gear and cycling accessories.',country:'DE',featured:true},{name:'MandM Direct',domain:'mandmdirect.com',tag:'Sports clothing at huge discounts.',country:'UK',badge:'pop'},{name:'Fanatics',domain:'fanatics.com',tag:'Official team kits and sportswear.',country:'US'}],
+  software:[{name:'Eneba',domain:'eneba.com',tag:'Games, software keys and subscriptions.',country:'LT',featured:true},{name:'Joyn',domain:'joyn.de',tag:'Streaming apps for your trip.',country:'DE'},{name:'Verivox',domain:'verivox.de',tag:'Compare data plans and SIM cards.',country:'DE'}],
+};
 
-// ── Navigation ───────────────────────────────────────────────────────────
+function fav(domain){return'https://www.google.com/s2/favicons?domain='+domain+'&sz=64'}
 
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const page = document.getElementById('page-' + id);
-  if (page) {
-    page.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  var p=document.getElementById('page-'+id);
+  if(p){p.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
 }
 
-// ── Build kit ────────────────────────────────────────────────────────────
-
-function quickSearch(dest) {
-  document.getElementById('dest').value = dest;
-  buildKit();
+function handleTravellerChange(){
+  var v=document.getElementById('travellers').value;
+  var ex=document.getElementById('travellersExtra');
+  var ch=document.getElementById('childrenField');
+  if(v==='family'||v==='group'){ex.classList.add('show');ch.style.display=v==='family'?'flex':'none'}
+  else ex.classList.remove('show');
 }
 
-function buildKit() {
-  const dest       = document.getElementById('dest').value.trim() || 'Your destination';
-  const duration   = document.getElementById('duration').value;
-  const travellers = document.getElementById('travellers').value;
-  const budget     = document.getElementById('budget').value;
+function quickSearch(dest){document.getElementById('dest').value=dest;buildKit()}
 
-  currentTrip = { dest, duration, travellers, budget };
-
-  // Show loading
-  const overlay = document.getElementById('loadingOverlay');
-  document.getElementById('loadingDest').textContent = dest;
-  overlay.classList.add('show');
-
-  setTimeout(() => {
-    overlay.classList.remove('show');
-    renderResults(dest, duration, travellers, budget);
+function buildKit(){
+  var dest=document.getElementById('dest').value.trim()||'Your destination';
+  document.getElementById('loadingDest').textContent=dest;
+  document.getElementById('loading').classList.add('show');
+  var days=document.getElementById('days').value;
+  var who=document.getElementById('travellers').value;
+  var budget=document.getElementById('budget').value;
+  setTimeout(function(){
+    document.getElementById('loading').classList.remove('show');
+    renderResults(dest,days,who,budget);
     showPage('results');
-  }, 1600);
+  },1400);
 }
 
-// ── Render results ───────────────────────────────────────────────────────
+function cardHTML(a){
+  var badge=a.featured?'<div class="adv-badge best">Best match</div>':a.badge==='pop'?'<div class="adv-badge pop">Popular</div>':'';
+  return'<div class="adv-card '+(a.featured?'featured':'')+'" onclick="visit(\''+a.domain+'\')">'+badge+
+    '<div class="adv-logo-wrap"><img src="'+fav(a.domain)+'" alt="'+a.name+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"><div class="adv-fallback" style="display:none">'+a.name.charAt(0)+'</div></div>'+
+    '<div class="adv-name">'+a.name+'</div>'+
+    '<div class="adv-tagline">'+a.tag+'</div>'+
+    '<div class="adv-footer"><span class="adv-country">'+a.country+'</span>'+
+    '<button class="adv-btn" onclick="event.stopPropagation();visit(\''+a.domain+'\')">Visit &#8594;</button></div></div>';
+}
 
-function renderResults(dest, duration, travellers, budget) {
-  // Update banner
-  document.getElementById('tripTitle').innerHTML = `Your <em>${dest}</em> kit`;
-  const durLabel = { '3':'3 days','5':'5 days','7':'1 week','14':'2 weeks' }[duration] || duration + ' days';
-  const travLabel = { solo:'Solo',couple:'Couple',family:'Family',group:'Group' }[travellers] || travellers;
-  const budLabel = { budget:'Budget',mid:'Mid-range',comfort:'Comfort',luxury:'Luxury' }[budget] || budget;
-  document.getElementById('tripDuration').textContent = durLabel;
-  document.getElementById('tripTravellers').textContent = travLabel;
-  document.getElementById('tripBudget').textContent = budLabel;
+function renderResults(dest,days,who,budget){
+  document.getElementById('tripTitle').innerHTML='Your <em>'+dest+'</em> kit';
+  var wm={solo:'Solo',couple:'Couple',family:'Family',group:'Group',business:'Business'};
+  var bm={budget:'Budget',mid:'Mid-range',comfort:'Comfort',luxury:'Luxury'};
+  document.getElementById('tripTagDays').textContent=days+' days';
+  document.getElementById('tripTagWho').textContent=wm[who]||who;
+  document.getElementById('tripTagBudget').textContent=bm[budget]||budget;
+  document.getElementById('statCount').textContent=Object.keys(CATS).length;
+  document.getElementById('statAdv').textContent='40+';
 
-  let totalServices = 0;
-  let html = '';
-
-  Object.entries(ADVERTISERS).forEach(([key, section]) => {
-    // Show 3 featured/top cards
-    const top3 = getTop3(section.all, travellers, budget);
-    totalServices += section.all.length;
-
-    html += `
-      <div class="kit-section">
-        <div class="kit-section-head">
-          <div class="kit-section-left">
-            <div class="kit-section-icon ${section.class}">${section.icon}</div>
-            <div class="kit-section-title">${section.title}</div>
-            <div class="kit-section-count">${section.all.length} options</div>
-          </div>
-        </div>
-        <div class="adv-grid">
-          ${top3.map(adv => renderCard(adv)).join('')}
-        </div>
-        <div class="see-more-row">
-          <button class="see-more-btn" onclick="openModal('${key}')">
-            See all ${section.all.length} options in ${section.title.toLowerCase()} →
-          </button>
-        </div>
-      </div>
-    `;
+  var html='';
+  Object.keys(CATS).forEach(function(key){
+    var cat=CATS[key];
+    var top3=cat.advs.slice(0,3);
+    html+='<div class="kit-section">'+
+      '<div class="kit-head"><div class="kit-head-left">'+
+      '<div class="kit-icon '+cat.cls+'">'+cat.icon+'</div>'+
+      '<div class="kit-title">'+cat.title+'</div>'+
+      '<div class="kit-count">'+cat.advs.length+' options</div>'+
+      '</div></div>'+
+      '<div class="adv-grid">'+top3.map(cardHTML).join('')+'</div>'+
+      '<div class="see-more-row"><button class="see-more-btn" onclick="openModal(\''+key+'\',\''+cat.title+'\')">See all '+cat.advs.length+' options in '+cat.title.toLowerCase()+' &#8594;</button></div>'+
+      '</div>';
   });
 
-  document.getElementById('statServices').textContent = totalServices;
-  document.getElementById('resultsBody').innerHTML = html;
+  html+='<div class="maybe-section">'+
+    '<div class="maybe-head"><span class="maybe-icon">&#10024;</span>'+
+    '<span class="maybe-title">Might also be useful for your trip</span>'+
+    '<span class="maybe-sub">Click to explore</span></div>'+
+    '<div class="maybe-cats">'+
+    MAYBE.map(function(c){return'<div class="maybe-cat" onclick="openMaybeModal(\''+c.key+'\',\''+c.label+'\')">'+
+      '<span class="maybe-cat-icon">'+c.icon+'</span>'+c.label+'</div>'}).join('')+
+    '</div></div>';
+
+  document.getElementById('resultsBody').innerHTML=html;
 }
 
-function getTop3(all, travellers, budget) {
-  // Prioritise featured, then spread across options
-  const featured = all.filter(a => a.featured);
-  const rest = all.filter(a => !a.featured);
-  return [...featured, ...rest].slice(0, 3);
+function openModal(key,title){
+  var cat=CATS[key];if(!cat)return;
+  document.getElementById('modalTitle').textContent='All '+title.toLowerCase()+' options';
+  document.getElementById('modalSub').textContent=cat.advs.length+' advertisers in this category';
+  document.getElementById('modalGrid').innerHTML=cat.advs.map(cardHTML).join('');
+  document.getElementById('modalBg').classList.add('open');
+  document.body.style.overflow='hidden';
 }
 
-function renderCard(adv, small = false) {
-  const badgeHtml = adv.featured
-    ? `<span class="adv-badge best">Best match</span>`
-    : adv.badge === 'popular'
-      ? `<span class="adv-badge popular">Popular</span>`
-      : '';
-  return `
-    <div class="adv-card ${adv.featured ? 'featured' : ''}" onclick="goToAdvertiser('${adv.url}', '${adv.name}')">
-      ${badgeHtml}
-      <div class="adv-logo">${adv.logo}</div>
-      <div class="adv-name">${adv.name}</div>
-      <div class="adv-tagline">${adv.tagline}</div>
-      <div class="adv-footer">
-        <span class="adv-country">${adv.country}</span>
-        <button class="adv-btn" onclick="event.stopPropagation(); goToAdvertiser('${adv.url}', '${adv.name}')">Visit →</button>
-      </div>
-    </div>
-  `;
+function openMaybeModal(key,title){
+  var advs=MAYBE_ADVS[key]||[];
+  document.getElementById('modalTitle').textContent=title;
+  document.getElementById('modalSub').textContent=advs.length?advs.length+' advertisers in this category':'Coming soon';
+  document.getElementById('modalGrid').innerHTML=advs.length?advs.map(cardHTML).join(''):'<p style="color:var(--text3);font-size:13px;grid-column:1/-1">Coming soon &#8212; more advertisers being added.</p>';
+  document.getElementById('modalBg').classList.add('open');
+  document.body.style.overflow='hidden';
 }
 
-// ── Modal: alternatives ──────────────────────────────────────────────────
-
-function openModal(sectionKey) {
-  const section = ADVERTISERS[sectionKey];
-  if (!section) return;
-
-  document.getElementById('modalTitle').textContent = `All ${section.title.toLowerCase()} options`;
-  document.getElementById('modalSub').textContent = `${section.all.length} advertisers in this category`;
-  document.getElementById('modalGrid').innerHTML = section.all.map(adv => renderCard(adv)).join('');
-  document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+function closeModal(e){
+  if(e&&e.target!==document.getElementById('modalBg')&&!e.target.classList.contains('modal-close'))return;
+  document.getElementById('modalBg').classList.remove('open');
+  document.body.style.overflow='';
 }
 
-function closeModal(e) {
-  if (e && e.target !== document.getElementById('modalOverlay') && !e.target.classList.contains('modal-close')) return;
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-// ── Advertiser click (affiliate) ─────────────────────────────────────────
-
-function goToAdvertiser(url, name) {
-  // In production: route through affiliate tracking link
-  // For now: direct link (replace with Awin/Rakuten deeplink)
-  window.open(url, '_blank', 'noopener');
-}
+function visit(domain){window.open('https://'+domain,'_blank','noopener')}
 </script>
 </body>
 </html>
