@@ -1196,51 +1196,40 @@ function renderResults(dest,days,who,budget){
   else if(who==='couple'){extraKeys=['health','fashion','food'];}
   else{extraKeys=['fashion','electronics','health'];}
 
-  var activeCats=[];
-  mainKeys.forEach(function(k){if(CATS[k])activeCats.push({key:k,data:CATS[k]});});
   var maybeLabels={toys:'Toys & Games',baby:'Baby & Toddler',health:'Health & Beauty',
     software:'Software & Apps',luggage:'Luggage & Bags',electronics:'Electronics',
     sport:'Sporting Goods',food:'Food & Drink',cameras:'Cameras & Optics',
     fashion:'Clothing & Fashion',pets:'Pets & Supplies',home:'Home & Garden'};
+
+  var activeCats=[];
+  mainKeys.forEach(function(k){if(CATS[k])activeCats.push({key:k,data:CATS[k]});});
   extraKeys.forEach(function(k){
-    if(MAYBE_ADVS[k]){
-      activeCats.push({key:k,data:{title:maybeLabels[k]||k,cls:k,advs:MAYBE_ADVS[k]}});
-    }
+    if(MAYBE_ADVS[k]) activeCats.push({key:k,data:{title:maybeLabels[k]||k,cls:k,advs:MAYBE_ADVS[k]}});
   });
+
+  // Track used domains to prevent duplicates across categories
+  var usedDomains={};
 
   var totalAdvs=0;
   activeCats.forEach(function(c){totalAdvs+=c.data.advs.length;});
   document.getElementById('statCats').textContent=activeCats.length;
   document.getElementById('statAdvs').textContent=totalAdvs+'+';
 
-  // "Might also be useful" — remaining maybe cats shown FIRST as chips
-  var shownKeys=mainKeys.concat(extraKeys);
-  var allMaybeKeys=['fashion','health','cameras','electronics','toys','pets','food','home','luggage','baby','sport','software'];
-  var remainingMaybe=allMaybeKeys.filter(function(k){
-    return shownKeys.indexOf(k)===-1 && MAYBE_ADVS[k] && MAYBE_ADVS[k].length>0;
-  });
-
   var html='';
 
-  // Maybe section FIRST — quick access to more categories
-  if(remainingMaybe.length>0){
-    html+='<div class="maybe-section">'
-      +'<div class="maybe-head"><span class="maybe-icon">&#10024;</span>'
-      +'<span class="maybe-title">Also pack for your trip</span>'
-      +'<span class="maybe-sub">Tap to explore</span></div>'
-      +'<div class="maybe-cats">'
-      +remainingMaybe.map(function(k){
-        return'<div class="maybe-cat" data-key="'+k+'" data-lbl="'+(maybeLabels[k]||k)+'" onclick="openModal(this.dataset.key,this.dataset.lbl)">'+(maybeLabels[k]||k)+'</div>';
-      }).join('')
-      +'</div></div>';
-  }
-
-  // Then main categories
   activeCats.forEach(function(c){
     var cat=c.data;
     var key=c.key;
-    var top3=getTop3(cat.advs);
     var icon=CAT_ICONS[key]||'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>';
+
+    // Get top3: featured first, then random, skip already-used domains
+    var feat=cat.advs.filter(function(a){return a.featured && !usedDomains[a.domain]});
+    var rest=shuffle(cat.advs.filter(function(a){return !a.featured && !usedDomains[a.domain]}));
+    var top3=feat.concat(rest).slice(0,3);
+
+    // Mark these domains as used
+    top3.forEach(function(a){usedDomains[a.domain]=true;});
+
     html+='<div class="kit-section">'
       +'<div class="kit-head"><div class="kit-head-left">'
       +'<div class="kit-icon '+cat.cls+'">'+icon+'</div>'
@@ -1251,6 +1240,23 @@ function renderResults(dest,days,who,budget){
       +'<div class="see-more-row"><button class="see-more-btn" data-key="'+key+'" data-title="'+cat.title+'" onclick="openModal(this.dataset.key,this.dataset.title)">See all '+cat.advs.length+' options &#8594;</button></div>'
       +'</div>';
   });
+
+  // "Also pack" section at the BOTTOM
+  var shownKeys=mainKeys.concat(extraKeys);
+  var allMaybeKeys=['fashion','health','cameras','electronics','toys','pets','food','home','luggage','baby','sport','software'];
+  var remainingMaybe=allMaybeKeys.filter(function(k){
+    return shownKeys.indexOf(k)===-1 && MAYBE_ADVS[k] && MAYBE_ADVS[k].length>0;
+  });
+  if(remainingMaybe.length>0){
+    html+='<div class="maybe-section">'
+      +'<div class="maybe-head"><span class="maybe-icon">&#10024;</span>'
+      +'<span class="maybe-title">Also useful for your trip</span>'
+      +'<span class="maybe-sub">Tap to explore</span></div>'
+      +'<div class="maybe-cats">'
+      +remainingMaybe.map(function(k){
+        return'<div class="maybe-cat" data-key="'+k+'" data-lbl="'+(maybeLabels[k]||k)+'" onclick="openModal(this.dataset.key,this.dataset.lbl)">'+(maybeLabels[k]||k)+'</div>';
+      }).join('')+'</div></div>';
+  }
 
   document.getElementById('resultsBody').innerHTML=html;
 }
