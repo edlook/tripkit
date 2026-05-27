@@ -1222,13 +1222,13 @@ function renderResults(dest,days,who,budget){
     var key=c.key;
     var icon=CAT_ICONS[key]||'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>';
 
-    // Get top3: featured first, then random, skip already-used domains
-    var feat=cat.advs.filter(function(a){return a.featured && !usedDomains[a.domain]});
+    // Featured always shows regardless of usedDomains
+    var feat=cat.advs.filter(function(a){return a.featured});
     var rest=shuffle(cat.advs.filter(function(a){return !a.featured && !usedDomains[a.domain]}));
     var top3=feat.concat(rest).slice(0,3);
 
-    // Mark these domains as used
-    top3.forEach(function(a){usedDomains[a.domain]=true;});
+    // Only mark non-featured as used
+    top3.filter(function(a){return !a.featured}).forEach(function(a){usedDomains[a.domain]=true;});
 
     html+='<div class="kit-section">'
       +'<div class="kit-head"><div class="kit-head-left">'
