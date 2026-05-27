@@ -516,10 +516,10 @@ function shuffle(arr){
   return a;
 }
 function getTop3(advs){
-  // Always show featured first if exists, then shuffle rest
-  var featured=advs.filter(function(a){return a.featured});
-  var rest=shuffle(advs.filter(function(a){return !a.featured}));
-  return featured.concat(rest).slice(0,3);
+  var all=shuffle(advs.slice());
+  var fi=all.findIndex(function(a){return a.featured});
+  if(fi>0&&Math.random()<0.8){var f=all.splice(fi,1)[0];all.unshift(f);}
+  return all.slice(0,3);
 }
 
 var BG_URLS=[
@@ -554,8 +554,15 @@ function rotateBg(){
 }
 setInterval(rotateBg,6000);
 
+var CAT_ICONS={
+  stay:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+  transport:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>',
+  activities:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+  gear:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>',
+  insurance:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+};
 var CATS={
-  stay:{title:'Where to stay',icon:'<svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z&quot;/><polyline points=&quot;9 22 9 12 15 12 15 22&quot;/></svg>',cls:'stay',advs:[
+  stay:{title:'Where to stay',icon:'stay',cls:'stay',advs:[
     {name:'Marriott',domain:'marriott.com',tag:'Premium hotels worldwide. Loyalty points every stay.',country:'US',featured:true},
     {name:'B&B Hotels',domain:'hotel-bb.com',tag:'Smart budget city hotels. Great locations across Europe.',country:'DE',badge:'pop'},
     {name:'e-hoi',domain:'e-hoi.de',tag:'Cruise + hotel packages. Ideal for coastal destinations.',country:'DE'},
@@ -577,7 +584,7 @@ var CATS={
     {name:'InterContinental',domain:'ihg.com',tag:'IHG hotels worldwide. Holiday Inn to InterContinental.',country:'UK'},
     {name:'Best Western',domain:'bestwestern.com',tag:'Independent hotels network. 4,000+ properties worldwide.',country:'US'},
   ]},
-  transport:{title:'Getting there',icon:'<svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z&quot;/></svg>',cls:'transport',advs:[
+  transport:{title:'Getting there',icon:'transport',cls:'transport',advs:[
     {name:'DerTour',domain:'dertour.de',tag:'Flights + hotels combined. Often the cheapest option.',country:'DE',featured:true},
     {name:'AnyVan',domain:'anyvan.com',tag:'Airport transfers and city transport. Fixed pricing.',country:'UK',badge:'pop'},
     {name:'e-hoi',domain:'e-hoi.de',tag:'Ferry and cruise routes across Europe.',country:'DE'},
@@ -599,7 +606,7 @@ var CATS={
     {name:'National Car Rental',domain:'nationalcar.com',tag:'Business-focused car rental worldwide.',country:'US'},
     {name:'AutoEurope',domain:'autoeurope.de',tag:'Car hire specialists for Europe. Best rate guarantee.',country:'DE'},
   ]},
-  activities:{title:'Things to do',icon:'<svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/><polygon points=&quot;10 8 16 12 10 16 10 8&quot;/></svg>',cls:'activities',advs:[
+  activities:{title:'Things to do',icon:'activities',cls:'activities',advs:[
     {name:'Legoland',domain:'legoland.de',tag:'Theme parks across Europe. Great for the whole family.',country:'DE',featured:true},
     {name:'Fanatics',domain:'fanatics.com',tag:'Official team merchandise and stadium gear.',country:'US',badge:'pop'},
     {name:'GetYourGuide',domain:'getyourguide.com',tag:'Tours, tickets and experiences in 150+ cities.',country:'DE'},
@@ -621,7 +628,7 @@ var CATS={
     {name:'Rezdy',domain:'rezdy.com',tag:'Local operator activities. Authentic experiences.',country:'AU'},
     {name:'Headout',domain:'headout.com',tag:'Last-minute tickets and instant booking for attractions.',country:'US'},
   ]},
-  gear:{title:'What to pack',icon:'<svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z&quot;/><line x1=&quot;3&quot; y1=&quot;6&quot; x2=&quot;21&quot; y2=&quot;6&quot;/><path d=&quot;M16 10a4 4 0 01-8 0&quot;/></svg>',cls:'gear',advs:[
+  gear:{title:'What to pack',icon:'gear',cls:'gear',advs:[
     {name:'Refurbed',domain:'refurbed.de',tag:'Certified refurbished tech. Cameras, phones, tablets.',country:'AT',featured:true},
     {name:'MandM Direct',domain:'mandmdirect.com',tag:'Discounted outdoor and travel clothing. Up to 75% off.',country:'UK',badge:'pop'},
     {name:'Rose Bikes',domain:'rosebikes.de',tag:'Cycling gear and accessories for active travel.',country:'DE'},
@@ -643,7 +650,7 @@ var CATS={
     {name:'Thule',domain:'thule.com',tag:'Luggage and travel cases. Innovative Scandinavian design.',country:'SE'},
     {name:'Samsonite',domain:'samsonite.de',tag:'Premium luggage and travel bags. Built to last.',country:'US'},
   ]},
-  insurance:{title:'Travel insurance',icon:'<svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><path d=&quot;M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z&quot;/></svg>',cls:'insurance',advs:[
+  insurance:{title:'Travel insurance',icon:'insurance',cls:'insurance',advs:[
     {name:'Verivox',domain:'verivox.de',tag:'Compare all travel insurance plans side by side.',country:'DE',featured:true},
     {name:'Check24',domain:'check24.de',tag:'Full insurance comparison. Best rates guaranteed.',country:'DE',badge:'pop'},
     {name:'HanseMerkur',domain:'hansemerkur.de',tag:'Comprehensive travel insurance. Widely trusted in Germany.',country:'DE'},
@@ -1164,7 +1171,7 @@ function renderResults(dest,days,who,budget){
     var top3=getTop3(cat.advs);
     html+='<div class="kit-section">'
       +'<div class="kit-head"><div class="kit-head-left">'
-      +'<div class="kit-icon '+cat.cls+'">'+cat.icon+'</div>'
+      +'<div class="kit-icon '+cat.cls+'">'+(CAT_ICONS[key]||'')+'</div>'
       +'<div class="kit-title">'+cat.title+'</div>'
       +'<div class="kit-count">'+cat.advs.length+' options</div>'
       +'</div></div>'
