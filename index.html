@@ -528,20 +528,10 @@ function shuffle(arr){
   return a;
 }
 function getTop3(advs){
-  // Separate featured and non-featured
+  // Featured goes first (if exists), rest are random each time
   var feat=advs.filter(function(a){return a.featured});
   var rest=shuffle(advs.filter(function(a){return !a.featured}));
-  // Pick 3 from full shuffled pool, always include 1 featured somewhere
-  var pool=shuffle(advs.slice());
-  // Ensure at least 1 featured appears, but not always first
-  var result=pool.slice(0,3);
-  var hasFeat=result.some(function(a){return a.featured});
-  if(!hasFeat && feat.length>0){
-    // Replace random position with featured
-    var pos=Math.floor(Math.random()*3);
-    result[pos]=feat[0];
-  }
-  return result;
+  return feat.concat(rest).slice(0,3);
 }
 
 var BG_URLS=[
@@ -720,11 +710,11 @@ var MAYBE=[
 
 var MAYBE_ADVS={
   fashion:[
-    {name:'MandM Direct',domain:'mandmdirect.com',tag:'Designer brands up to 75% off. Adidas, Nike, The North Face.',country:'UK',featured:true},
+    {name:'MandM Direct',domain:'mandmdirect.com',tag:'Designer brands up to 75% off. Adidas, Nike, The North Face.',country:'UK'},
     {name:'Bader',domain:'bader.de',tag:'Fashion, accessories and homewear. German mail-order pioneer.',country:'DE'},
     {name:'Fanatics',domain:'fanatics.com',tag:'Official team kits and branded clothing.',country:'US'},
     {name:'ASOS',domain:'asos.com',tag:'Huge fashion range. Free delivery on orders over threshold.',country:'UK'},
-    {name:'Zalando',domain:'zalando.de',tag:'Europe&#39;s largest fashion platform. 2,000+ brands.',country:'DE',badge:'pop'},
+    {name:'Zalando',domain:'zalando.de',tag:'Europe&#39;s largest fashion platform. 2,000+ brands.',country:'DE'},
     {name:'About You',domain:'aboutyou.de',tag:'Personalised fashion discovery. Great app experience.',country:'DE'},
     {name:'Bonprix',domain:'bonprix.de',tag:'Affordable fashion for all ages. German brand.',country:'DE'},
     {name:'Otto',domain:'otto.de',tag:'Germany&#39;s largest online shop. Fashion and lifestyle.',country:'DE'},
@@ -754,7 +744,7 @@ var MAYBE_ADVS={
   health:[
     {name:'Bader',domain:'bader.de',tag:'Health and beauty essentials. Wide range.',country:'DE',},
     {name:'Matratzen Concord',domain:'matratzen-concord.de',tag:'Sleep better. Mattresses, pillows and sleep accessories.',country:'DE'},
-    {name:'Rossmann',domain:'rossmann.de',tag:'Germany&#39;s leading drugstore. Cosmetics and health.',country:'DE',badge:'pop'},
+    {name:'Rossmann',domain:'rossmann.de',tag:'Germany&#39;s leading drugstore. Cosmetics and health.',country:'DE'},
     {name:'dm',domain:'dm.de',tag:'Drugstore chain. Natural cosmetics and health products.',country:'DE'},
     {name:'Notino',domain:'notino.de',tag:'Perfumes and cosmetics. 50,000+ products.',country:'CZ'},
     {name:'Douglas',domain:'douglas.de',tag:'Premium beauty. Largest perfumery chain in Europe.',country:'DE'},
@@ -784,8 +774,8 @@ var MAYBE_ADVS={
     {name:'Garnier',domain:'garnier.de',tag:'Affordable skincare and haircare. Mass market.',country:'FR'},
   ],
   cameras:[
-    {name:'Refurbed',domain:'refurbed.de',tag:'Certified refurb cameras. Save up to 40%. Warranty included.',country:'AT',featured:true},
-    {name:'B&H Photo',domain:'bhphotovideo.com',tag:'Professional photography and video equipment.',country:'US',badge:'pop'},
+    {name:'Refurbed',domain:'refurbed.de',tag:'Certified refurb cameras. Save up to 40%. Warranty included.',country:'AT'},
+    {name:'B&H Photo',domain:'bhphotovideo.com',tag:'Professional photography and video equipment.',country:'US'},
     {name:'Foto Koch',domain:'fotokoch.de',tag:'German photography specialist. Wide selection.',country:'DE'},
     {name:'Calumet',domain:'calumetphoto.de',tag:'Professional photo and video equipment.',country:'DE'},
     {name:'Pixum',domain:'pixum.de',tag:'Photo printing and photo books.',country:'DE'},
@@ -816,8 +806,8 @@ var MAYBE_ADVS={
     {name:'Kenko',domain:'kenko.de',tag:'Teleconverters, filters and accessories.',country:'JP'},
   ],
   electronics:[
-    {name:'Refurbed',domain:'refurbed.de',tag:'Certified refurb phones, tablets and laptops.',country:'AT',featured:true},
-    {name:'Allegro',domain:'allegro.pl',tag:'Electronics marketplace. Competitive prices.',country:'PL',badge:'pop'},
+    {name:'Refurbed',domain:'refurbed.de',tag:'Certified refurb phones, tablets and laptops.',country:'AT'},
+    {name:'Allegro',domain:'allegro.pl',tag:'Electronics marketplace. Competitive prices.',country:'PL'},
     {name:'Eneba',domain:'eneba.com',tag:'Digital codes, software and gift cards.',country:'LT'},
     {name:'MediaMarkt',domain:'mediamarkt.de',tag:'Germany&#39;s largest electronics retailer.',country:'DE'},
     {name:'Saturn',domain:'saturn.de',tag:'Electronics specialist. Wide product range.',country:'DE'},
@@ -848,9 +838,9 @@ var MAYBE_ADVS={
     {name:'Dyson',domain:'dyson.de',tag:'Innovative vacuums, hair tools and air purifiers.',country:'UK'},
   ],
   toys:[
-    {name:'Legoland',domain:'legoland.de',tag:'Lego sets and theme park tickets.',country:'DE',featured:true},
+    {name:'Legoland',domain:'legoland.de',tag:'Lego sets and theme park tickets.',country:'DE'},
     {name:'Bader',domain:'bader.de',tag:'Toys for all ages. Wide selection.',country:'DE'},
-    {name:'Mytoys',domain:'mytoys.de',tag:'Germany&#39;s largest toy online shop.',country:'DE',badge:'pop'},
+    {name:'Mytoys',domain:'mytoys.de',tag:'Germany&#39;s largest toy online shop.',country:'DE'},
     {name:'Amazon Toys',domain:'amazon.de',tag:'Huge toy selection. Fast delivery.',country:'DE'},
     {name:'Smyths',domain:'smythstoys.com',tag:'Toy superstore. Competitive prices.',country:'IE'},
     {name:'Toys R Us',domain:'toysrus.de',tag:'Classic toy retailer. Wide range.',country:'DE'},
@@ -881,7 +871,7 @@ var MAYBE_ADVS={
   ],
   pets:[
     {name:'Bader',domain:'bader.de',tag:'Pet accessories and supplies. Wide selection.',country:'DE',},
-    {name:'Zooplus',domain:'zooplus.de',tag:'Europe&#39;s largest online pet shop. 8,000+ products.',country:'DE',badge:'pop'},
+    {name:'Zooplus',domain:'zooplus.de',tag:'Europe&#39;s largest online pet shop. 8,000+ products.',country:'DE'},
     {name:'Fressnapf',domain:'fressnapf.de',tag:'Germany&#39;s leading pet supplies chain.',country:'DE'},
     {name:'Petco',domain:'petco.com',tag:'Full-service pet store. Food, accessories and more.',country:'US'},
     {name:'Pets at Home',domain:'petsathome.com',tag:'UK pet superstore. Vet services available.',country:'UK'},
@@ -912,9 +902,9 @@ var MAYBE_ADVS={
     {name:'Tetra',domain:'tetra.de',tag:'Aquarium fish food and water care.',country:'DE'},
   ],
   food:[
-    {name:'Allegro',domain:'allegro.pl',tag:'Food and beverages delivered. Eastern Europe focus.',country:'PL',featured:true},
+    {name:'Allegro',domain:'allegro.pl',tag:'Food and beverages delivered. Eastern Europe focus.',country:'PL'},
     {name:'Bader',domain:'bader.de',tag:'Speciality food gifts and hampers.',country:'DE'},
-    {name:'Amazon Fresh',domain:'amazon.de',tag:'Grocery delivery. Available in major German cities.',country:'DE',badge:'pop'},
+    {name:'Amazon Fresh',domain:'amazon.de',tag:'Grocery delivery. Available in major German cities.',country:'DE'},
     {name:'Rewe',domain:'rewe.de',tag:'Online supermarket. German retail giant.',country:'DE'},
     {name:'Edeka',domain:'edeka.de',tag:'Quality German supermarket online.',country:'DE'},
     {name:'Gourmio',domain:'gourmio.de',tag:'Premium food marketplace. Artisan producers.',country:'DE'},
@@ -944,9 +934,9 @@ var MAYBE_ADVS={
     {name:'dm Lebensmittel',domain:'dm.de',tag:'Organic and natural food products.',country:'DE'},
   ],
   home:[
-    {name:'Matratzen Concord',domain:'matratzen-concord.de',tag:'Mattresses, pillows and sleep systems.',country:'DE',featured:true},
+    {name:'Matratzen Concord',domain:'matratzen-concord.de',tag:'Mattresses, pillows and sleep systems.',country:'DE'},
     {name:'Bader',domain:'bader.de',tag:'Home goods, furnishings and lifestyle.',country:'DE'},
-    {name:'IKEA',domain:'ikea.de',tag:'Affordable Scandinavian home furnishing.',country:'SE',badge:'pop'},
+    {name:'IKEA',domain:'ikea.de',tag:'Affordable Scandinavian home furnishing.',country:'SE'},
     {name:'Otto Home',domain:'otto.de',tag:'Furniture and home accessories. Wide range.',country:'DE'},
     {name:'Home24',domain:'home24.de',tag:'Online furniture specialist. 200,000+ products.',country:'DE'},
     {name:'Wayfair',domain:'wayfair.de',tag:'Furniture and home decor. Huge selection.',country:'US'},
@@ -976,9 +966,9 @@ var MAYBE_ADVS={
     {name:'Westwing',domain:'westwing.de',tag:'Curated home and living. Daily sales.',country:'DE'},
   ],
   luggage:[
-    {name:'MandM Direct',domain:'mandmdirect.com',tag:'Discounted bags and travel accessories.',country:'UK',featured:true},
+    {name:'MandM Direct',domain:'mandmdirect.com',tag:'Discounted bags and travel accessories.',country:'UK'},
     {name:'Rose Bikes',domain:'rosebikes.de',tag:'Cycling and panniers bags. Active travel.',country:'DE'},
-    {name:'Samsonite',domain:'samsonite.de',tag:'Premium luggage and travel bags. Built to last.',country:'US',badge:'pop'},
+    {name:'Samsonite',domain:'samsonite.de',tag:'Premium luggage and travel bags. Built to last.',country:'US'},
     {name:'Rimowa',domain:'rimowa.com',tag:'Iconic aluminium suitcases. German luxury.',country:'DE'},
     {name:'Tumi',domain:'tumi.de',tag:'Premium business and travel bags.',country:'US'},
     {name:'Delsey',domain:'delsey.com',tag:'French luggage. Lightweight and durable.',country:'FR'},
@@ -1010,7 +1000,7 @@ var MAYBE_ADVS={
   baby:[
     {name:'Bader',domain:'bader.de',tag:'Baby clothing and accessories.',country:'DE',},
     {name:'Allegro',domain:'allegro.pl',tag:'Baby products and toys at great prices.',country:'PL'},
-    {name:'Mytoys',domain:'mytoys.de',tag:'Toys and baby gear. Germany&#39;s largest.',country:'DE',badge:'pop'},
+    {name:'Mytoys',domain:'mytoys.de',tag:'Toys and baby gear. Germany&#39;s largest.',country:'DE'},
     {name:'Babymarkt',domain:'babymarkt.de',tag:'Largest online baby shop in Germany.',country:'DE'},
     {name:'Baby One',domain:'babyone.de',tag:'Baby equipment and furniture specialist.',country:'DE'},
     {name:'Jako-O',domain:'jako-o.de',tag:'Family brand. Baby to teen. Quality products.',country:'DE'},
@@ -1040,8 +1030,8 @@ var MAYBE_ADVS={
     {name:'Johnsons Baby',domain:'johnsonsbaby.de',tag:'Classic baby care. Gentle formulas.',country:'US'},
   ],
   sport:[
-    {name:'Rose Bikes',domain:'rosebikes.de',tag:'Bikes, cycling gear and accessories.',country:'DE',featured:true},
-    {name:'MandM Direct',domain:'mandmdirect.com',tag:'Sports clothing at huge discounts.',country:'UK',badge:'pop'},
+    {name:'Rose Bikes',domain:'rosebikes.de',tag:'Bikes, cycling gear and accessories.',country:'DE'},
+    {name:'MandM Direct',domain:'mandmdirect.com',tag:'Sports clothing at huge discounts.',country:'UK'},
     {name:'Fanatics',domain:'fanatics.com',tag:'Official team kits and football gear.',country:'US'},
     {name:'Decathlon',domain:'decathlon.de',tag:'All sports, all budgets. 80+ sports covered.',country:'FR'},
     {name:'Nike',domain:'nike.com',tag:'Performance sportswear and footwear.',country:'US'},
@@ -1072,9 +1062,9 @@ var MAYBE_ADVS={
     {name:'POC',domain:'pocsports.com',tag:'Safety-focused cycling and ski helmets.',country:'SE'},
   ],
   software:[
-    {name:'Eneba',domain:'eneba.com',tag:'Games, software keys and subscriptions. Best prices.',country:'LT',featured:true},
+    {name:'Eneba',domain:'eneba.com',tag:'Games, software keys and subscriptions. Best prices.',country:'LT'},
     {name:'Joyn',domain:'joyn.de',tag:'Free streaming. German TV and films.',country:'DE'},
-    {name:'Verivox',domain:'verivox.de',tag:'Compare mobile and internet plans.',country:'DE',badge:'pop'},
+    {name:'Verivox',domain:'verivox.de',tag:'Compare mobile and internet plans.',country:'DE'},
     {name:'Check24',domain:'check24.de',tag:'Compare all digital services and tariffs.',country:'DE'},
     {name:'Klarmobil',domain:'klarmobil.de',tag:'Affordable mobile tariffs for Germany.',country:'DE'},
     {name:'Blau',domain:'blau.de',tag:'Budget mobile provider. Good data packages.',country:'DE'},
