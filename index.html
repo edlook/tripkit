@@ -528,21 +528,31 @@ function shuffle(arr){
   return a;
 }
 function getTop3(advs){
-  var all=shuffle(advs.slice());
-  var fi=all.findIndex(function(a){return a.featured});
-  if(fi>0&&Math.random()<0.8){var f=all.splice(fi,1)[0];all.unshift(f);}
-  return all.slice(0,3);
+  // Separate featured and non-featured
+  var feat=advs.filter(function(a){return a.featured});
+  var rest=shuffle(advs.filter(function(a){return !a.featured}));
+  // Pick 3 from full shuffled pool, always include 1 featured somewhere
+  var pool=shuffle(advs.slice());
+  // Ensure at least 1 featured appears, but not always first
+  var result=pool.slice(0,3);
+  var hasFeat=result.some(function(a){return a.featured});
+  if(!hasFeat && feat.length>0){
+    // Replace random position with featured
+    var pos=Math.floor(Math.random()*3);
+    result[pos]=feat[0];
+  }
+  return result;
 }
 
 var BG_URLS=[
   'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1600&q=80',
   'https://images.unsplash.com/photo-1499856871958-5b9357976b82?w=1600&q=80',
-  'https://images.unsplash.com/photo-1513581166391-887a96ddeafd?w=1600&q=80',
+  'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1600&q=80',
   'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1600&q=80',
   'https://images.unsplash.com/photo-1548613053-22087dd8edb8?w=1600&q=80',
-  'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1600&q=80',
   'https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=1600&q=80',
-  'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1600&q=80',
+  'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1600&q=80',
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80',
 ];
 var BG_CLASSES=['bg-bcn','bg-ams','bg-rom','bg-prg','bg-lis','bg-vie'];
 var bgIdx=0;
@@ -636,7 +646,7 @@ var CATS={
     {name:'GetYourGuide',domain:'getyourguide.com',tag:'Tours, tickets and experiences in 150+ cities.',country:'DE'},
     {name:'Viator',domain:'viator.com',tag:'Day trips, excursions and local experiences.',country:'US'},
     {name:'Joyn',domain:'joyn.de',tag:'German streaming. Films and series for the journey.',country:'DE'},
-    {name:'Marriott',domain:'marriott.com',tag:'Hotel spa, dining and experience packages.',country:'US'},
+
     {name:'Klook',domain:'klook.com',tag:'Activities and attraction passes. Best for Asia.',country:'HK'},
     {name:'Musement',domain:'musement.com',tag:'Museum tickets and cultural experiences across Europe.',country:'IT'},
     {name:'Tiqets',domain:'tiqets.com',tag:'Instant tickets to museums and attractions.',country:'NL'},
@@ -1236,7 +1246,11 @@ function renderResults(dest,days,who,budget){
 
   // "Might also be useful" — show remaining maybe cats not already shown
   var shownKeys=mainKeys.concat(extraKeys);
-  var remainingMaybe=Object.keys(MAYBE_ADVS).filter(function(k){return shownKeys.indexOf(k)===-1;});
+  // Only show categories that have data and aren't already in main view
+  var allMaybeKeys=['fashion','health','cameras','electronics','toys','pets','food','home','luggage','baby','sport','software'];
+  var remainingMaybe=allMaybeKeys.filter(function(k){
+    return shownKeys.indexOf(k)===-1 && MAYBE_ADVS[k] && MAYBE_ADVS[k].length>0;
+  });
   if(remainingMaybe.length>0){
     var maybeLabels={toys:'Toys & Games',baby:'Baby & Toddler',health:'Health & Beauty',
       software:'Software & Apps',luggage:'Luggage & Bags',electronics:'Electronics',
