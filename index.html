@@ -53,7 +53,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 
 /* HERO — full bleed photo */
 .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;overflow:hidden}
-.hero-bg{pointer-events:none;position:absolute;inset:0;background-size:cover;background-position:center;animation:ken 12s ease-in-out infinite alternate;transition:background-image 0s}
+.hero-bg{pointer-events:none;position:absolute;inset:0;background-size:cover;background-position:center}
 .hero-overlay{pointer-events:none;position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,6,4,.45) 0%,rgba(8,6,4,.2) 40%,rgba(8,6,4,.65) 100%)}
 .hero-content{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:0 36px 48px}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:5px 14px;font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.9);margin-bottom:16px;width:fit-content}
@@ -237,12 +237,12 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 .static-wrap a{color:var(--orange)}
 
 /* BG ROTATION */
-.bg-bcn{background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1600&q=80')}
-.bg-ams{background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80')}
-.bg-rom{background-image:url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=1600&q=80')}
-.bg-prg{background-image:url('https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?w=1600&q=80')}
-.bg-lis{background-image:url('https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1600&q=80')}
-.bg-vie{background-image:url('https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=1600&q=80')}
+.bg-bcn{background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')}
+.bg-ams{background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')}
+.bg-rom{background-image:url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')}
+.bg-prg{background-image:url('https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')}
+.bg-lis{background-image:url('https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')}
+.bg-vie{background-image:url('https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')}
 
 @media(max-width:768px){
   .nav{padding:0 16px}
@@ -294,8 +294,8 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 <!-- HOME -->
 <div class="page active" id="page-home">
   <section class="hero">
-    <div class="hero-bg" id="heroBg" style="background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1600&q=80')"></div>
-    <div class="hero-bg" id="heroBgFg" style="opacity:0;background-size:cover;background-position:center;transition:opacity 1.2s ease;background-image:url('https://images.unsplash.com/photo-1499856871958-5b9357976b82?w=1600&q=80')"></div>
+    <div class="hero-bg" id="heroBg" style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3');background-size:cover;background-position:center;pointer-events:none"></div>
+    <div class="hero-bg" id="heroBgFg" style="position:absolute;inset:0;opacity:0;background-size:cover;background-position:center;transition:opacity 1.5s ease;background-image:url('https://images.unsplash.com/photo-1499856871958-5b9357976b82?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3');pointer-events:none"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="hero-eyebrow"><div class="hero-eyebrow-dot"></div>Your trip, fully packed</div>
@@ -385,32 +385,32 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
     </div>
     <div class="city-grid">
       <div class="city-card" onclick="quickSearch('Barcelona','bg-bcn')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=80')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div><span class="city-badge hot">Trending</span>
         <div class="city-info"><div class="city-name">Barcelona</div><div class="city-meta">Spain &middot; 18 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Amsterdam','bg-ams')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div><span class="city-badge new">New kits</span>
         <div class="city-info"><div class="city-name">Amsterdam</div><div class="city-meta">Netherlands &middot; 14 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Rome','bg-rom')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&q=80')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div><span class="city-badge top">Top rated</span>
         <div class="city-info"><div class="city-name">Rome</div><div class="city-meta">Italy &middot; 16 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Prague','bg-prg')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?w=600&q=80')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div>
         <div class="city-info"><div class="city-name">Prague</div><div class="city-meta">Czech Republic &middot; 12 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Lisbon','bg-lis')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div><span class="city-badge hot">Trending</span>
         <div class="city-info"><div class="city-name">Lisbon</div><div class="city-meta">Portugal &middot; 13 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Vienna','bg-vie')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=600&q=80')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div>
         <div class="city-info"><div class="city-name">Vienna</div><div class="city-meta">Austria &middot; 11 services</div></div>
       </div>
@@ -535,14 +535,14 @@ function getTop3(advs){
 }
 
 var BG_URLS=[
-  'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1600&q=80',
-  'https://images.unsplash.com/photo-1499856871958-5b9357976b82?w=1600&q=80',
-  'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=80',
-  'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1600&q=80',
-  'https://images.unsplash.com/photo-1548613053-22087dd8edb8?w=1600&q=80',
-  'https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=1600&q=80',
-  'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1600&q=80',
-  'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1600&q=80',
+  'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3',
+  'https://images.unsplash.com/photo-1499856871958-5b9357976b82?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3',
+  'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3',
+  'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3',
+  'https://images.unsplash.com/photo-1548613053-22087dd8edb8?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3',
+  'https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3',
+  'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3',
+  'https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3',
 ];
 var BG_CLASSES=['bg-bcn','bg-ams','bg-rom','bg-prg','bg-lis','bg-vie'];
 var bgIdx=0;
