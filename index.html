@@ -53,7 +53,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 
 /* HERO — full bleed photo */
 .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;overflow:hidden}
-.hero-bg{pointer-events:none;position:absolute;inset:0;background-size:cover;background-position:center}
+.hero-bg{pointer-events:none;position:absolute;inset:0;background-size:cover;background-position:center;animation:ken 12s ease-in-out infinite alternate}
 .hero-overlay{pointer-events:none;position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,6,4,.45) 0%,rgba(8,6,4,.2) 40%,rgba(8,6,4,.65) 100%)}
 .hero-content{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:0 36px 48px}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:5px 14px;font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.9);margin-bottom:16px;width:fit-content}
@@ -643,7 +643,7 @@ var CATS={
     {name:'AutoEurope',domain:'autoeurope.de',tag:'Car hire specialists for Europe. Best rate guarantee.',country:'DE'},
   ]},
   activities:{title:'Things to do',icon:'activities',cls:'activities',advs:[
-    {name:'Legoland',domain:'legoland.de',tag:'Theme parks across Europe. Great for the whole family.',country:'DE',featured:true},
+    
     {name:'Fanatics',domain:'fanatics.com',tag:'Official team merchandise and stadium gear.',country:'US',badge:'pop'},
     {name:'GetYourGuide',domain:'getyourguide.com',tag:'Tours, tickets and experiences in 150+ cities.',country:'DE'},
     {name:'Viator',domain:'viator.com',tag:'Day trips, excursions and local experiences.',country:'US'},
@@ -853,7 +853,7 @@ var MAYBE_ADVS={
     {name:'Legoland',domain:'legoland.de',tag:'Lego sets and theme park tickets.',country:'DE',featured:true},
     {name:'Bader',domain:'bader.de',tag:'Toys for all ages. Wide selection.',country:'DE'},
     {name:'Mytoys',domain:'mytoys.de',tag:'Germany&#39;s largest toy online shop.',country:'DE'},
-    {name:'Amazon Toys',domain:'amazon.de',tag:'Huge toy selection. Fast delivery.',country:'DE',featured:true},
+    {name:'Amazon Toys',domain:'amazon.de',tag:'Huge toy selection. Fast delivery.',country:'DE'},
     {name:'Smyths',domain:'smythstoys.com',tag:'Toy superstore. Competitive prices.',country:'IE'},
     {name:'Toys R Us',domain:'toysrus.de',tag:'Classic toy retailer. Wide range.',country:'DE'},
     {name:'Lego',domain:'lego.com',tag:'Official Lego store. Exclusive sets.',country:'DK'},
@@ -1216,31 +1216,41 @@ function renderResults(dest,days,who,budget){
   var activeCats=[];
   mainKeys.forEach(function(k){if(CATS[k])activeCats.push({key:k,data:CATS[k]});});
   extraKeys.forEach(function(k){
-    if(MAYBE_ADVS[k]) activeCats.push({key:k,data:{title:maybeLabels[k]||k,cls:k,advs:MAYBE_ADVS[k]}});
+    if(MAYBE_ADVS[k])activeCats.push({key:k,data:{title:maybeLabels[k]||k,cls:k,advs:MAYBE_ADVS[k]}});
   });
-
-  // Track used domains to prevent duplicates across categories
-  var usedDomains={};
 
   var totalAdvs=0;
   activeCats.forEach(function(c){totalAdvs+=c.data.advs.length;});
   document.getElementById('statCats').textContent=activeCats.length;
   document.getElementById('statAdvs').textContent=totalAdvs+'+';
 
-  var html='';
+  // Track used domains across ALL categories including featured
+  var usedDomains={};
 
+  var html='';
   activeCats.forEach(function(c){
     var cat=c.data;
     var key=c.key;
     var icon=CAT_ICONS[key]||'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>';
 
-    // Featured always shows regardless of usedDomains
-    var feat=cat.advs.filter(function(a){return a.featured});
-    var rest=shuffle(cat.advs.filter(function(a){return !a.featured && !usedDomains[a.domain]}));
+    // Get available ads (not yet used in another category)
+    var available=cat.advs.filter(function(a){return !usedDomains[a.domain];});
+
+    // Sort: featured first, then shuffle rest
+    var feat=available.filter(function(a){return a.featured;});
+    var rest=shuffle(available.filter(function(a){return !a.featured;}));
     var top3=feat.concat(rest).slice(0,3);
 
-    // Only mark non-featured as used
-    top3.filter(function(a){return !a.featured}).forEach(function(a){usedDomains[a.domain]=true;});
+    // If we couldn't fill 3 (all used), grab from full list as fallback
+    if(top3.length<3){
+      var fallback=shuffle(cat.advs.filter(function(a){
+        return top3.indexOf(a)===-1;
+      }));
+      top3=top3.concat(fallback).slice(0,3);
+    }
+
+    // Mark ALL shown domains as used
+    top3.forEach(function(a){usedDomains[a.domain]=true;});
 
     html+='<div class="kit-section">'
       +'<div class="kit-head"><div class="kit-head-left">'
@@ -1253,7 +1263,7 @@ function renderResults(dest,days,who,budget){
       +'</div>';
   });
 
-  // "Also pack" section at the BOTTOM
+  // "Also useful" at the BOTTOM
   var shownKeys=mainKeys.concat(extraKeys);
   var allMaybeKeys=['fashion','health','cameras','electronics','toys','pets','food','home','luggage','baby','sport','software'];
   var remainingMaybe=allMaybeKeys.filter(function(k){
@@ -1281,7 +1291,8 @@ function openModal(key,title){
   if(!advs.length) return;
   document.getElementById('modalTitle').textContent='All '+title.toLowerCase()+' options';
   document.getElementById('modalSub').textContent=advs.length+' advertisers in this category';
-  document.getElementById('modalGrid').innerHTML=shuffle(advs).map(cardHTML).join('');
+  var sorted2=advs.filter(function(a){return a.featured}).concat(shuffle(advs.filter(function(a){return !a.featured})));
+  document.getElementById('modalGrid').innerHTML=sorted2.map(cardHTML).join('');
   document.getElementById('modalBg').classList.add('open');
   document.body.style.overflow='hidden';
 }
