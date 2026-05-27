@@ -547,12 +547,12 @@ function getTop3(advs){
 var BG_URLS=[
   'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1600&q=80',
   'https://images.unsplash.com/photo-1499856871958-5b9357976b82?w=1600&q=80',
-  'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1600&q=80',
+  'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=80',
   'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1600&q=80',
   'https://images.unsplash.com/photo-1548613053-22087dd8edb8?w=1600&q=80',
   'https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=1600&q=80',
   'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1600&q=80',
-  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80',
+  'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1600&q=80',
 ];
 var BG_CLASSES=['bg-bcn','bg-ams','bg-rom','bg-prg','bg-lis','bg-vie'];
 var bgIdx=0;
@@ -752,7 +752,7 @@ var MAYBE_ADVS={
     {name:'Wrangler',domain:'wrangler.com',tag:'Western denim and outdoor wear.',country:'US'},
   ],
   health:[
-    {name:'Bader',domain:'bader.de',tag:'Health and beauty essentials. Wide range.',country:'DE',featured:true},
+    {name:'Bader',domain:'bader.de',tag:'Health and beauty essentials. Wide range.',country:'DE',},
     {name:'Matratzen Concord',domain:'matratzen-concord.de',tag:'Sleep better. Mattresses, pillows and sleep accessories.',country:'DE'},
     {name:'Rossmann',domain:'rossmann.de',tag:'Germany&#39;s leading drugstore. Cosmetics and health.',country:'DE',badge:'pop'},
     {name:'dm',domain:'dm.de',tag:'Drugstore chain. Natural cosmetics and health products.',country:'DE'},
@@ -880,7 +880,7 @@ var MAYBE_ADVS={
     {name:'Orchard Toys',domain:'orchardtoys.com',tag:'Award-winning games for young children.',country:'UK'},
   ],
   pets:[
-    {name:'Bader',domain:'bader.de',tag:'Pet accessories and supplies. Wide selection.',country:'DE',featured:true},
+    {name:'Bader',domain:'bader.de',tag:'Pet accessories and supplies. Wide selection.',country:'DE',},
     {name:'Zooplus',domain:'zooplus.de',tag:'Europe&#39;s largest online pet shop. 8,000+ products.',country:'DE',badge:'pop'},
     {name:'Fressnapf',domain:'fressnapf.de',tag:'Germany&#39;s leading pet supplies chain.',country:'DE'},
     {name:'Petco',domain:'petco.com',tag:'Full-service pet store. Food, accessories and more.',country:'US'},
@@ -1008,7 +1008,7 @@ var MAYBE_ADVS={
     {name:'Thule',domain:'thule.com',tag:'Scandinavian bags and luggage.',country:'SE'},
   ],
   baby:[
-    {name:'Bader',domain:'bader.de',tag:'Baby clothing and accessories.',country:'DE',featured:true},
+    {name:'Bader',domain:'bader.de',tag:'Baby clothing and accessories.',country:'DE',},
     {name:'Allegro',domain:'allegro.pl',tag:'Baby products and toys at great prices.',country:'PL'},
     {name:'Mytoys',domain:'mytoys.de',tag:'Toys and baby gear. Germany&#39;s largest.',country:'DE',badge:'pop'},
     {name:'Babymarkt',domain:'babymarkt.de',tag:'Largest online baby shop in Germany.',country:'DE'},
@@ -1198,7 +1198,6 @@ function renderResults(dest,days,who,budget){
   document.getElementById('tripTagWho').textContent=wm[who]||who;
   document.getElementById('tripTagBudget').textContent=bm[budget]||budget;
 
-  // Smart category selection based on traveller type
   var mainKeys=['stay','transport','activities','gear','insurance'];
   var extraKeys=[];
   if(who==='family'){extraKeys=['toys','baby','health'];}
@@ -1207,27 +1206,46 @@ function renderResults(dest,days,who,budget){
   else if(who==='couple'){extraKeys=['health','fashion','food'];}
   else{extraKeys=['fashion','electronics','health'];}
 
-  // Build active cats: main CATS + selected MAYBE_ADVS
   var activeCats=[];
-  mainKeys.forEach(function(k){if(CATS[k])activeCats.push({key:k,data:CATS[k],isMaybe:false});});
+  mainKeys.forEach(function(k){if(CATS[k])activeCats.push({key:k,data:CATS[k]});});
+  var maybeLabels={toys:'Toys & Games',baby:'Baby & Toddler',health:'Health & Beauty',
+    software:'Software & Apps',luggage:'Luggage & Bags',electronics:'Electronics',
+    sport:'Sporting Goods',food:'Food & Drink',cameras:'Cameras & Optics',
+    fashion:'Clothing & Fashion',pets:'Pets & Supplies',home:'Home & Garden'};
   extraKeys.forEach(function(k){
-    var maybeData=MAYBE_ADVS[k];
-    if(maybeData){
-      var labels={toys:'Toys & Games',baby:'Baby & Toddler',health:'Health & Beauty',
-        software:'Software & Apps',luggage:'Luggage & Bags',electronics:'Electronics',
-        sport:'Sporting Goods',food:'Food & Drink',cameras:'Cameras & Optics',
-        fashion:'Clothing & Fashion'};
-      activeCats.push({key:k,data:{title:labels[k]||k,cls:k,advs:maybeData},isMaybe:true});
+    if(MAYBE_ADVS[k]){
+      activeCats.push({key:k,data:{title:maybeLabels[k]||k,cls:k,advs:MAYBE_ADVS[k]}});
     }
   });
 
-  // Count totals
   var totalAdvs=0;
   activeCats.forEach(function(c){totalAdvs+=c.data.advs.length;});
   document.getElementById('statCats').textContent=activeCats.length;
   document.getElementById('statAdvs').textContent=totalAdvs+'+';
 
+  // "Might also be useful" — remaining maybe cats shown FIRST as chips
+  var shownKeys=mainKeys.concat(extraKeys);
+  var allMaybeKeys=['fashion','health','cameras','electronics','toys','pets','food','home','luggage','baby','sport','software'];
+  var remainingMaybe=allMaybeKeys.filter(function(k){
+    return shownKeys.indexOf(k)===-1 && MAYBE_ADVS[k] && MAYBE_ADVS[k].length>0;
+  });
+
   var html='';
+
+  // Maybe section FIRST — quick access to more categories
+  if(remainingMaybe.length>0){
+    html+='<div class="maybe-section">'
+      +'<div class="maybe-head"><span class="maybe-icon">&#10024;</span>'
+      +'<span class="maybe-title">Also pack for your trip</span>'
+      +'<span class="maybe-sub">Tap to explore</span></div>'
+      +'<div class="maybe-cats">'
+      +remainingMaybe.map(function(k){
+        return'<div class="maybe-cat" data-key="'+k+'" data-lbl="'+(maybeLabels[k]||k)+'" onclick="openModal(this.dataset.key,this.dataset.lbl)">'+(maybeLabels[k]||k)+'</div>';
+      }).join('')
+      +'</div></div>';
+  }
+
+  // Then main categories
   activeCats.forEach(function(c){
     var cat=c.data;
     var key=c.key;
@@ -1243,29 +1261,6 @@ function renderResults(dest,days,who,budget){
       +'<div class="see-more-row"><button class="see-more-btn" data-key="'+key+'" data-title="'+cat.title+'" onclick="openModal(this.dataset.key,this.dataset.title)">See all '+cat.advs.length+' options &#8594;</button></div>'
       +'</div>';
   });
-
-  // "Might also be useful" — show remaining maybe cats not already shown
-  var shownKeys=mainKeys.concat(extraKeys);
-  // Only show categories that have data and aren't already in main view
-  var allMaybeKeys=['fashion','health','cameras','electronics','toys','pets','food','home','luggage','baby','sport','software'];
-  var remainingMaybe=allMaybeKeys.filter(function(k){
-    return shownKeys.indexOf(k)===-1 && MAYBE_ADVS[k] && MAYBE_ADVS[k].length>0;
-  });
-  if(remainingMaybe.length>0){
-    var maybeLabels={toys:'Toys & Games',baby:'Baby & Toddler',health:'Health & Beauty',
-      software:'Software & Apps',luggage:'Luggage & Bags',electronics:'Electronics',
-      sport:'Sporting Goods',food:'Food & Drink',cameras:'Cameras & Optics',
-      fashion:'Clothing & Fashion',pets:'Pets & Supplies',home:'Home & Garden'};
-    html+='<div class="maybe-section">'
-      +'<div class="maybe-head"><span class="maybe-icon">&#10024;</span>'
-      +'<span class="maybe-title">Might also be useful</span>'
-      +'<span class="maybe-sub">Tap to explore</span></div>'
-      +'<div class="maybe-cats">'
-      +remainingMaybe.map(function(k){
-        return'<div class="maybe-cat" data-key="'+k+'" data-lbl="'+(maybeLabels[k]||k)+'" onclick="openModal(this.dataset.key,this.dataset.lbl)">'+(maybeLabels[k]||k)+'</div>';
-      }).join('')
-      +'</div></div>';
-  }
 
   document.getElementById('resultsBody').innerHTML=html;
 }
