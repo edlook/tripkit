@@ -662,14 +662,20 @@ function buildKit(){
 }
 
 function cardHTML(a){
-  var badge=a.featured?'<div class="adv-badge best">Best match</div>':a.badge==='pop'?'<div class="adv-badge pop">Popular</div>':'';
-  return'<div class="adv-card '+(a.featured?'featured':'')+'" onclick="visit(''+a.domain+'')">'
-    +badge
-    +'<div class="adv-logo-wrap"><img src="'+fav(a.domain)+'" alt="'+a.name+'" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="adv-fallback" style="display:none">'+a.name.charAt(0)+'</div></div>'
+  var d=a.domain;
+  var el=document.createElement('div');
+  el.className='adv-card'+(a.featured?' featured':'');
+  el.setAttribute('onclick','visit("'+d+'")');
+  var badge='';
+  if(a.featured) badge='<div class="adv-badge best">Best match</div>';
+  else if(a.badge==='pop') badge='<div class="adv-badge pop">Popular</div>';
+  el.innerHTML=badge
+    +'<div class="adv-logo-wrap"><img src="'+fav(d)+'" alt="" onerror="this.style.display=\x27none\x27;this.nextElementSibling.style.display=\x27flex\x27"><div class="adv-fallback" style="display:none">'+a.name.charAt(0)+'</div></div>'
     +'<div class="adv-name">'+a.name+'</div>'
     +'<div class="adv-tagline">'+a.tag+'</div>'
-    +'<div class="adv-footer"><span class="adv-country">'+a.country+'</span>'
-    +'<button class="adv-btn" onclick="event.stopPropagation();visit(''+a.domain+'')">Visit &#8594;</button></div></div>';
+    +'<div class="adv-footer"><span class="adv-country">'+(a.country||'')+'</span>'
+    +'<button class="adv-btn" onclick="event.stopPropagation();visit(\''+d+'\')">Visit &#8594;</button></div>';
+  return el.outerHTML;
 }
 
 function renderResults(dest,days,who,budget){
@@ -692,7 +698,7 @@ function renderResults(dest,days,who,budget){
       +'<div class="kit-count">'+cat.advs.length+' options</div>'
       +'</div></div>'
       +'<div class="adv-grid">'+top3.map(cardHTML).join('')+'</div>'
-      +'<div class="see-more-row"><button class="see-more-btn" onclick="openModal(''+key+'',''+cat.title+'')">See all '+cat.advs.length+' options &#8594;</button></div>'
+      +'<div class="see-more-row"><button class="see-more-btn" data-key="'+key+'" data-title="'+cat.title+'" onclick="openModal(this.dataset.key,this.dataset.title)">See all '+cat.advs.length+' options &#8594;</button></div>'
       +'</div>';
   });
   html+='<div class="maybe-section">'
@@ -700,7 +706,7 @@ function renderResults(dest,days,who,budget){
     +'<span class="maybe-title">Might also be useful</span>'
     +'<span class="maybe-sub">Tap to explore</span></div>'
     +'<div class="maybe-cats">'
-    +MAYBE.map(function(c){return'<div class="maybe-cat" onclick="openMaybeModal(''+c.key+'',''+c.label+'')"><span class="maybe-cat-icon">'+c.icon+'</span>'+c.label+'</div>'}).join('')
+    +MAYBE.map(function(c){return'<div class="maybe-cat" data-key="'+c.key+'" data-lbl="'+c.label+'" onclick="openMaybeModal(this.dataset.key,this.dataset.lbl)"><span class="maybe-cat-icon">'+c.icon+'</span>'+c.label+'</div>';}).join('')
     +'</div></div>';
   document.getElementById('resultsBody').innerHTML=html;
 }
