@@ -40,7 +40,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 .page.active{display:block}
 
 /* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 36px;height:56px;transition:all .3s}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 36px;height:56px;transition:all .3s;overflow:visible}
 .nav.scrolled{background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav-logo{font-family:var(--ff-display);font-size:20px;font-weight:700;letter-spacing:-.5px;cursor:pointer;color:#fff;transition:color .3s}
 .nav.scrolled .nav-logo{color:var(--text)}
@@ -262,6 +262,17 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
   .trip-stats{display:none}
   .static-wrap{padding:80px 16px 48px}
 }
+
+/* ── Language Switcher ── */
+.lang-picker{position:relative;margin-left:4px}
+.lang-btn{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:rgba(255,255,255,.9);background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:var(--r);padding:5px 10px;cursor:pointer;transition:all .15s;font-family:var(--ff-body);white-space:nowrap}
+.lang-btn:hover{background:rgba(255,255,255,.2)}
+.nav.scrolled .lang-btn{color:var(--text);background:var(--off);border-color:var(--line)}
+.nav.scrolled .lang-btn:hover{background:var(--line)}
+.lang-menu{display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--white);border:1px solid var(--line);border-radius:var(--r2);box-shadow:0 4px 24px rgba(0,0,0,.12);min-width:200px;z-index:500;overflow-y:auto;max-height:340px}
+.lang-menu.open{display:block;animation:fadeUp .15s ease}
+.lang-option{padding:9px 16px;font-size:13px;color:var(--text2);cursor:pointer;transition:background .1s;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.lang-option:hover{background:var(--off);color:var(--text)}
 </style>
 </head>
 <body>
