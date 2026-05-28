@@ -2034,6 +2034,7 @@ var adults=2,children=0;
 function fav(d){return'https://www.google.com/s2/favicons?domain='+d+'&sz=64'}
 
 function showPage(id){
+  console.log("showPage called:", id);
   qsa('.page').forEach(function(p){p.classList.remove('active')});
   var p=document.getElementById('page-'+id);
   if(p){p.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
@@ -2116,6 +2117,7 @@ function cardHTML(a){
 }
 
 function renderResults(dest,days,who,budget){
+  console.log("renderResults called", dest, who);
   document.getElementById('tripTitle').innerHTML='Your <em>'+dest+'</em> kit';
   var wm={solo:'Solo',couple:'Couple',family:'Family',group:'Group',business:'Business'};
   var bm={budget:'Budget',mid:'Mid-range',comfort:'Comfort',luxury:'Luxury'};
