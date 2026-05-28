@@ -109,7 +109,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 .strip-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:24px}
 .strip-title{font-family:var(--ff-display);font-size:26px;font-weight:700;letter-spacing:-.5px;color:var(--text)}
 .strip-note{font-size:12px;color:var(--text3)}
-.city-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.city-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-height:none}
 .city-card{border-radius:var(--r2);overflow:hidden;position:relative;aspect-ratio:4/3;cursor:pointer;border:1px solid var(--line);transition:all .25s cubic-bezier(.16,1,.3,1)}
 .city-card:hover{transform:translateY(-3px);box-shadow:var(--sh2)}
 .city-img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .5s cubic-bezier(.16,1,.3,1)}
@@ -269,9 +269,31 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 <nav class="nav" id="mainNav">
   <div class="nav-logo" onclick="showPage('home')">Trip<span>Kit</span></div>
   <div class="nav-links">
-    <span class="nav-link" onclick="showPage('home')">Home</span>
-    <span class="nav-link" onclick="showPage('privacy')">Privacy</span>
-    <span class="nav-link" onclick="showPage('impressum')">Impressum</span>
+    <span class="nav-link" onclick="showPage('home')" data-i18n="nav_home">Home</span>
+    <span class="nav-link" onclick="showPage('privacy')" data-i18n="nav_privacy">Privacy</span>
+    <span class="nav-link" onclick="showPage('impressum')" data-i18n="nav_impressum">Impressum</span>
+    <div class="lang-picker" id="langPicker">
+      <button class="lang-btn" onclick="toggleLangMenu()" id="langBtn">
+        <span id="langFlag">&#127468;&#127463;</span>
+        <span id="langCode">EN</span>
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <div class="lang-menu" id="langMenu">
+        <div class="lang-option" onclick="setLang('en')">&#127468;&#127463; EN &mdash; English</div>
+        <div class="lang-option" onclick="setLang('de')">&#127465;&#127466; DE &mdash; Deutsch</div>
+        <div class="lang-option" onclick="setLang('fr')">&#127467;&#127479; FR &mdash; Fran&ccedil;ais</div>
+        <div class="lang-option" onclick="setLang('es')">&#127466;&#127480; ES &mdash; Espa&ntilde;ol</div>
+        <div class="lang-option" onclick="setLang('it')">&#127470;&#127481; IT &mdash; Italiano</div>
+        <div class="lang-option" onclick="setLang('nl')">&#127475;&#127473; NL &mdash; Nederlands</div>
+        <div class="lang-option" onclick="setLang('pl')">&#127477;&#127473; PL &mdash; Polski</div>
+        <div class="lang-option" onclick="setLang('pt')">&#127477;&#127481; PT &mdash; Portugu&ecirc;s</div>
+        <div class="lang-option" onclick="setLang('cs')">&#127464;&#127487; CS &mdash; &Ccaron;e&scaron;tina</div>
+        <div class="lang-option" onclick="setLang('sv')">&#127480;&#127466; SV &mdash; Svenska</div>
+        <div class="lang-option" onclick="setLang('da')">&#127465;&#127472; DA &mdash; Dansk</div>
+        <div class="lang-option" onclick="setLang('no')">&#127475;&#127476; NO &mdash; Norsk</div>
+        <div class="lang-option" onclick="setLang('fi')">&#127467;&#127470; FI &mdash; Suomi</div>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -519,6 +541,493 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 </div>
 
 <script>
+// ══════════════════════════════════════════════════════
+// TRANSLATIONS
+// ══════════════════════════════════════════════════════
+var LANGS={
+  en:{flag:'🇬🇧',code:'EN',
+    nav_home:'Home',nav_privacy:'Privacy',nav_impressum:'Impressum',
+    pill:'Your trip, fully packed',
+    h1a:'Where are you',h1b:'going',h1em:'next?',
+    sub:'Tell us your destination. We instantly assemble everything you need — hotels, transport, gear, activities and more.',
+    dest_label:'Destination',dest_ph:'Barcelona, Rome, Tokyo…',
+    dur_label:'Duration',dur_unit:'days',
+    trav_label:'Travelling as',
+    trav_solo:'Solo',trav_couple:'Couple',trav_family:'Family',trav_group:'Group',trav_business:'Business',
+    adults:'Adults',children:'Children',
+    budget_label:'Budget level',
+    budget_budget:'Budget',budget_mid:'Mid-range',budget_comfort:'Comfort',budget_luxury:'Luxury',
+    btn:'Build my trip kit',
+    popular:'Popular right now',
+    pop_dest:'Popular destinations',updated:'Updated weekly',
+    how_title:'How it works',
+    how1_t:'Tell us your trip',how1_d:'Destination, duration, who you\'re with, and budget. Done in 30 seconds.',
+    how2_t:'Get your kit',how2_d:'We instantly assemble services across hotels, transport, gear, insurance and more.',
+    how3_t:'See all options',how3_d:'Top 3 shown per category. Click "See all" to explore every alternative.',
+    how4_t:'Book directly',how4_d:'Go straight to the provider. No hidden fees.',
+    visit:'Visit',see_all:'See all',options:'options',
+    also:'Also useful for your trip',tap:'Tap to explore',
+    edit_trip:'Edit trip',categories:'Categories',services:'Services',
+    footer_copy:'Affiliate links may earn us a commission'
+  },
+  de:{flag:'🇩🇪',code:'DE',
+    nav_home:'Startseite',nav_privacy:'Datenschutz',nav_impressum:'Impressum',
+    pill:'Deine Reise, komplett ausgerüstet',
+    h1a:'Wohin reist',h1b:'du als',h1em:'Nächstes?',
+    sub:'Sag uns dein Reiseziel. Wir stellen sofort alles zusammen — Hotels, Transport, Ausrüstung, Aktivitäten und mehr.',
+    dest_label:'Reiseziel',dest_ph:'Barcelona, Rom, Tokio…',
+    dur_label:'Dauer',dur_unit:'Tage',
+    trav_label:'Reist als',
+    trav_solo:'Allein',trav_couple:'Paar',trav_family:'Familie',trav_group:'Gruppe',trav_business:'Geschäft',
+    adults:'Erwachsene',children:'Kinder',
+    budget_label:'Budgetstufe',
+    budget_budget:'Günstig',budget_mid:'Mittelklasse',budget_comfort:'Komfort',budget_luxury:'Luxus',
+    btn:'Mein Reisekit erstellen',
+    popular:'Gerade beliebt',
+    pop_dest:'Beliebte Reiseziele',updated:'Wöchentlich aktualisiert',
+    how_title:'So funktioniert es',
+    how1_t:'Reise angeben',how1_d:'Ziel, Dauer, Reisebegleitung und Budget. Fertig in 30 Sekunden.',
+    how2_t:'Dein Kit erhalten',how2_d:'Wir stellen sofort Services für Hotels, Transport, Ausrüstung und mehr zusammen.',
+    how3_t:'Alle Optionen sehen',how3_d:'Top 3 pro Kategorie. Klick auf "Alle anzeigen" für weitere Alternativen.',
+    how4_t:'Direkt buchen',how4_d:'Direkt zum Anbieter. Keine versteckten Gebühren.',
+    visit:'Besuchen',see_all:'Alle anzeigen',options:'Optionen',
+    also:'Auch nützlich für deine Reise',tap:'Zum Erkunden tippen',
+    edit_trip:'Reise bearbeiten',categories:'Kategorien',services:'Services',
+    footer_copy:'Affiliate-Links können uns eine Provision einbringen'
+  },
+  fr:{flag:'🇫🇷',code:'FR',
+    nav_home:'Accueil',nav_privacy:'Confidentialité',nav_impressum:'Mentions légales',
+    pill:'Ton voyage, entièrement préparé',
+    h1a:'Où vas-tu',h1b:'voyager',h1em:'ensuite?',
+    sub:'Dis-nous ta destination. Nous assemblons immédiatement tout ce dont tu as besoin — hôtels, transport, équipement, activités et plus.',
+    dest_label:'Destination',dest_ph:'Barcelone, Rome, Tokyo…',
+    dur_label:'Durée',dur_unit:'jours',
+    trav_label:'Voyage en tant que',
+    trav_solo:'Solo',trav_couple:'Couple',trav_family:'Famille',trav_group:'Groupe',trav_business:'Affaires',
+    adults:'Adultes',children:'Enfants',
+    budget_label:'Niveau de budget',
+    budget_budget:'Économique',budget_mid:'Milieu de gamme',budget_comfort:'Confort',budget_luxury:'Luxe',
+    btn:'Créer mon kit de voyage',
+    popular:'Populaire en ce moment',
+    pop_dest:'Destinations populaires',updated:'Mis à jour hebdomadairement',
+    how_title:'Comment ça marche',
+    how1_t:'Dites-nous votre voyage',how1_d:'Destination, durée, compagnons et budget. En 30 secondes.',
+    how2_t:'Recevez votre kit',how2_d:'Nous assemblons instantanément hôtels, transport, équipement et plus.',
+    how3_t:'Voir toutes les options',how3_d:'Top 3 par catégorie. Cliquez sur "Tout voir" pour plus.',
+    how4_t:'Réservez directement',how4_d:'Allez directement chez le prestataire. Sans frais cachés.',
+    visit:'Visiter',see_all:'Voir tout',options:'options',
+    also:'Aussi utile pour votre voyage',tap:'Appuyez pour explorer',
+    edit_trip:'Modifier le voyage',categories:'Catégories',services:'Services',
+    footer_copy:'Les liens d\'affiliation peuvent nous rapporter une commission'
+  },
+  es:{flag:'🇪🇸',code:'ES',
+    nav_home:'Inicio',nav_privacy:'Privacidad',nav_impressum:'Aviso legal',
+    pill:'Tu viaje, totalmente preparado',
+    h1a:'¿A dónde vas',h1b:'a viajar',h1em:'después?',
+    sub:'Dinos tu destino. Ensamblamos inmediatamente todo lo que necesitas — hoteles, transporte, equipamiento, actividades y más.',
+    dest_label:'Destino',dest_ph:'Barcelona, Roma, Tokio…',
+    dur_label:'Duración',dur_unit:'días',
+    trav_label:'Viajando como',
+    trav_solo:'Solo',trav_couple:'Pareja',trav_family:'Familia',trav_group:'Grupo',trav_business:'Negocios',
+    adults:'Adultos',children:'Niños',
+    budget_label:'Nivel de presupuesto',
+    budget_budget:'Económico',budget_mid:'Gama media',budget_comfort:'Confort',budget_luxury:'Lujo',
+    btn:'Crear mi kit de viaje',
+    popular:'Popular ahora mismo',
+    pop_dest:'Destinos populares',updated:'Actualizado semanalmente',
+    how_title:'Cómo funciona',
+    how1_t:'Cuéntanos tu viaje',how1_d:'Destino, duración, compañeros y presupuesto. En 30 segundos.',
+    how2_t:'Recibe tu kit',how2_d:'Ensamblamos al instante hoteles, transporte, equipamiento y más.',
+    how3_t:'Ver todas las opciones',how3_d:'Top 3 por categoría. Haz clic en "Ver todo" para más.',
+    how4_t:'Reserva directamente',how4_d:'Ve directamente al proveedor. Sin tarifas ocultas.',
+    visit:'Visitar',see_all:'Ver todo',options:'opciones',
+    also:'También útil para tu viaje',tap:'Toca para explorar',
+    edit_trip:'Editar viaje',categories:'Categorías',services:'Servicios',
+    footer_copy:'Los enlaces de afiliados pueden generarnos una comisión'
+  },
+  it:{flag:'🇮🇹',code:'IT',
+    nav_home:'Home',nav_privacy:'Privacy',nav_impressum:'Note legali',
+    pill:'Il tuo viaggio, completamente preparato',
+    h1a:'Dove stai',h1b:'andando',h1em:'dopo?',
+    sub:'Dicci la tua destinazione. Assembliamo immediatamente tutto ciò di cui hai bisogno — hotel, trasporti, attrezzatura, attività e altro.',
+    dest_label:'Destinazione',dest_ph:'Barcellona, Roma, Tokyo…',
+    dur_label:'Durata',dur_unit:'giorni',
+    trav_label:'Viaggi come',
+    trav_solo:'Solo',trav_couple:'Coppia',trav_family:'Famiglia',trav_group:'Gruppo',trav_business:'Lavoro',
+    adults:'Adulti',children:'Bambini',
+    budget_label:'Livello di budget',
+    budget_budget:'Economico',budget_mid:'Media gamma',budget_comfort:'Comfort',budget_luxury:'Lusso',
+    btn:'Crea il mio kit viaggio',
+    popular:'Popolare adesso',
+    pop_dest:'Destinazioni popolari',updated:'Aggiornato settimanalmente',
+    how_title:'Come funziona',
+    how1_t:'Dicci del tuo viaggio',how1_d:'Destinazione, durata, compagni e budget. In 30 secondi.',
+    how2_t:'Ricevi il tuo kit',how2_d:'Assembliamo istantaneamente hotel, trasporti, attrezzatura e altro.',
+    how3_t:'Vedi tutte le opzioni',how3_d:'Top 3 per categoria. Clicca "Vedi tutto" per altre alternative.',
+    how4_t:'Prenota direttamente',how4_d:'Vai direttamente dal fornitore. Senza costi nascosti.',
+    visit:'Visita',see_all:'Vedi tutto',options:'opzioni',
+    also:'Utile anche per il tuo viaggio',tap:'Tocca per esplorare',
+    edit_trip:'Modifica viaggio',categories:'Categorie',services:'Servizi',
+    footer_copy:'I link di affiliazione possono guadagnarci una commissione'
+  },
+  nl:{flag:'🇳🇱',code:'NL',
+    nav_home:'Home',nav_privacy:'Privacy',nav_impressum:'Impressum',
+    pill:'Jouw reis, volledig ingepakt',
+    h1a:'Waar ga je',h1b:'naartoe',h1em:'daarna?',
+    sub:'Vertel ons je bestemming. We stellen direct alles samen — hotels, vervoer, uitrusting, activiteiten en meer.',
+    dest_label:'Bestemming',dest_ph:'Barcelona, Rome, Tokio…',
+    dur_label:'Duur',dur_unit:'dagen',
+    trav_label:'Reizen als',
+    trav_solo:'Solo',trav_couple:'Stel',trav_family:'Familie',trav_group:'Groep',trav_business:'Zakelijk',
+    adults:'Volwassenen',children:'Kinderen',
+    budget_label:'Budgetniveau',
+    budget_budget:'Budget',budget_mid:'Middensegment',budget_comfort:'Comfort',budget_luxury:'Luxe',
+    btn:'Maak mijn reiskit',
+    popular:'Nu populair',
+    pop_dest:'Populaire bestemmingen',updated:'Wekelijks bijgewerkt',
+    how_title:'Hoe het werkt',
+    how1_t:'Vertel ons je reis',how1_d:'Bestemming, duur, reisgezelschap en budget. In 30 seconden.',
+    how2_t:'Ontvang je kit',how2_d:'We stellen direct hotels, vervoer, uitrusting en meer samen.',
+    how3_t:'Zie alle opties',how3_d:'Top 3 per categorie. Klik op "Alles zien" voor meer.',
+    how4_t:'Boek direct',how4_d:'Ga direct naar de aanbieder. Geen verborgen kosten.',
+    visit:'Bezoeken',see_all:'Alles zien',options:'opties',
+    also:'Ook handig voor je reis',tap:'Tik om te verkennen',
+    edit_trip:'Reis bewerken',categories:'Categorieën',services:'Diensten',
+    footer_copy:'Affiliatelinks kunnen ons een commissie opleveren'
+  },
+  pl:{flag:'🇵🇱',code:'PL',
+    nav_home:'Strona główna',nav_privacy:'Prywatność',nav_impressum:'Impressum',
+    pill:'Twoja podróż, w pełni spakowana',
+    h1a:'Dokąd',h1b:'lecisz',h1em:'następnie?',
+    sub:'Powiedz nam cel podróży. Natychmiast składamy wszystko czego potrzebujesz — hotele, transport, sprzęt, aktywności i więcej.',
+    dest_label:'Cel podróży',dest_ph:'Barcelona, Rzym, Tokio…',
+    dur_label:'Czas trwania',dur_unit:'dni',
+    trav_label:'Podróżuję jako',
+    trav_solo:'Samotnie',trav_couple:'Para',trav_family:'Rodzina',trav_group:'Grupa',trav_business:'Biznes',
+    adults:'Dorośli',children:'Dzieci',
+    budget_label:'Poziom budżetu',
+    budget_budget:'Budżetowy',budget_mid:'Średni',budget_comfort:'Komfort',budget_luxury:'Luksus',
+    btn:'Utwórz mój zestaw podróżny',
+    popular:'Popularne teraz',
+    pop_dest:'Popularne destynacje',updated:'Aktualizowane co tydzień',
+    how_title:'Jak to działa',
+    how1_t:'Powiedz nam o swojej podróży',how1_d:'Cel, czas trwania, towarzysze i budżet. W 30 sekund.',
+    how2_t:'Otrzymaj swój zestaw',how2_d:'Natychmiast składamy hotele, transport, sprzęt i więcej.',
+    how3_t:'Zobacz wszystkie opcje',how3_d:'Top 3 na kategorię. Kliknij "Pokaż wszystkie" po więcej.',
+    how4_t:'Rezerwuj bezpośrednio',how4_d:'Idź bezpośrednio do dostawcy. Bez ukrytych opłat.',
+    visit:'Odwiedź',see_all:'Pokaż wszystkie',options:'opcji',
+    also:'Przydatne też na Twoją podróż',tap:'Dotknij, aby odkryć',
+    edit_trip:'Edytuj podróż',categories:'Kategorie',services:'Usługi',
+    footer_copy:'Linki afiliacyjne mogą przynosić nam prowizję'
+  },
+  pt:{flag:'🇵🇹',code:'PT',
+    nav_home:'Início',nav_privacy:'Privacidade',nav_impressum:'Aviso legal',
+    pill:'A sua viagem, completamente preparada',
+    h1a:'Para onde vais',h1b:'viajar',h1em:'a seguir?',
+    sub:'Diz-nos o teu destino. Reunimos imediatamente tudo que precisas — hotéis, transporte, equipamento, atividades e mais.',
+    dest_label:'Destino',dest_ph:'Barcelona, Roma, Tóquio…',
+    dur_label:'Duração',dur_unit:'dias',
+    trav_label:'A viajar como',
+    trav_solo:'Solo',trav_couple:'Casal',trav_family:'Família',trav_group:'Grupo',trav_business:'Negócios',
+    adults:'Adultos',children:'Crianças',
+    budget_label:'Nível de orçamento',
+    budget_budget:'Económico',budget_mid:'Médio',budget_comfort:'Conforto',budget_luxury:'Luxo',
+    btn:'Criar o meu kit de viagem',
+    popular:'Popular agora',
+    pop_dest:'Destinos populares',updated:'Atualizado semanalmente',
+    how_title:'Como funciona',
+    how1_t:'Conta-nos a tua viagem',how1_d:'Destino, duração, companheiros e orçamento. Em 30 segundos.',
+    how2_t:'Recebe o teu kit',how2_d:'Reunimos instantaneamente hotéis, transporte, equipamento e mais.',
+    how3_t:'Ver todas as opções',how3_d:'Top 3 por categoria. Clica em "Ver tudo" para mais.',
+    how4_t:'Reserva diretamente',how4_d:'Vai diretamente ao fornecedor. Sem taxas ocultas.',
+    visit:'Visitar',see_all:'Ver tudo',options:'opções',
+    also:'Também útil para a tua viagem',tap:'Toca para explorar',
+    edit_trip:'Editar viagem',categories:'Categorias',services:'Serviços',
+    footer_copy:'Links de afiliados podem gerar-nos uma comissão'
+  },
+  cs:{flag:'🇨🇿',code:'CS',
+    nav_home:'Domů',nav_privacy:'Soukromí',nav_impressum:'Impressum',
+    pill:'Tvůj výlet, plně připravený',
+    h1a:'Kam cestuješ',h1b:'příště',h1em:'?',
+    sub:'Řekni nám svůj cíl. Okamžitě sestavíme vše, co potřebuješ — hotely, dopravu, vybavení, aktivity a další.',
+    dest_label:'Destinace',dest_ph:'Barcelona, Řím, Tokio…',
+    dur_label:'Délka',dur_unit:'dní',
+    trav_label:'Cestuji jako',
+    trav_solo:'Sám',trav_couple:'Pár',trav_family:'Rodina',trav_group:'Skupina',trav_business:'Služebně',
+    adults:'Dospělí',children:'Děti',
+    budget_label:'Úroveň rozpočtu',
+    budget_budget:'Rozpočtový',budget_mid:'Střední',budget_comfort:'Komfort',budget_luxury:'Luxus',
+    btn:'Vytvořit můj cestovní kit',
+    popular:'Populární právě teď',
+    pop_dest:'Oblíbené destinace',updated:'Aktualizováno týdně',
+    how_title:'Jak to funguje',
+    how1_t:'Řekni nám o cestě',how1_d:'Destinace, délka, spolucestující a rozpočet. Za 30 sekund.',
+    how2_t:'Získej svůj kit',how2_d:'Okamžitě sestavíme hotely, dopravu, vybavení a další.',
+    how3_t:'Viz všechny možnosti',how3_d:'Top 3 na kategorii. Klikni na "Zobrazit vše" pro více.',
+    how4_t:'Rezervuj přímo',how4_d:'Jdi přímo k poskytovateli. Žádné skryté poplatky.',
+    visit:'Navštívit',see_all:'Zobrazit vše',options:'možností',
+    also:'Také užitečné pro tvou cestu',tap:'Klepni pro průzkum',
+    edit_trip:'Upravit cestu',categories:'Kategorie',services:'Služby',
+    footer_copy:'Affiliate odkazy nám mohou přinést provizi'
+  },
+  sv:{flag:'🇸🇪',code:'SV',
+    nav_home:'Hem',nav_privacy:'Integritet',nav_impressum:'Impressum',
+    pill:'Din resa, fullständigt packad',
+    h1a:'Vart ska du',h1b:'resa',h1em:'härnäst?',
+    sub:'Berätta om din destination. Vi sammanställer omedelbart allt du behöver — hotell, transport, utrustning, aktiviteter och mer.',
+    dest_label:'Destination',dest_ph:'Barcelona, Rom, Tokyo…',
+    dur_label:'Varaktighet',dur_unit:'dagar',
+    trav_label:'Reser som',
+    trav_solo:'Ensam',trav_couple:'Par',trav_family:'Familj',trav_group:'Grupp',trav_business:'Affärsresa',
+    adults:'Vuxna',children:'Barn',
+    budget_label:'Budgetnivå',
+    budget_budget:'Budget',budget_mid:'Mellanklass',budget_comfort:'Komfort',budget_luxury:'Lyx',
+    btn:'Skapa mitt resekit',
+    popular:'Populärt just nu',
+    pop_dest:'Populära destinationer',updated:'Uppdateras varje vecka',
+    how_title:'Hur det fungerar',
+    how1_t:'Berätta om din resa',how1_d:'Destination, varaktighet, ressällskap och budget. På 30 sekunder.',
+    how2_t:'Få ditt kit',how2_d:'Vi sammanställer omedelbart hotell, transport, utrustning och mer.',
+    how3_t:'Se alla alternativ',how3_d:'Topp 3 per kategori. Klicka på "Visa alla" för fler.',
+    how4_t:'Boka direkt',how4_d:'Gå direkt till leverantören. Inga dolda avgifter.',
+    visit:'Besök',see_all:'Visa alla',options:'alternativ',
+    also:'Också användbart för din resa',tap:'Tryck för att utforska',
+    edit_trip:'Redigera resa',categories:'Kategorier',services:'Tjänster',
+    footer_copy:'Affiliatelänkar kan ge oss en provision'
+  },
+  da:{flag:'🇩🇰',code:'DA',
+    nav_home:'Hjem',nav_privacy:'Privatliv',nav_impressum:'Impressum',
+    pill:'Din rejse, fuldt pakket',
+    h1a:'Hvor skal du hen',h1b:'næste',h1em:'gang?',
+    sub:'Fortæl os din destination. Vi samler straks alt hvad du behøver — hoteller, transport, udstyr, aktiviteter og mere.',
+    dest_label:'Destination',dest_ph:'Barcelona, Rom, Tokyo…',
+    dur_label:'Varighed',dur_unit:'dage',
+    trav_label:'Rejser som',
+    trav_solo:'Alene',trav_couple:'Par',trav_family:'Familie',trav_group:'Gruppe',trav_business:'Forretning',
+    adults:'Voksne',children:'Børn',
+    budget_label:'Budgetniveau',
+    budget_budget:'Budget',budget_mid:'Mellemklasse',budget_comfort:'Komfort',budget_luxury:'Luksus',
+    btn:'Opret mit rejsesæt',
+    popular:'Populært lige nu',
+    pop_dest:'Populære destinationer',updated:'Opdateres ugentligt',
+    how_title:'Sådan fungerer det',
+    how1_t:'Fortæl os om din rejse',how1_d:'Destination, varighed, rejsefølge og budget. På 30 sekunder.',
+    how2_t:'Få dit kit',how2_d:'Vi samler straks hoteller, transport, udstyr og mere.',
+    how3_t:'Se alle muligheder',how3_d:'Top 3 pr. kategori. Klik på "Se alle" for mere.',
+    how4_t:'Bestil direkte',how4_d:'Gå direkte til udbyderen. Ingen skjulte gebyrer.',
+    visit:'Besøg',see_all:'Se alle',options:'muligheder',
+    also:'Også nyttigt til din rejse',tap:'Tryk for at udforske',
+    edit_trip:'Rediger rejse',categories:'Kategorier',services:'Tjenester',
+    footer_copy:'Affiliatelinks kan give os en provision'
+  },
+  no:{flag:'🇳🇴',code:'NO',
+    nav_home:'Hjem',nav_privacy:'Personvern',nav_impressum:'Impressum',
+    pill:'Din reise, fullt pakket',
+    h1a:'Hvor skal du',h1b:'reise',h1em:'neste?',
+    sub:'Fortell oss destinasjonen din. Vi setter umiddelbart sammen alt du trenger — hoteller, transport, utstyr, aktiviteter og mer.',
+    dest_label:'Destinasjon',dest_ph:'Barcelona, Roma, Tokyo…',
+    dur_label:'Varighet',dur_unit:'dager',
+    trav_label:'Reiser som',
+    trav_solo:'Alene',trav_couple:'Par',trav_family:'Familie',trav_group:'Gruppe',trav_business:'Forretning',
+    adults:'Voksne',children:'Barn',
+    budget_label:'Budsjettsnivå',
+    budget_budget:'Budsjett',budget_mid:'Mellomklasse',budget_comfort:'Komfort',budget_luxury:'Luksus',
+    btn:'Lag mitt reisesett',
+    popular:'Populært akkurat nå',
+    pop_dest:'Populære destinasjoner',updated:'Oppdateres ukentlig',
+    how_title:'Slik fungerer det',
+    how1_t:'Fortell oss om reisen',how1_d:'Destinasjon, varighet, reisefølge og budsjett. På 30 sekunder.',
+    how2_t:'Få ditt kit',how2_d:'Vi setter umiddelbart sammen hoteller, transport, utstyr og mer.',
+    how3_t:'Se alle alternativer',how3_d:'Topp 3 per kategori. Klikk på "Se alle" for mer.',
+    how4_t:'Bestill direkte',how4_d:'Gå direkte til leverandøren. Ingen skjulte avgifter.',
+    visit:'Besøk',see_all:'Se alle',options:'alternativer',
+    also:'Også nyttig for reisen din',tap:'Trykk for å utforske',
+    edit_trip:'Rediger reise',categories:'Kategorier',services:'Tjenester',
+    footer_copy:'Affiliatekoblinger kan gi oss en provisjon'
+  },
+  fi:{flag:'🇫🇮',code:'FI',
+    nav_home:'Etusivu',nav_privacy:'Tietosuoja',nav_impressum:'Impressum',
+    pill:'Matkasi, täysin pakattuna',
+    h1a:'Minne olet',h1b:'matkustamassa',h1em:'seuraavaksi?',
+    sub:'Kerro määränpääsi. Kokoamme välittömästi kaiken tarvitsemasi — hotellit, kuljetukset, varusteet, aktiviteetit ja paljon muuta.',
+    dest_label:'Määränpää',dest_ph:'Barcelona, Rooma, Tokio…',
+    dur_label:'Kesto',dur_unit:'päivää',
+    trav_label:'Matkustan',
+    trav_solo:'Yksin',trav_couple:'Pariskunta',trav_family:'Perhe',trav_group:'Ryhmä',trav_business:'Työ',
+    adults:'Aikuiset',children:'Lapset',
+    budget_label:'Budjettitaso',
+    budget_budget:'Budjetti',budget_mid:'Keskiluokka',budget_comfort:'Mukavuus',budget_luxury:'Luksus',
+    btn:'Luo matkapakettini',
+    popular:'Suosittua juuri nyt',
+    pop_dest:'Suositut kohteet',updated:'Päivitetään viikoittain',
+    how_title:'Miten se toimii',
+    how1_t:'Kerro matkastasi',how1_d:'Kohde, kesto, seurue ja budjetti. 30 sekunnissa.',
+    how2_t:'Saa pakettisi',how2_d:'Kokoamme välittömästi hotellit, kuljetukset, varusteet ja paljon muuta.',
+    how3_t:'Katso kaikki vaihtoehdot',how3_d:'Top 3 per kategoria. Klikkaa "Näytä kaikki" saadaksesi lisää.',
+    how4_t:'Varaa suoraan',how4_d:'Mene suoraan palveluntarjoajalle. Ei piilomaksuja.',
+    visit:'Vieraile',see_all:'Näytä kaikki',options:'vaihtoehtoa',
+    also:'Hyödyllinen myös matkaasi varten',tap:'Napauta tutkiaksesi',
+    edit_trip:'Muokkaa matkaa',categories:'Kategoriat',services:'Palvelut',
+    footer_copy:'Affiliate-linkit voivat tuoda meille provision'
+  }
+};
+
+var currentLang='en';
+
+function t(key){
+  var l=LANGS[currentLang]||LANGS['en'];
+  return l[key]||LANGS['en'][key]||key;
+}
+
+function applyLang(){
+  var l=LANGS[currentLang]||LANGS['en'];
+  // Nav
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key=el.getAttribute('data-i18n');
+    if(l[key]) el.textContent=l[key];
+  });
+  // Hero
+  var pill=document.querySelector('.hero-eyebrow');
+  if(pill) pill.innerHTML='<div class="hero-eyebrow-dot"></div>'+t('pill');
+  var h1=document.querySelector('.hero-h1');
+  if(h1) h1.innerHTML=t('h1a')+'<br>'+t('h1b')+' <em>'+t('h1em')+'</em>';
+  var sub=document.querySelector('.hero-sub');
+  if(sub) sub.textContent=t('sub');
+  // Form
+  var destLabel=document.querySelector('label[for="dest"]');
+  if(destLabel) destLabel.textContent=t('dest_label');
+  var destInput=document.getElementById('dest');
+  if(destInput) destInput.placeholder=t('dest_ph');
+  var durLabel=document.querySelector('.form-field label[for]');
+  // Duration unit
+  var durUnit=document.querySelector('.dur-label');
+  if(durUnit) durUnit.textContent=t('dur_unit');
+  // Travellers select
+  var travSel=document.getElementById('travellers');
+  if(travSel){
+    travSel.options[0].text=t('trav_solo');
+    travSel.options[1].text=t('trav_couple');
+    travSel.options[2].text=t('trav_family');
+    travSel.options[3].text=t('trav_group');
+    travSel.options[4].text=t('trav_business');
+  }
+  // Budget select
+  var budSel=document.getElementById('budget');
+  if(budSel){
+    budSel.options[0].text=t('budget_budget');
+    budSel.options[1].text=t('budget_mid');
+    budSel.options[2].text=t('budget_comfort');
+    budSel.options[3].text=t('budget_luxury');
+  }
+  // Adults/children labels
+  document.querySelectorAll('.te-item span').forEach(function(el,i){
+    el.textContent=i===0?t('adults'):t('children');
+  });
+  // Build btn
+  var btn=document.querySelector('.form-btn span:first-child');
+  if(btn) btn.textContent=t('btn');
+  // Section titles
+  var popLabel=document.querySelector('.strip-head .strip-title');
+  if(popLabel) popLabel.textContent=t('pop_dest');
+  var stripNote=document.querySelector('.strip-note');
+  if(stripNote) stripNote.textContent=t('updated');
+  var howTitle=document.querySelectorAll('.strip-head .strip-title')[1];
+  if(howTitle) howTitle.textContent=t('how_title');
+  // How steps
+  var howTitles=document.querySelectorAll('.how-title');
+  var howDescs=document.querySelectorAll('.how-desc');
+  var htKeys=['how1_t','how2_t','how3_t','how4_t'];
+  var hdKeys=['how1_d','how2_d','how3_d','how4_d'];
+  howTitles.forEach(function(el,i){if(htKeys[i])el.textContent=t(htKeys[i]);});
+  howDescs.forEach(function(el,i){if(hdKeys[i])el.textContent=t(hdKeys[i]);});
+  // Visit buttons & see all
+  document.querySelectorAll('.adv-btn').forEach(function(el){el.innerHTML=t('visit')+' &#8594;';});
+  document.querySelectorAll('.see-more-btn').forEach(function(el){
+    var key=el.dataset.key;var title=el.dataset.title;
+    var count=el.textContent.match(/\d+/);
+    if(count) el.innerHTML=t('see_all')+' '+count[0]+' '+t('options')+' &#8594;';
+  });
+  // Lang button
+  document.getElementById('langFlag').textContent=l.flag;
+  document.getElementById('langCode').textContent=l.code;
+  // Footer
+  document.querySelectorAll('.footer-copy').forEach(function(el){
+    if(el.textContent.indexOf('2026')===-1) el.textContent=t('footer_copy');
+  });
+  // Chips popular label
+  var chipsLabel=document.querySelector('.chips-label');
+  if(chipsLabel) chipsLabel.textContent=t('popular');
+  // Trip banner
+  var wm={solo:t('trav_solo'),couple:t('trav_couple'),family:t('trav_family'),group:t('trav_group'),business:t('trav_business')};
+  var bm={budget:t('budget_budget'),mid:t('budget_mid'),comfort:t('budget_comfort'),luxury:t('budget_luxury')};
+  var who=document.getElementById('travellers');
+  var bud=document.getElementById('budget');
+  if(who&&bud){
+    var whoTag=document.getElementById('tripTagWho');
+    var budTag=document.getElementById('tripTagBudget');
+    if(whoTag) whoTag.textContent=wm[who.value]||who.value;
+    if(budTag) budTag.textContent=bm[bud.value]||bud.value;
+  }
+  // Edit trip
+  var editBtn=document.querySelector('.trip-edit');
+  if(editBtn) editBtn.innerHTML=t('edit_trip')+' &#8594;';
+  // Stats labels
+  document.querySelectorAll('.trip-stat-label').forEach(function(el,i){
+    el.textContent=i===0?t('categories'):t('services');
+  });
+  // Also useful
+  var maybeTitle=document.querySelector('.maybe-title');
+  if(maybeTitle) maybeTitle.textContent=t('also');
+  var maybeSub=document.querySelector('.maybe-sub');
+  if(maybeSub) maybeSub.textContent=t('tap');
+  // Modal visit buttons
+  document.querySelectorAll('#modalGrid .adv-btn').forEach(function(el){el.innerHTML=t('visit')+' &#8594;';});
+  // Save lang
+  try{localStorage.setItem('tripkit_lang',currentLang);}catch(e){}
+}
+
+function setLang(code){
+  currentLang=code;
+  applyLang();
+  toggleLangMenu(false);
+}
+
+function toggleLangMenu(force){
+  var menu=document.getElementById('langMenu');
+  if(!menu)return;
+  if(force===false){menu.classList.remove('open');return;}
+  menu.classList.toggle('open');
+}
+
+// Close on outside click
+document.addEventListener('click',function(e){
+  var picker=document.getElementById('langPicker');
+  if(picker&&!picker.contains(e.target)){
+    var menu=document.getElementById('langMenu');
+    if(menu)menu.classList.remove('open');
+  }
+});
+
+// Init lang from saved preference
+(function(){
+  try{
+    var saved=localStorage.getItem('tripkit_lang');
+    if(saved&&LANGS[saved]) currentLang=saved;
+    else{
+      // Auto-detect from browser
+      var bl=(navigator.language||'en').substring(0,2).toLowerCase();
+      if(LANGS[bl]) currentLang=bl;
+    }
+  }catch(e){}
+  // Apply after DOM ready
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',applyLang);
+  } else {
+    applyLang();
+  }
+})();
+
+
 function shuffle(arr){
   var a=arr.slice();
   for(var i=a.length-1;i>0;i--){
