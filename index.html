@@ -437,32 +437,32 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
     </div>
     <div class="city-grid">
       <div class="city-card" onclick="quickSearch('Barcelona','bg-bcn')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div><span class="city-badge hot">Trending</span>
         <div class="city-info"><div class="city-name">Barcelona</div><div class="city-meta">Spain &middot; 18 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Amsterdam','bg-ams')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div><span class="city-badge new">New kits</span>
         <div class="city-info"><div class="city-name">Amsterdam</div><div class="city-meta">Netherlands &middot; 14 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Rome','bg-rom')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div><span class="city-badge top">Top rated</span>
         <div class="city-info"><div class="city-name">Rome</div><div class="city-meta">Italy &middot; 16 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Prague','bg-prg')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?auto=format&fit=crop&w=600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div>
         <div class="city-info"><div class="city-name">Prague</div><div class="city-meta">Czech Republic &middot; 12 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Lisbon','bg-lis')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div><span class="city-badge hot">Trending</span>
         <div class="city-info"><div class="city-name">Lisbon</div><div class="city-meta">Portugal &middot; 13 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Vienna','bg-vie')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div>
         <div class="city-info"><div class="city-name">Vienna</div><div class="city-meta">Austria &middot; 11 services</div></div>
       </div>
@@ -1290,28 +1290,30 @@ function t(key){
   return l[key]||LANGS['en'][key]||key;
 }
 
+function qs(sel){return document.querySelector?document.querySelector(sel):null;}
+function qsa(sel){return document.querySelectorAll?document.querySelectorAll(sel):[];}
 function applyLang(){
   var l=LANGS[currentLang]||LANGS['en'];
   // Nav
-  document.querySelectorAll('[data-i18n]').forEach(function(el){
+  qsa('[data-i18n]').forEach(function(el){
     var key=el.getAttribute('data-i18n');
     if(l[key]) el.textContent=l[key];
   });
   // Hero
-  var pill=document.querySelector('.hero-eyebrow');
+  var pill=qs('.hero-eyebrow');
   if(pill) pill.innerHTML='<div class="hero-eyebrow-dot"></div>'+t('pill');
-  var h1=document.querySelector('.hero-h1');
+  var h1=qs('.hero-h1');
   if(h1) h1.innerHTML=t('h1a')+'<br>'+t('h1b')+' <em>'+t('h1em')+'</em>';
-  var sub=document.querySelector('.hero-sub');
+  var sub=qs('.hero-sub');
   if(sub) sub.textContent=t('sub');
   // Form
-  var destLabel=document.querySelector('label[for="dest"]');
+  var destLabel=qs('label[for="dest"]');
   if(destLabel) destLabel.textContent=t('dest_label');
   var destInput=document.getElementById('dest');
   if(destInput) destInput.placeholder=t('dest_ph');
-  var durLabel=document.querySelector('.form-field label[for]');
+  var durLabel=qs('.form-field label[for]');
   // Duration unit
-  var durUnit=document.querySelector('.dur-label');
+  var durUnit=qs('.dur-label');
   if(durUnit) durUnit.textContent=t('dur_unit');
   // Travellers select
   var travSel=document.getElementById('travellers');
@@ -1331,29 +1333,29 @@ function applyLang(){
     budSel.options[3].text=t('budget_luxury');
   }
   // Adults/children labels
-  document.querySelectorAll('.te-item span').forEach(function(el,i){
+  qsa('.te-item span').forEach(function(el,i){
     el.textContent=i===0?t('adults'):t('children');
   });
   // Build btn
-  var btn=document.querySelector('.form-btn span:first-child');
+  var btn=qs('.form-btn span:first-child');
   if(btn) btn.textContent=t('btn');
   // Section titles
-  var popLabel=document.querySelector('.strip-head .strip-title');
+  var popLabel=qs('.strip-head .strip-title');
   if(popLabel) popLabel.textContent=t('pop_dest');
-  var stripNote=document.querySelector('.strip-note');
+  var stripNote=qs('.strip-note');
   if(stripNote) stripNote.textContent=t('updated');
   var howTitle=document.querySelectorAll('.strip-head .strip-title')[1];
   if(howTitle) howTitle.textContent=t('how_title');
   // How steps
-  var howTitles=document.querySelectorAll('.how-title');
-  var howDescs=document.querySelectorAll('.how-desc');
+  var howTitles=qsa('.how-title');
+  var howDescs=qsa('.how-desc');
   var htKeys=['how1_t','how2_t','how3_t','how4_t'];
   var hdKeys=['how1_d','how2_d','how3_d','how4_d'];
   howTitles.forEach(function(el,i){if(htKeys[i])el.textContent=t(htKeys[i]);});
   howDescs.forEach(function(el,i){if(hdKeys[i])el.textContent=t(hdKeys[i]);});
   // Visit buttons & see all
-  document.querySelectorAll('.adv-btn').forEach(function(el){el.innerHTML=t('visit')+' &#8594;';});
-  document.querySelectorAll('.see-more-btn').forEach(function(el){
+  qsa('.adv-btn').forEach(function(el){el.innerHTML=t('visit')+' &#8594;';});
+  qsa('.see-more-btn').forEach(function(el){
     var key=el.dataset.key;var title=el.dataset.title;
     var count=el.textContent.match(/\d+/);
     if(count) el.innerHTML=t('see_all')+' '+count[0]+' '+t('options')+' &#8594;';
@@ -1362,11 +1364,11 @@ function applyLang(){
   document.getElementById('langFlag').textContent=l.flag;
   document.getElementById('langCode').textContent=l.code;
   // Footer
-  document.querySelectorAll('.footer-copy').forEach(function(el){
+  qsa('.footer-copy').forEach(function(el){
     if(el.textContent.indexOf('2026')===-1) el.textContent=t('footer_copy');
   });
   // Chips popular label
-  var chipsLabel=document.querySelector('.chips-label');
+  var chipsLabel=qs('.chips-label');
   if(chipsLabel) chipsLabel.textContent=t('popular');
   // Trip banner
   var wm={solo:t('trav_solo'),couple:t('trav_couple'),family:t('trav_family'),group:t('trav_group'),business:t('trav_business')};
@@ -1380,19 +1382,19 @@ function applyLang(){
     if(budTag) budTag.textContent=bm[bud.value]||bud.value;
   }
   // Edit trip
-  var editBtn=document.querySelector('.trip-edit');
+  var editBtn=qs('.trip-edit');
   if(editBtn) editBtn.innerHTML=t('edit_trip')+' &#8594;';
   // Stats labels
-  document.querySelectorAll('.trip-stat-label').forEach(function(el,i){
+  qsa('.trip-stat-label').forEach(function(el,i){
     el.textContent=i===0?t('categories'):t('services');
   });
   // Also useful
-  var maybeTitle=document.querySelector('.maybe-title');
+  var maybeTitle=qs('.maybe-title');
   if(maybeTitle) maybeTitle.textContent=t('also');
-  var maybeSub=document.querySelector('.maybe-sub');
+  var maybeSub=qs('.maybe-sub');
   if(maybeSub) maybeSub.textContent=t('tap');
   // Modal visit buttons
-  document.querySelectorAll('#modalGrid .adv-btn').forEach(function(el){el.innerHTML=t('visit')+' &#8594;';});
+  qsa('#modalGrid .adv-btn').forEach(function(el){el.innerHTML=t('visit')+' &#8594;';});
   // Save lang
   try{localStorage.setItem('tripkit_lang',currentLang);}catch(e){}
 }
@@ -1420,21 +1422,21 @@ document.addEventListener('click',function(e){
 });
 
 // Init lang from saved preference
+// Safe apply - wrap in try-catch
 (function(){
   try{
     var saved=localStorage.getItem('tripkit_lang');
     if(saved&&LANGS[saved]) currentLang=saved;
     else{
-      // Auto-detect from browser
       var bl=(navigator.language||'en').substring(0,2).toLowerCase();
       if(LANGS[bl]) currentLang=bl;
     }
   }catch(e){}
-  // Apply after DOM ready
+  function safeApply(){try{applyLang();}catch(err){console.warn('lang err',err);}}
   if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',applyLang);
+    document.addEventListener('DOMContentLoaded',safeApply);
   } else {
-    applyLang();
+    safeApply();
   }
 })();
 
