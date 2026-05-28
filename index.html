@@ -929,19 +929,14 @@ function setLang(code,flag,label){
       var bl=(navigator.language||'en').slice(0,2).toLowerCase();
       if(LANGS[bl]) saved=bl+'|'+LANGS[bl].flag+'|'+LANGS[bl].code;
     }
-    // Always apply lang on load (even English) so all i18n elements get translated
-    var parts = saved ? saved.split('|') : null;
-    var langCode = (parts&&parts.length>=3&&LANGS[parts[0]]) ? parts[0] : 'en';
-    var langFlag = (parts&&parts.length>=3&&LANGS[parts[0]]) ? parts[1] : LANGS['en'].flag;
-    var langLabel = (parts&&parts.length>=3&&LANGS[parts[0]]) ? parts[2] : LANGS['en'].code;
-    currentLang = langCode;
-    window.addEventListener('DOMContentLoaded',function(){
-      setLang(langCode, langFlag, langLabel);
-    });
+    var parts=saved?saved.split('|'):null;
+    var lCode=(parts&&parts.length>=3&&LANGS[parts[0]])?parts[0]:'en';
+    var lFlag=(parts&&parts.length>=3)?parts[1]:LANGS['en'].flag;
+    var lLabel=(parts&&parts.length>=3)?parts[2]:LANGS['en'].code;
+    currentLang=lCode;
+    window.addEventListener('DOMContentLoaded',function(){setLang(lCode,lFlag,lLabel);});
   }catch(e){
-    window.addEventListener('DOMContentLoaded',function(){
-      setLang('en', LANGS['en'].flag, LANGS['en'].code);
-    });
+    window.addEventListener('DOMContentLoaded',function(){setLang('en',LANGS['en'].flag,LANGS['en'].code);});
   }
 })();
 
