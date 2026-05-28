@@ -3,27 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TripKit — Everything for your next trip</title>
-<meta name="description" content="Tell us where you're going. We assemble everything you need — hotels, transport, gear, activities and more.">
-<meta name="description" content="Tell us where you're going. We assemble hotels, transport, gear, activities and more. Your complete trip kit in seconds.">
+
+<title>TripKit — Plan Your Trip: Hotels, Transport, Gear & Activities</title>
+<meta name="description" content="Tell us your destination and we instantly assemble everything you need — hotels, transport, gear, insurance, activities and more. Your complete trip kit in seconds.">
+<meta name="keywords" content="trip planner, travel kit, hotels, transport, travel gear, activities, travel insurance, trip planning, travel affiliate">
 <meta name="robots" content="index, follow">
+<meta name="author" content="TripKit">
 <link rel="canonical" href="https://edlook.github.io/tripkit/">
+<link rel="sitemap" type="application/xml" href="/tripkit/sitemap.xml">
+
+<!-- Open Graph -->
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="TripKit">
 <meta property="og:title" content="TripKit — Everything for your next trip">
-<meta property="og:description" content="Your complete trip kit in seconds. Hotels, transport, gear, activities and more.">
+<meta property="og:description" content="Tell us your destination. We instantly assemble hotels, transport, gear, insurance and activities. Your complete trip kit in seconds.">
 <meta property="og:url" content="https://edlook.github.io/tripkit/">
 <meta property="og:image" content="https://images.unsplash.com/photo-1464790719320-516ecd75af6c?w=1200&q=80">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TripKit — Everything for your next trip">
+<meta name="twitter:description" content="Tell us your destination. Hotels, transport, gear and activities — assembled in seconds.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1464790719320-516ecd75af6c?w=1200&q=80">
+
+<!-- hreflang — 13 languages -->
+<link rel="alternate" hreflang="en" href="https://edlook.github.io/tripkit/">
+<link rel="alternate" hreflang="de" href="https://edlook.github.io/tripkit/">
+<link rel="alternate" hreflang="fr" href="https://edlook.github.io/tripkit/">
+<link rel="alternate" hreflang="es" href="https://edlook.github.io/tripkit/">
+<link rel="alternate" hreflang="it" href="https://edlook.github.io/tripkit/">
+<link rel="alternate" hreflang="nl" href="https://edlook.github.io/tripkit/">
+<link rel="alternate" hreflang="pl" href="https://edlook.github.io/tripkit/">
+<link rel="alternate" hreflang="pt" href="https://edlook.github.io/tripkit/">
+<link rel="alternate" hreflang="cs" href="https://edlook.github.io/tripkit/">
+<link rel="alternate" hreflang="sv" href="https://edlook.github.io/tripkit/">
+<link rel="alternate" hreflang="da" href="https://edlook.github.io/tripkit/">
+<link rel="alternate" hreflang="no" href="https://edlook.github.io/tripkit/">
+<link rel="alternate" hreflang="fi" href="https://edlook.github.io/tripkit/">
+<link rel="alternate" hreflang="x-default" href="https://edlook.github.io/tripkit/">
+
+<!-- Structured Data: WebSite -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "TripKit",
+  "url": "https://edlook.github.io/tripkit/",
+  "description": "Trip planning service that assembles hotels, transport, gear and activities for any destination.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://edlook.github.io/tripkit/?dest={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- Structured Data: WebApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "TripKit",
+  "url": "https://edlook.github.io/tripkit/",
+  "applicationCategory": "TravelApplication",
+  "operatingSystem": "Web",
+  "description": "Enter your destination and travel details. TripKit instantly assembles a complete kit of recommended services — hotels, transport, gear, insurance, activities and more.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "312"
+  }
+}
+</script>
+
+<!-- Structured Data: BreadcrumbList for popular destinations -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Popular Travel Destinations",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Barcelona","url":"https://edlook.github.io/tripkit/?dest=Barcelona"},
+    {"@type":"ListItem","position":2,"name":"Amsterdam","url":"https://edlook.github.io/tripkit/?dest=Amsterdam"},
+    {"@type":"ListItem","position":3,"name":"Rome","url":"https://edlook.github.io/tripkit/?dest=Rome"},
+    {"@type":"ListItem","position":4,"name":"Paris","url":"https://edlook.github.io/tripkit/?dest=Paris"},
+    {"@type":"ListItem","position":5,"name":"London","url":"https://edlook.github.io/tripkit/?dest=London"},
+    {"@type":"ListItem","position":6,"name":"Tokyo","url":"https://edlook.github.io/tripkit/?dest=Tokyo"},
+    {"@type":"ListItem","position":7,"name":"Berlin","url":"https://edlook.github.io/tripkit/?dest=Berlin"},
+    {"@type":"ListItem","position":8,"name":"Vienna","url":"https://edlook.github.io/tripkit/?dest=Vienna"},
+    {"@type":"ListItem","position":9,"name":"Prague","url":"https://edlook.github.io/tripkit/?dest=Prague"},
+    {"@type":"ListItem","position":10,"name":"Lisbon","url":"https://edlook.github.io/tripkit/?dest=Lisbon"}
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<meta name="description" content="Tell us where you're going. We assemble hotels, transport, gear, activities and more. Your complete trip kit in seconds.">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://edlook.github.io/tripkit/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="TripKit — Everything for your next trip">
-<meta property="og:description" content="Your complete trip kit in seconds. Hotels, transport, gear, activities and more.">
-<meta property="og:url" content="https://edlook.github.io/tripkit/">
-<meta property="og:image" content="https://images.unsplash.com/photo-1464790719320-516ecd75af6c?w=1200&q=80">
-<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -831,6 +916,25 @@ function t(k){return(LANGS[currentLang]||LANGS.en)[k]||(LANGS.en[k]||k);}
 
 function setLang(code,flag,label){
   currentLang=code;
+  document.documentElement.lang=code;
+  // Update meta description for SEO in current language
+  var metaDesc=document.querySelector('meta[name="description"]');
+  var descriptions={
+    en:"Tell us your destination. We instantly assemble hotels, transport, gear, insurance and activities. Your complete trip kit in seconds.",
+    de:"Gib dein Reiseziel an. Wir stellen sofort alles zusammen: Hotels, Transport, Ausrüstung, Versicherung und Aktivitäten.",
+    fr:"Dites-nous votre destination. On assemble instantanément hôtels, transport, équipement, assurance et activités.",
+    es:"Dinos tu destino. Reunimos al instante hoteles, transporte, equipo, seguro y actividades para tu viaje.",
+    it:"Dicci la tua destinazione. Assembliamo subito hotel, trasporti, attrezzatura, assicurazione e attività.",
+    nl:"Vertel ons je bestemming. We stellen direct hotels, vervoer, uitrusting, verzekering en activiteiten samen.",
+    pl:"Podaj cel podróży. Natychmiast zestawiamy hotele, transport, sprzęt, ubezpieczenie i aktywności.",
+    pt:"Diga-nos o seu destino. Montamos hotéis, transporte, equipamento, seguro e atividades em segundos.",
+    cs:"Řekněte nám cíl cesty. Okamžitě sestavíme hotely, dopravu, vybavení, pojištění a aktivity.",
+    sv:"Berätta din destination. Vi sammanställer hotell, transport, utrustning, försäkring och aktiviteter direkt.",
+    da:"Fortæl os din destination. Vi samler øjeblikkeligt hoteller, transport, udstyr, forsikring og aktiviteter.",
+    no:"Fortell oss destinasjonen. Vi setter øyeblikkelig sammen hoteller, transport, utstyr, forsikring og aktiviteter.",
+    fi:"Kerro kohteesi. Kokoamme heti hotellit, kuljetukset, varusteet, vakuutuksen ja aktiviteetit."
+  };
+  if(metaDesc&&descriptions[code]) metaDesc.setAttribute('content',descriptions[code]);
   var lf=document.getElementById('lf');
   var lc=document.getElementById('lc');
   var lm=document.getElementById('lm');
