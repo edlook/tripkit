@@ -241,11 +241,11 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 
 /* BG ROTATION */
 .bg-bcn{background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')}
-.bg-ams{background-image:url('https://images.unsplash.com/photo-1468413253725-0d5181091126?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')}
+.bg-ams{background-image:url('https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')}
 .bg-rom{background-image:url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')}
 .bg-prg{background-image:url('https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')}
 .bg-lis{background-image:url('https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')}
-.bg-vie{background-image:url('https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')}
+.bg-vie{background-image:url('https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')}
 
 @media(max-width:768px){
   .nav{padding:0 16px}
@@ -442,7 +442,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
         <div class="city-info"><div class="city-name">Barcelona</div><div class="city-meta">Spain &middot; 18 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Amsterdam','bg-ams')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1468413253725-0d5181091126?auto=format&fit=crop&w=600&q=80&ixlib=rb-4.0.3')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?auto=format&fit=crop&w=600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div><span class="city-badge new">New kits</span>
         <div class="city-info"><div class="city-name">Amsterdam</div><div class="city-meta">Netherlands &middot; 14 services</div></div>
       </div>
@@ -462,7 +462,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
         <div class="city-info"><div class="city-name">Lisbon</div><div class="city-meta">Portugal &middot; 13 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Vienna','bg-vie')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=600&q=80&ixlib=rb-4.0.3')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&w=600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div>
         <div class="city-info"><div class="city-name">Vienna</div><div class="city-meta">Austria &middot; 11 services</div></div>
       </div>
@@ -2075,7 +2075,6 @@ function adj(type,delta){
 }
 
 function quickSearch(dest,bgClass){
-  alert("quickSearch called: "+dest);
   document.getElementById('dest').value=dest;
   if(bgClass){
     var bg=document.getElementById('heroBg');
@@ -2096,7 +2095,6 @@ function buildKit(){
     document.getElementById('loading').classList.remove('show');
     renderResults(dest,days,who,budget);
     showPage('results');
-    alert('showPage results called, active page: '+document.querySelector('.page.active')?.id);
   },1400);
 }
 
