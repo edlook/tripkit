@@ -124,23 +124,26 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 .chip:hover{background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.35)}
 
 /* CITY STRIP */
-.city-strip{background:var(--off);border-top:1px solid var(--line);padding:56px 36px}
-.strip-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:24px}
-.strip-title{font-family:var(--ff-display);font-size:26px;font-weight:700;letter-spacing:-.5px;color:var(--text)}
+.city-strip{background:var(--off);border-top:1px solid var(--line);padding:64px 36px}
+@media(max-width:700px){.city-strip{padding:48px 20px}}
+.strip-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px;gap:12px}
+.strip-title{font-family:var(--ff-head);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--text);letter-spacing:-.02em}
 .strip-note{font-size:12px;color:var(--text3)}
-.city-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.city-card{border-radius:var(--r2);overflow:hidden;position:relative;aspect-ratio:4/3;cursor:pointer;border:1px solid var(--line);transition:all .25s cubic-bezier(.16,1,.3,1)}
+.city-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.city-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.city-grid{grid-template-columns:1fr}}
+.city-card{border-radius:var(--r2);overflow:hidden;position:relative;aspect-ratio:4/3;cursor:pointer;border:1px solid var(--line);transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .city-card:hover{transform:translateY(-3px);box-shadow:var(--sh2)}
 .city-img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .5s cubic-bezier(.16,1,.3,1)}
 .city-card:hover .city-img{transform:scale(1.06)}
 .city-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,6,4,.78) 0%,rgba(0,0,0,.1) 55%,transparent 100%);pointer-events:none}
-.city-badge{position:absolute;top:10px;left:10px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 9px;border-radius:999px}
+.city-badge{position:absolute;top:12px;left:12px;padding:4px 10px;border-radius:20px;font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;backdrop-filter:blur(8px)}
 .city-badge.hot{background:rgba(220,38,38,.85);color:#fff}
 .city-badge.new{background:rgba(16,117,97,.85);color:#fff}
 .city-badge.top{background:rgba(232,93,38,.9);color:#fff}
 .city-info{position:absolute;bottom:0;left:0;right:0;padding:16px}
-.city-name{font-family:var(--ff-display);font-size:20px;font-weight:700;color:#fff;letter-spacing:-.3px;margin-bottom:2px}
-.city-meta{font-size:11px;color:rgba(255,255,255,.55);font-weight:500}
+.city-name{font-family:var(--ff-head);font-size:1.2rem;font-weight:700;color:#fff;letter-spacing:-.01em;text-shadow:0 1px 4px rgba(0,0,0,.3)}
+.city-meta{font-size:.8rem;color:rgba(255,255,255,.85);margin-top:3px;letter-spacing:.01em}
 
 /* HOW */
 .how{padding:64px 36px;background:var(--white)}
@@ -281,6 +284,12 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
   .trip-stats{display:none}
   .static-wrap{padding:80px 16px 48px}
 }
+
+.city-card.hidden-card{display:none}
+.city-card.hidden-card.shown{display:block}
+.show-more-wrap{text-align:center;margin-top:24px}
+.show-more-btn{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1.5px solid var(--line);border-radius:var(--r2);padding:10px 24px;font-size:.9rem;font-weight:500;color:var(--text2);cursor:pointer;transition:all .2s}
+.show-more-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--off)}
 </style>
 </head>
 <body>
@@ -288,9 +297,9 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 <nav class="nav" id="mainNav">
   <div class="nav-logo" onclick="showPage('home')">Trip<span>Kit</span></div>
   <div class="nav-links">
-    <span class="nav-link" onclick="showPage('home')">Home</span>
-    <span class="nav-link" onclick="showPage('privacy')">Privacy</span>
-    <span class="nav-link" onclick="showPage('impressum')">Impressum</span>
+    <span class="nav-link" onclick="showPage('home')" id="i18n-nav-home">Home</span>
+    <span class="nav-link" onclick="showPage('privacy')" id="i18n-nav-privacy">Privacy</span>
+    <span class="nav-link" onclick="showPage('impressum')" id="i18n-nav-impressum">Impressum</span>
     <div style="position:relative;margin-left:4px">
       <button onclick="var lm=document.getElementById('lm');lm.style.display=lm.style.display==='block'?'none':'block'" style="display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:rgba(255,255,255,.9);background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:5px 10px;cursor:pointer;font-family:inherit;white-space:nowrap" id="lbtn">
         <span id="lf">&#127468;&#127463;</span><span id="lc">EN</span>
@@ -437,80 +446,86 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 
   <section class="city-strip">
     <div class="strip-head">
-      <div class="strip-title">Popular destinations</div>
-      <span class="strip-note">Updated weekly</span>
+      <div class="strip-title" id="i18n-pop-dest">Popular destinations</div>
+      <span class="strip-note" id="i18n-updated">Updated weekly</span>
     </div>
     <div class="city-grid">
       <div class="city-card" onclick="quickSearch('Barcelona','bg-bcn')">
         <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1464790719320-516ecd75af6c?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div><span class="city-badge hot">Trending</span>
-        <div class="city-info"><div class="city-name">Barcelona</div><div class="city-meta">Spain &middot; 18 services</div></div>
+        <div class="city-info"><div class="city-name">Barcelona</div><div class="city-meta" id="i18n-city-barcelona">Spain &middot; 18 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Amsterdam','bg-ams')">
         <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div><span class="city-badge new">New kits</span>
-        <div class="city-info"><div class="city-name">Amsterdam</div><div class="city-meta">Netherlands &middot; 14 services</div></div>
+        <div class="city-info"><div class="city-name">Amsterdam</div><div class="city-meta" id="i18n-city-amsterdam">Netherlands &middot; 14 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Rome','bg-rom')">
         <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div><span class="city-badge top">Top rated</span>
-        <div class="city-info"><div class="city-name">Rome</div><div class="city-meta">Italy &middot; 16 services</div></div>
+        <div class="city-info"><div class="city-name">Rome</div><div class="city-meta" id="i18n-city-rome">Italy &middot; 16 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Prague','bg-prg')">
         <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div>
-        <div class="city-info"><div class="city-name">Prague</div><div class="city-meta">Czech Republic &middot; 12 services</div></div>
+        <div class="city-info"><div class="city-name">Prague</div><div class="city-meta" id="i18n-city-prague">Czech Republic &middot; 12 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Lisbon','bg-lis')">
         <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div><span class="city-badge hot">Trending</span>
-        <div class="city-info"><div class="city-name">Lisbon</div><div class="city-meta">Portugal &middot; 13 services</div></div>
+        <div class="city-info"><div class="city-name">Lisbon</div><div class="city-meta" id="i18n-city-lisbon">Portugal &middot; 13 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Vienna','bg-vie')">
         <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div>
         <div class="city-info"><div class="city-name">Vienna</div><div class="city-meta">Austria &middot; 11 services</div></div>
       </div>
-      <div class="city-card" onclick="quickSearch('London')">
+      <div class="city-card hidden-card" onclick="quickSearch('London')">
         <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=600&q=80')"></div>
         <div class="city-grad"></div><span class="city-badge hot">Trending</span>
         <div class="city-info"><div class="city-name">London</div><div class="city-meta">UK &middot; 16 services</div></div>
       </div>
-      <div class="city-card" onclick="quickSearch('Berlin')">
+      <div class="city-card hidden-card" onclick="quickSearch('Berlin')">
         <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=600&q=80')"></div>
         <div class="city-grad"></div>
         <div class="city-info"><div class="city-name">Berlin</div><div class="city-meta">Germany &middot; 14 services</div></div>
       </div>
-      <div class="city-card" onclick="quickSearch('Dubai')">
+      <div class="city-card hidden-card" onclick="quickSearch('Dubai')">
         <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80')"></div>
         <div class="city-grad"></div><span class="city-badge top">Top rated</span>
         <div class="city-info"><div class="city-name">Dubai</div><div class="city-meta">UAE &middot; 13 services</div></div>
       </div>
-      <div class="city-card" onclick="quickSearch('Tokyo')">
+      <div class="city-card hidden-card" onclick="quickSearch('Tokyo')">
         <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=600&q=80')"></div>
         <div class="city-grad"></div><span class="city-badge new">New kits</span>
-        <div class="city-info"><div class="city-name">Tokyo</div><div class="city-meta">Japan &middot; 12 services</div></div>
+        <div class="city-info"><div class="city-name">Tokyo</div><div class="city-meta" id="i18n-city-tokyo">Japan &middot; 12 services</div></div>
       </div>
-      <div class="city-card" onclick="quickSearch('Bali')">
+      <div class="city-card hidden-card" onclick="quickSearch('Bali')">
         <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80')"></div>
         <div class="city-grad"></div><span class="city-badge hot">Trending</span>
         <div class="city-info"><div class="city-name">Bali</div><div class="city-meta">Indonesia &middot; 11 services</div></div>
       </div>
-      <div class="city-card" onclick="quickSearch('Madrid')">
+      <div class="city-card hidden-card" onclick="quickSearch('Madrid')">
         <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=600&q=80')"></div>
         <div class="city-grad"></div>
         <div class="city-info"><div class="city-name">Madrid</div><div class="city-meta">Spain &middot; 13 services</div></div>
       </div>
+    </div>
+    <div class="show-more-wrap" id="showMoreWrap">
+      <button class="show-more-btn" onclick="toggleMoreCities(this)" id="showMoreBtn">
+        <span id="i18n-show-more">Show 6 more cities</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
     </div>
   </section>
 
   <section class="how">
     <div class="strip-head"><div class="strip-title">How it works</div></div>
     <div class="how-grid">
-      <div><div class="how-num">01</div><div class="how-title">Tell us your trip</div><div class="how-desc">Destination, duration, who you're with, and budget. Done in 30 seconds.</div></div>
-      <div><div class="how-num">02</div><div class="how-title">Get your kit</div><div class="how-desc">We instantly assemble services across hotels, transport, gear, insurance and more.</div></div>
-      <div><div class="how-num">03</div><div class="how-title">See all options</div><div class="how-desc">Top 3 shown per category. Click "See all" to explore every alternative &mdash; 30+ per section.</div></div>
-      <div><div class="how-num">04</div><div class="how-title">Book directly</div><div class="how-desc">Go straight to the provider. No hidden fees, no markups.</div></div>
+      <div><div class="how-num">01</div><div class="how-title" id="i18n-how1t">Tell us your trip</div><div class="how-desc" id="i18n-how1d">Destination, duration, who you're with, and budget. Done in 30 seconds.</div></div>
+      <div><div class="how-num">02</div><div class="how-title" id="i18n-how2t">Get your kit</div><div class="how-desc" id="i18n-how2d">We instantly assemble services across hotels, transport, gear, insurance and more.</div></div>
+      <div><div class="how-num">03</div><div class="how-title" id="i18n-how3t">See all options</div><div class="how-desc">Top 3 shown per category. Click "See all" to explore every alternative &mdash; 30+ per section.</div></div>
+      <div><div class="how-num">04</div><div class="how-title" id="i18n-how4t">Book directly</div><div class="how-desc">Go straight to the provider. No hidden fees, no markups.</div></div>
     </div>
   </section>
 
@@ -518,7 +533,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
     <div class="footer-logo">Trip<span>Kit</span></div>
     <div class="footer-links">
       <span class="footer-link" onclick="showPage('privacy')">Privacy Policy</span>
-      <span class="footer-link" onclick="showPage('impressum')">Impressum</span>
+      <span class="footer-link" onclick="showPage('impressum')" id="i18n-nav-impressum">Impressum</span>
     </div>
     <div class="footer-copy">&#169; 2026 TripKit &middot; Affiliate links may earn us a commission</div>
   </footer>
@@ -549,8 +564,8 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
       <div class="footer-logo">Trip<span>Kit</span></div>
       <div class="footer-links">
         <span class="footer-link" onclick="showPage('home')">&#8592; New search</span>
-        <span class="footer-link" onclick="showPage('privacy')">Privacy</span>
-        <span class="footer-link" onclick="showPage('impressum')">Impressum</span>
+        <span class="footer-link" onclick="showPage('privacy')" id="i18n-nav-privacy">Privacy</span>
+        <span class="footer-link" onclick="showPage('impressum')" id="i18n-nav-impressum">Impressum</span>
       </div>
       <div class="footer-copy">Affiliate disclosure: links may earn us a commission</div>
     </footer>
@@ -577,7 +592,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
     <div class="footer-logo">Trip<span>Kit</span></div>
     <div class="footer-links">
       <span class="footer-link" onclick="showPage('home')">&#8592; Home</span>
-      <span class="footer-link" onclick="showPage('impressum')">Impressum</span>
+      <span class="footer-link" onclick="showPage('impressum')" id="i18n-nav-impressum">Impressum</span>
     </div>
   </footer>
 </div>
@@ -600,12 +615,30 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
     <div class="footer-logo">Trip<span>Kit</span></div>
     <div class="footer-links">
       <span class="footer-link" onclick="showPage('home')">&#8592; Home</span>
-      <span class="footer-link" onclick="showPage('privacy')">Privacy</span>
+      <span class="footer-link" onclick="showPage('privacy')" id="i18n-nav-privacy">Privacy</span>
     </div>
   </footer>
 </div>
 
 <script>
+function toggleMoreCities(btn) {
+  var cards = document.querySelectorAll('.city-card.hidden-card');
+  var expanded = btn.getAttribute('data-expanded') === '1';
+  if (!expanded) {
+    cards.forEach(function(c){ c.classList.add('shown'); });
+    btn.setAttribute('data-expanded', '1');
+    var el = document.getElementById('i18n-show-more');
+    if(el) el.textContent = t('show_less');
+    btn.querySelector('svg').style.transform = 'rotate(180deg)';
+  } else {
+    cards.forEach(function(c){ c.classList.remove('shown'); });
+    btn.setAttribute('data-expanded', '0');
+    var el = document.getElementById('i18n-show-more');
+    if(el) el.textContent = t('show_more');
+    btn.querySelector('svg').style.transform = '';
+  }
+}
+
 var LANGS={
   en:{flag:'&#127468;&#127463;',code:'EN',
     dest_ph:'Barcelona, Rome, Tokyo…',dur_unit:'days',
@@ -620,7 +653,7 @@ var LANGS={
     cat_health:'Health & Beauty',cat_cameras:'Cameras & Optics',cat_electronics:'Electronics',
     cat_toys:'Toys & Games',cat_pets:'Pets & Supplies',cat_food:'Food & Drink',
     cat_home:'Home & Garden',cat_luggage:'Luggage & Bags',cat_baby:'Baby & Toddler',
-    cat_sport:'Sporting Goods',cat_software:'Software & Apps'},
+    cat_sport:'Sporting Goods',cat_software:'Software & Apps',pop_dest:'Popular destinations',updated:'Updated weekly',nav_home:'Home',nav_privacy:'Privacy',nav_impressum:'Impressum',sub:'Tell us your destination. We instantly assemble everything you need — hotels, transport, gear, activities and more.',how1t:'Tell us your trip',how1d:'Destination, duration, who you\'re with, and budget. Done in 30 seconds.',how2t:'Get your kit',how2d:'We instantly assemble services across hotels, transport, gear, insurance and more.',how3t:'See all options',how3d:'Top 3 shown per category. Click "See all" to explore every alternative.',how4t:'Book directly',how4d:'Go straight to the provider. No hidden fees. No middleman.',services:'services',city_Spain:'Spain',city_Netherlands:'Netherlands',city_Italy:'Italy',city_Czech:'Czech Republic',city_Portugal:'Portugal',city_Austria:'Austria',city_France:'France',city_Turkey:'Turkey',city_UK:'UK',city_Germany:'Germany',city_Japan:'Japan',show_more:'Show 6 more cities',show_less:'Show less'},
   de:{flag:'&#127465;&#127466;',code:'DE',
     dest_ph:'Barcelona, Rom, Tokio…',dur_unit:'Tage',
     trav_solo:'Allein',trav_couple:'Paar',trav_family:'Familie',trav_group:'Gruppe',trav_business:'Geschäft',
@@ -634,7 +667,7 @@ var LANGS={
     cat_health:'Gesundheit & Schönheit',cat_cameras:'Kameras & Optik',cat_electronics:'Elektronik',
     cat_toys:'Spielzeug & Spiele',cat_pets:'Haustiere',cat_food:'Essen & Trinken',
     cat_home:'Haus & Garten',cat_luggage:'Gepäck & Taschen',cat_baby:'Baby & Kleinkind',
-    cat_sport:'Sportartikel',cat_software:'Software & Apps'},
+    cat_sport:'Sportartikel',cat_software:'Software & Apps',pop_dest:'Beliebte Reiseziele',updated:'Wöchentlich aktualisiert',nav_home:'Startseite',nav_privacy:'Datenschutz',nav_impressum:'Impressum',sub:'Sag uns dein Reiseziel. Wir stellen sofort alles zusammen, was du brauchst – Hotels, Transport, Ausrüstung, Aktivitäten und mehr.',how1t:'Erzähl uns von deiner Reise',how1d:'Reiseziel, Dauer, mit wem und Budget. In 30 Sekunden erledigt.',how2t:'Dein Kit erhalten',how2d:'Wir stellen sofort Services aus Hotels, Transport, Ausrüstung, Versicherung und mehr zusammen.',how3t:'Alle Optionen sehen',how3d:'Top 3 pro Kategorie. Klick auf „Alle anzeigen" für jede Alternative.',how4t:'Direkt buchen',how4d:'Direkt zum Anbieter. Keine versteckten Gebühren. Kein Mittelsmann.',services:'Dienste',city_Spain:'Spanien',city_Netherlands:'Niederlande',city_Italy:'Italien',city_Czech:'Tschechien',city_Portugal:'Portugal',city_Austria:'Österreich',city_France:'Frankreich',city_Turkey:'Türkei',city_UK:'Großbritannien',city_Germany:'Deutschland',city_Japan:'Japan',show_more:'6 weitere Städte anzeigen',show_less:'Weniger anzeigen'},
   fr:{flag:'&#127467;&#127479;',code:'FR',
     dest_ph:'Barcelone, Rome, Tokyo…',dur_unit:'jours',
     trav_solo:'Solo',trav_couple:'Couple',trav_family:'Famille',trav_group:'Groupe',trav_business:'Affaires',
@@ -648,7 +681,7 @@ var LANGS={
     cat_health:'Santé & Beauté',cat_cameras:'Appareils photo',cat_electronics:'Électronique',
     cat_toys:'Jouets',cat_pets:'Animaux',cat_food:'Alimentation',
     cat_home:'Maison',cat_luggage:'Bagages',cat_baby:'Bébé',
-    cat_sport:'Sport',cat_software:'Logiciels'},
+    cat_sport:'Sport',cat_software:'Logiciels',pop_dest:'Destinations populaires',updated:'Mis à jour chaque semaine',nav_home:'Accueil',nav_privacy:'Confidentialité',nav_impressum:'Mentions légales',sub:'Dites-nous votre destination. On assemble instantanément tout ce qu\'il vous faut — hôtels, transport, équipement, activités et plus encore.',how1t:'Dites-nous votre voyage',how1d:'Destination, durée, avec qui et budget. En 30 secondes.',how2t:'Recevez votre kit',how2d:'On assemble instantanément des services : hôtels, transport, équipement, assurance et plus.',how3t:'Voir toutes les options',how3d:'Top 3 par catégorie. Cliquez sur "Tout voir" pour explorer.',how4t:'Réserver directement',how4d:'Allez directement chez le prestataire. Pas de frais cachés.',services:'services',city_Spain:'Espagne',city_Netherlands:'Pays-Bas',city_Italy:'Italie',city_Czech:'République tchèque',city_Portugal:'Portugal',city_Austria:'Autriche',city_France:'France',city_Turkey:'Turquie',city_UK:'Royaume-Uni',city_Germany:'Allemagne',city_Japan:'Japon',show_more:'Voir 6 autres villes',show_less:'Voir moins'},
   es:{flag:'&#127466;&#127480;',code:'ES',
     dest_ph:'Barcelona, Roma, Tokio…',dur_unit:'días',
     trav_solo:'Solo',trav_couple:'Pareja',trav_family:'Familia',trav_group:'Grupo',trav_business:'Negocios',
@@ -662,7 +695,7 @@ var LANGS={
     cat_health:'Salud & Belleza',cat_cameras:'Cámaras',cat_electronics:'Electrónica',
     cat_toys:'Juguetes',cat_pets:'Mascotas',cat_food:'Comida',
     cat_home:'Hogar',cat_luggage:'Equipaje',cat_baby:'Bebé',
-    cat_sport:'Deporte',cat_software:'Software'},
+    cat_sport:'Deporte',cat_software:'Software',pop_dest:'Destinos populares',updated:'Actualizado semanalmente',nav_home:'Inicio',nav_privacy:'Privacidad',nav_impressum:'Aviso legal',sub:'Dinos tu destino. Reunimos al instante todo lo que necesitas: hoteles, transporte, equipo, actividades y más.',how1t:'Cuéntanos tu viaje',how1d:'Destino, duración, con quién y presupuesto. Listo en 30 segundos.',how2t:'Recibe tu kit',how2d:'Reunimos al instante servicios de hoteles, transporte, equipo, seguros y más.',how3t:'Ver todas las opciones',how3d:'Top 3 por categoría. Haz clic en "Ver todo" para más.',how4t:'Reservar directamente',how4d:'Ve directo al proveedor. Sin cargos ocultos.',services:'servicios',city_Spain:'España',city_Netherlands:'Países Bajos',city_Italy:'Italia',city_Czech:'República Checa',city_Portugal:'Portugal',city_Austria:'Austria',city_France:'Francia',city_Turkey:'Turquía',city_UK:'Reino Unido',city_Germany:'Alemania',city_Japan:'Japón',show_more:'Ver 6 ciudades más',show_less:'Ver menos'},
   it:{flag:'&#127470;&#127481;',code:'IT',
     dest_ph:'Barcellona, Roma, Tokyo…',dur_unit:'giorni',
     trav_solo:'Solo',trav_couple:'Coppia',trav_family:'Famiglia',trav_group:'Gruppo',trav_business:'Lavoro',
@@ -676,7 +709,7 @@ var LANGS={
     cat_health:'Salute & Bellezza',cat_cameras:'Fotocamere',cat_electronics:'Elettronica',
     cat_toys:'Giocattoli',cat_pets:'Animali',cat_food:'Cibo',
     cat_home:'Casa',cat_luggage:'Bagagli',cat_baby:'Neonati',
-    cat_sport:'Sport',cat_software:'Software'},
+    cat_sport:'Sport',cat_software:'Software',pop_dest:'Destinazioni popolari',updated:'Aggiornato settimanalmente',nav_home:'Home',nav_privacy:'Privacy',nav_impressum:'Note legali',sub:'Dicci la tua destinazione. Assembliamo immediatamente tutto ciò di cui hai bisogno: hotel, trasporti, attrezzatura, attività e altro.',how1t:'Dicci del tuo viaggio',how1d:'Destinazione, durata, con chi e budget. Pronto in 30 secondi.',how2t:'Ricevi il tuo kit',how2d:'Assembliamo servizi di hotel, trasporti, attrezzatura, assicurazioni e altro.',how3t:'Vedi tutte le opzioni',how3d:'Top 3 per categoria. Clicca "Vedi tutto" per esplorare.',how4t:'Prenota direttamente',how4d:'Vai direttamente dal fornitore. Nessuna commissione nascosta.',services:'servizi',city_Spain:'Spagna',city_Netherlands:'Paesi Bassi',city_Italy:'Italia',city_Czech:'Repubblica Ceca',city_Portugal:'Portogallo',city_Austria:'Austria',city_France:'Francia',city_Turkey:'Turchia',city_UK:'Regno Unito',city_Germany:'Germania',city_Japan:'Giappone',show_more:'Mostra altre 6 città',show_less:'Mostra meno'},
   nl:{flag:'&#127475;&#127473;',code:'NL',
     dest_ph:'Barcelona, Rome, Tokio…',dur_unit:'dagen',
     trav_solo:'Solo',trav_couple:'Stel',trav_family:'Familie',trav_group:'Groep',trav_business:'Zakelijk',
@@ -690,7 +723,7 @@ var LANGS={
     cat_health:'Gezondheid',cat_cameras:'Camera&#39;s',cat_electronics:'Elektronica',
     cat_toys:'Speelgoed',cat_pets:'Huisdieren',cat_food:'Eten',
     cat_home:'Huis',cat_luggage:'Bagage',cat_baby:'Baby',
-    cat_sport:'Sport',cat_software:'Software'},
+    cat_sport:'Sport',cat_software:'Software',pop_dest:'Populaire bestemmingen',updated:'Wekelijks bijgewerkt',nav_home:'Home',nav_privacy:'Privacy',nav_impressum:'Impressum',sub:'Vertel ons je bestemming. We stellen direct alles samen wat je nodig hebt: hotels, vervoer, uitrusting, activiteiten en meer.',how1t:'Vertel ons over je reis',how1d:'Bestemming, duur, met wie en budget. In 30 seconden klaar.',how2t:'Ontvang je kit',how2d:'We stellen direct diensten samen: hotels, vervoer, uitrusting, verzekering en meer.',how3t:'Zie alle opties',how3d:'Top 3 per categorie. Klik op "Alle tonen" voor meer.',how4t:'Direct boeken',how4d:'Ga direct naar de aanbieder. Geen verborgen kosten.',services:'diensten',city_Spain:'Spanje',city_Netherlands:'Nederland',city_Italy:'Italië',city_Czech:'Tsjechië',city_Portugal:'Portugal',city_Austria:'Oostenrijk',city_France:'Frankrijk',city_Turkey:'Turkije',city_UK:'VK',city_Germany:'Duitsland',city_Japan:'Japan',show_more:'Toon 6 meer steden',show_less:'Minder tonen'},
   pl:{flag:'&#127477;&#127473;',code:'PL',
     dest_ph:'Barcelona, Rzym, Tokio…',dur_unit:'dni',
     trav_solo:'Sam',trav_couple:'Para',trav_family:'Rodzina',trav_group:'Grupa',trav_business:'Biznes',
@@ -704,7 +737,7 @@ var LANGS={
     cat_health:'Zdrowie',cat_cameras:'Aparaty',cat_electronics:'Elektronika',
     cat_toys:'Zabawki',cat_pets:'Zwierzęta',cat_food:'Jedzenie',
     cat_home:'Dom',cat_luggage:'Bagaż',cat_baby:'Niemowlęta',
-    cat_sport:'Sport',cat_software:'Oprogramowanie'},
+    cat_sport:'Sport',cat_software:'Oprogramowanie',pop_dest:'Popularne destynacje',updated:'Aktualizowane co tydzień',nav_home:'Strona główna',nav_privacy:'Prywatność',nav_impressum:'Impressum',sub:'Powiedz nam o swojej destynacji. Natychmiast zestawiamy wszystko, czego potrzebujesz — hotele, transport, sprzęt, aktywności i więcej.',how1t:'Powiedz nam o podróży',how1d:'Destynacja, czas trwania, z kim i budżet. Gotowe w 30 sekund.',how2t:'Otrzymaj swój zestaw',how2d:'Zestawiamy usługi hoteli, transportu, sprzętu, ubezpieczeń i więcej.',how3t:'Zobacz wszystkie opcje',how3d:'Top 3 na kategorię. Kliknij "Pokaż wszystkie" by zobaczyć więcej.',how4t:'Zarezerwuj bezpośrednio',how4d:'Idź bezpośrednio do dostawcy. Bez ukrytych opłat.',services:'usług',city_Spain:'Hiszpania',city_Netherlands:'Holandia',city_Italy:'Włochy',city_Czech:'Czechy',city_Portugal:'Portugalia',city_Austria:'Austria',city_France:'Francja',city_Turkey:'Turcja',city_UK:'Wielka Brytania',city_Germany:'Niemcy',city_Japan:'Japonia',show_more:'Pokaż 6 więcej miast',show_less:'Pokaż mniej'},
   pt:{flag:'&#127477;&#127481;',code:'PT',
     dest_ph:'Barcelona, Roma, Tóquio…',dur_unit:'dias',
     trav_solo:'Solo',trav_couple:'Casal',trav_family:'Família',trav_group:'Grupo',trav_business:'Negócios',
@@ -718,7 +751,7 @@ var LANGS={
     cat_health:'Saúde',cat_cameras:'Câmeras',cat_electronics:'Electrónica',
     cat_toys:'Brinquedos',cat_pets:'Animais',cat_food:'Comida',
     cat_home:'Casa',cat_luggage:'Bagagem',cat_baby:'Bebé',
-    cat_sport:'Desporto',cat_software:'Software'},
+    cat_sport:'Desporto',cat_software:'Software',pop_dest:'Destinos populares',updated:'Atualizado semanalmente',nav_home:'Início',nav_privacy:'Privacidade',nav_impressum:'Aviso legal',sub:'Diga-nos o seu destino. Montamos instantaneamente tudo o que precisa — hotéis, transporte, equipamento, atividades e mais.',how1t:'Conte-nos a sua viagem',how1d:'Destino, duração, com quem e orçamento. Feito em 30 segundos.',how2t:'Receba o seu kit',how2d:'Montamos serviços de hotéis, transporte, equipamento, seguros e mais.',how3t:'Ver todas as opções',how3d:'Top 3 por categoria. Clique em "Ver tudo" para explorar.',how4t:'Reservar diretamente',how4d:'Vá diretamente ao fornecedor. Sem taxas ocultas.',services:'serviços',city_Spain:'Espanha',city_Netherlands:'Países Baixos',city_Italy:'Itália',city_Czech:'República Checa',city_Portugal:'Portugal',city_Austria:'Áustria',city_France:'França',city_Turkey:'Turquia',city_UK:'Reino Unido',city_Germany:'Alemanha',city_Japan:'Japão',show_more:'Ver mais 6 cidades',show_less:'Ver menos'},
   cs:{flag:'&#127464;&#127487;',code:'CS',
     dest_ph:'Barcelona, Řím, Tokio…',dur_unit:'dní',
     trav_solo:'Sám',trav_couple:'Pár',trav_family:'Rodina',trav_group:'Skupina',trav_business:'Služebně',
@@ -732,7 +765,7 @@ var LANGS={
     cat_health:'Zdraví',cat_cameras:'Fotoaparáty',cat_electronics:'Elektronika',
     cat_toys:'Hračky',cat_pets:'Zvířata',cat_food:'Jídlo',
     cat_home:'Dům',cat_luggage:'Zavazadla',cat_baby:'Kojenci',
-    cat_sport:'Sport',cat_software:'Software'},
+    cat_sport:'Sport',cat_software:'Software',pop_dest:'Oblíbené destinace',updated:'Aktualizováno každý týden',nav_home:'Domů',nav_privacy:'Ochrana soukromí',nav_impressum:'Impressum',sub:'Řekněte nám svůj cíl cesty. Okamžitě sestavíme vše, co potřebujete — hotely, dopravu, vybavení, aktivity a další.',how1t:'Řekněte nám o cestě',how1d:'Destinace, délka, s kým a rozpočet. Hotovo za 30 sekund.',how2t:'Získejte svůj kit',how2d:'Sestavíme služby hotelů, dopravy, vybavení, pojištění a dalšího.',how3t:'Zobrazit všechny možnosti',how3d:'Top 3 na kategorii. Klikněte na "Zobrazit vše" pro více.',how4t:'Rezervovat přímo',how4d:'Jděte přímo k poskytovateli. Žádné skryté poplatky.',services:'služeb',city_Spain:'Španělsko',city_Netherlands:'Nizozemsko',city_Italy:'Itálie',city_Czech:'Česká republika',city_Portugal:'Portugalsko',city_Austria:'Rakousko',city_France:'Francie',city_Turkey:'Turecko',city_UK:'Velká Británie',city_Germany:'Německo',city_Japan:'Japonsko',show_more:'Zobrazit 6 dalších měst',show_less:'Zobrazit méně'},
   sv:{flag:'&#127480;&#127466;',code:'SV',
     dest_ph:'Barcelona, Rom, Tokyo…',dur_unit:'dagar',
     trav_solo:'Ensam',trav_couple:'Par',trav_family:'Familj',trav_group:'Grupp',trav_business:'Affärsresa',
@@ -746,7 +779,7 @@ var LANGS={
     cat_health:'Hälsa',cat_cameras:'Kameror',cat_electronics:'Elektronik',
     cat_toys:'Leksaker',cat_pets:'Husdjur',cat_food:'Mat',
     cat_home:'Hem',cat_luggage:'Bagage',cat_baby:'Spädbarn',
-    cat_sport:'Sport',cat_software:'Mjukvara'},
+    cat_sport:'Sport',cat_software:'Mjukvara',pop_dest:'Populära destinationer',updated:'Uppdateras varje vecka',nav_home:'Hem',nav_privacy:'Integritet',nav_impressum:'Impressum',sub:'Berätta din destination. Vi sammanställer omedelbart allt du behöver — hotell, transport, utrustning, aktiviteter och mer.',how1t:'Berätta om din resa',how1d:'Destination, varaktighet, med vem och budget. Klart på 30 sekunder.',how2t:'Få ditt kit',how2d:'Vi sammanställer tjänster från hotell, transport, utrustning, försäkring och mer.',how3t:'Se alla alternativ',how3d:'Topp 3 per kategori. Klicka på "Se alla" för fler.',how4t:'Boka direkt',how4d:'Gå direkt till leverantören. Inga dolda avgifter.',services:'tjänster',city_Spain:'Spanien',city_Netherlands:'Nederländerna',city_Italy:'Italien',city_Czech:'Tjeckien',city_Portugal:'Portugal',city_Austria:'Österrike',city_France:'Frankrike',city_Turkey:'Turkiet',city_UK:'Storbritannien',city_Germany:'Tyskland',city_Japan:'Japan',show_more:'Visa 6 fler städer',show_less:'Visa färre'},
   da:{flag:'&#127465;&#127472;',code:'DA',
     dest_ph:'Barcelona, Rom, Tokyo…',dur_unit:'dage',
     trav_solo:'Alene',trav_couple:'Par',trav_family:'Familie',trav_group:'Gruppe',trav_business:'Forretning',
@@ -760,7 +793,7 @@ var LANGS={
     cat_health:'Sundhed',cat_cameras:'Kameraer',cat_electronics:'Elektronik',
     cat_toys:'Legetøj',cat_pets:'Kæledyr',cat_food:'Mad',
     cat_home:'Hjem',cat_luggage:'Bagage',cat_baby:'Baby',
-    cat_sport:'Sport',cat_software:'Software'},
+    cat_sport:'Sport',cat_software:'Software',pop_dest:'Populære destinationer',updated:'Opdateres ugentligt',nav_home:'Hjem',nav_privacy:'Privatliv',nav_impressum:'Impressum',sub:'Fortæl os din destination. Vi samler øjeblikkeligt alt, hvad du har brug for — hoteller, transport, udstyr, aktiviteter og mere.',how1t:'Fortæl os om din rejse',how1d:'Destination, varighed, hvem med og budget. Klart på 30 sekunder.',how2t:'Modtag dit kit',how2d:'Vi samler tjenester fra hoteller, transport, udstyr, forsikring og mere.',how3t:'Se alle muligheder',how3d:'Top 3 pr. kategori. Klik på "Se alle" for at udforske.',how4t:'Bestil direkte',how4d:'Gå direkte til udbyderen. Ingen skjulte gebyrer.',services:'tjenester',city_Spain:'Spanien',city_Netherlands:'Holland',city_Italy:'Italien',city_Czech:'Tjekkiet',city_Portugal:'Portugal',city_Austria:'Østrig',city_France:'Frankrig',city_Turkey:'Tyrkiet',city_UK:'UK',city_Germany:'Tyskland',city_Japan:'Japan',show_more:'Vis 6 flere byer',show_less:'Vis færre'},
   no:{flag:'&#127475;&#127476;',code:'NO',
     dest_ph:'Barcelona, Roma, Tokyo…',dur_unit:'dager',
     trav_solo:'Alene',trav_couple:'Par',trav_family:'Familie',trav_group:'Gruppe',trav_business:'Forretning',
@@ -774,7 +807,7 @@ var LANGS={
     cat_health:'Helse',cat_cameras:'Kameraer',cat_electronics:'Elektronikk',
     cat_toys:'Leker',cat_pets:'Kjæledyr',cat_food:'Mat',
     cat_home:'Hjem',cat_luggage:'Bagasje',cat_baby:'Baby',
-    cat_sport:'Sport',cat_software:'Programvare'},
+    cat_sport:'Sport',cat_software:'Programvare',pop_dest:'Populære destinasjoner',updated:'Oppdateres ukentlig',nav_home:'Hjem',nav_privacy:'Personvern',nav_impressum:'Impressum',sub:'Fortell oss destinasjonen din. Vi setter øyeblikkelig sammen alt du trenger — hoteller, transport, utstyr, aktiviteter og mer.',how1t:'Fortell oss om reisen',how1d:'Destinasjon, varighet, med hvem og budsjett. Ferdig på 30 sekunder.',how2t:'Motta ditt kit',how2d:'Vi setter sammen tjenester fra hoteller, transport, utstyr, forsikring og mer.',how3t:'Se alle alternativer',how3d:'Topp 3 per kategori. Klikk "Se alle" for mer.',how4t:'Bestill direkte',how4d:'Gå direkte til leverandøren. Ingen skjulte avgifter.',services:'tjenester',city_Spain:'Spania',city_Netherlands:'Nederland',city_Italy:'Italia',city_Czech:'Tsjekkia',city_Portugal:'Portugal',city_Austria:'Østerrike',city_France:'Frankrike',city_Turkey:'Tyrkia',city_UK:'Storbritannia',city_Germany:'Tyskland',city_Japan:'Japan',show_more:'Vis 6 flere byer',show_less:'Vis færre'},
   fi:{flag:'&#127467;&#127470;',code:'FI',
     dest_ph:'Barcelona, Rooma, Tokio…',dur_unit:'päivää',
     trav_solo:'Yksin',trav_couple:'Pariskunta',trav_family:'Perhe',trav_group:'Ryhmä',trav_business:'Työ',
@@ -788,7 +821,7 @@ var LANGS={
     cat_health:'Terveys',cat_cameras:'Kamerat',cat_electronics:'Elektroniikka',
     cat_toys:'Lelut',cat_pets:'Lemmikit',cat_food:'Ruoka',
     cat_home:'Koti',cat_luggage:'Matkalaukut',cat_baby:'Vauva',
-    cat_sport:'Urheilu',cat_software:'Ohjelmistot'}
+    cat_sport:'Urheilu',cat_software:'Ohjelmistot',pop_dest:'Suositut kohteet',updated:'Päivitetään viikoittain',nav_home:'Etusivu',nav_privacy:'Tietosuoja',nav_impressum:'Impressum',sub:'Kerro meille kohteesi. Kokoamme heti kaiken tarvitsemasi — hotellit, kuljetukset, varusteet, aktiviteetit ja paljon muuta.',how1t:'Kerro matkastasi',how1d:'Kohde, kesto, kenen kanssa ja budjetti. Valmis 30 sekunnissa.',how2t:'Saa oma kittisi',how2d:'Kokoamme palvelut hotelleista, kuljetuksista, varusteista, vakuutuksista ja muusta.',how3t:'Näe kaikki vaihtoehdot',how3d:'Top 3 per kategoria. Klikkaa "Näytä kaikki" tutustuaksesi kaikkiin.',how4t:'Varaa suoraan',how4d:'Mene suoraan palveluntarjoajalle. Ei piilomaksuja.',services:'palvelua',city_Spain:'Espanja',city_Netherlands:'Alankomaat',city_Italy:'Italia',city_Czech:'Tšekki',city_Portugal:'Portugali',city_Austria:'Itävalta',city_France:'Ranska',city_Turkey:'Turkki',city_UK:'Iso-Britannia',city_Germany:'Saksa',city_Japan:'Japani',show_more:'Näytä 6 lisää kaupunkia',show_less:'Näytä vähemmän'}
 };
 
 var currentLang='en';
@@ -828,7 +861,58 @@ function setLang(code,flag,label){
   if(fb) fb.textContent=t('btn');
   var cl=document.querySelector('.chips-label');
   if(cl) cl.textContent=t('popular');
-  // Re-render results if on results page
+  // Translate static page elements
+  var elPopDest = document.getElementById('i18n-pop-dest');
+  if(elPopDest) elPopDest.textContent = t('pop_dest');
+  var elUpdated = document.getElementById('i18n-updated');
+  if(elUpdated) elUpdated.textContent = t('updated');
+  var elNavHome = document.getElementById('i18n-nav-home');
+  if(elNavHome) elNavHome.textContent = t('nav_home');
+  var elNavPrivacy = document.getElementById('i18n-nav-privacy');
+  if(elNavPrivacy) elNavPrivacy.textContent = t('nav_privacy');
+  var elNavImpressum = document.getElementById('i18n-nav-impressum');
+  if(elNavImpressum) elNavImpressum.textContent = t('nav_impressum');
+  var elSub = document.getElementById('i18n-sub');
+  if(elSub) elSub.textContent = t('sub');
+  var elHow1t = document.getElementById('i18n-how1t');
+  if(elHow1t) elHow1t.textContent = t('how1t');
+  var elHow1d = document.getElementById('i18n-how1d');
+  if(elHow1d) elHow1d.textContent = t('how1d');
+  var elHow2t = document.getElementById('i18n-how2t');
+  if(elHow2t) elHow2t.textContent = t('how2t');
+  var elHow2d = document.getElementById('i18n-how2d');
+  if(elHow2d) elHow2d.textContent = t('how2d');
+  var elHow3t = document.getElementById('i18n-how3t');
+  if(elHow3t) elHow3t.textContent = t('how3t');
+  var elHow4t = document.getElementById('i18n-how4t');
+  if(elHow4t) elHow4t.textContent = t('how4t');
+  // City meta translations
+  var cityData = [
+    {id:'i18n-city-barcelona', country:'city_Spain', n:18},
+    {id:'i18n-city-amsterdam', country:'city_Netherlands', n:14},
+    {id:'i18n-city-rome', country:'city_Italy', n:16},
+    {id:'i18n-city-prague', country:'city_Czech', n:12},
+    {id:'i18n-city-lisbon', country:'city_Portugal', n:13},
+    {id:'i18n-city-vienna', country:'city_Austria', n:15},
+    {id:'i18n-city-paris', country:'city_France', n:17},
+    {id:'i18n-city-istanbul', country:'city_Turkey', n:11},
+    {id:'i18n-city-london', country:'city_UK', n:19},
+    {id:'i18n-city-berlin', country:'city_Germany', n:13},
+    {id:'i18n-city-madrid', country:'city_Spain', n:14},
+    {id:'i18n-city-tokyo', country:'city_Japan', n:12}
+  ];
+  cityData.forEach(function(c){
+    var el = document.getElementById(c.id);
+    if(el) el.textContent = t(c.country) + ' · ' + c.n + ' ' + t('services');
+  });
+
+    var elShowMore = document.getElementById('i18n-show-more');
+  if(elShowMore){
+    var smBtn = document.getElementById('showMoreBtn');
+    var isExp = smBtn && smBtn.getAttribute('data-expanded') === '1';
+    elShowMore.textContent = isExp ? t('show_less') : t('show_more');
+  }
+    // Re-render results if on results page
   var rp=document.getElementById('page-results');
   if(rp&&rp.classList.contains('active')){
     var title=document.getElementById('tripTitle');
