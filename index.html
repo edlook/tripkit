@@ -1344,7 +1344,7 @@ function applyLang(){
   if(popLabel) popLabel.textContent=t('pop_dest');
   var stripNote=qs('.strip-note');
   if(stripNote) stripNote.textContent=t('updated');
-  var howTitle=document.querySelectorAll('.strip-head .strip-title')[1];
+  var allStripTitles=qsa('.strip-head .strip-title');var howTitle=allStripTitles[1]||null;
   if(howTitle) howTitle.textContent=t('how_title');
   // How steps
   var howTitles=qsa('.how-title');
@@ -2031,7 +2031,7 @@ var adults=2,children=0;
 function fav(d){return'https://www.google.com/s2/favicons?domain='+d+'&sz=64'}
 
 function showPage(id){
-  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+  qsa('.page').forEach(function(p){p.classList.remove('active')});
   var p=document.getElementById('page-'+id);
   if(p){p.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
   var nav=document.getElementById('mainNav');
@@ -2049,7 +2049,7 @@ window.addEventListener('scroll',function(){
 
 function setDur(n){
   document.getElementById('days').value=n;
-  document.querySelectorAll('.dur-preset').forEach(function(b){
+  qsa('.dur-preset').forEach(function(b){
     b.classList.toggle('active',parseInt(b.textContent)===n);
   });
 }
