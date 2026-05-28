@@ -12,7 +12,7 @@
 <meta property="og:title" content="TripKit — Everything for your next trip">
 <meta property="og:description" content="Your complete trip kit in seconds. Hotels, transport, gear, activities and more.">
 <meta property="og:url" content="https://edlook.github.io/tripkit/">
-<meta property="og:image" content="https://images.unsplash.com/photo-1583422409516-42ff9b72c05d?w=1200&q=80">
+<meta property="og:image" content="https://images.unsplash.com/photo-1464790719320-516ecd75af6c?w=1200&q=80">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <meta name="description" content="Tell us where you're going. We assemble hotels, transport, gear, activities and more. Your complete trip kit in seconds.">
@@ -22,7 +22,7 @@
 <meta property="og:title" content="TripKit — Everything for your next trip">
 <meta property="og:description" content="Your complete trip kit in seconds. Hotels, transport, gear, activities and more.">
 <meta property="og:url" content="https://edlook.github.io/tripkit/">
-<meta property="og:image" content="https://images.unsplash.com/photo-1583422409516-42ff9b72c05d?w=1200&q=80">
+<meta property="og:image" content="https://images.unsplash.com/photo-1464790719320-516ecd75af6c?w=1200&q=80">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -83,7 +83,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 
 /* SEARCH FORM — glass card */
 .search-card{background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.8);border-radius:var(--r3);padding:18px;box-shadow:var(--sh2);max-width:640px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--text);border-radius:var(--r2) var(--r2) 0 0;margin-bottom:0;position:relative;z-index:1}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--text);border-radius:var(--r2);margin-bottom:12px;position:relative;z-index:1}
 .form-field{padding:11px 14px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white);transition:background .15s;position:relative}
 .form-field:focus-within{background:var(--off);z-index:1}
 .form-field:nth-child(2){border-right:none}
@@ -104,7 +104,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 
 /* Travellers expand */
 .travellers-extra{overflow:hidden;max-height:0;transition:max-height .35s ease,padding .35s ease,opacity .3s ease;opacity:0;border-radius:0 0 var(--r2) var(--r2);border:0 solid var(--line);margin-bottom:0}
-.travellers-extra.open{max-height:80px;opacity:1;padding:10px 16px;border:1px solid var(--line2);border-top:none;background:var(--off);margin-bottom:10px}
+.travellers-extra.open{max-height:80px;opacity:1;padding:10px 16px;border:1px solid var(--line2);background:var(--off);border-radius:var(--r2);margin-bottom:12px}
 .te-row{display:flex;gap:16px;align-items:center}
 .te-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2)}
 .te-counter{display:flex;align-items:center;gap:6px}
@@ -318,7 +318,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 <div class="loading" id="loading">
   <div class="loading-ring"></div>
   <div class="loading-dest" id="loadingDest">Barcelona</div>
-  <div class="loading-text">Building your trip kit&hellip;</div>
+  <div class="loading-text" id="loadingText">Building your trip kit&hellip;</div>
 </div>
 
 <div class="modal-bg" id="modalBg" onclick="closeModal(event)">
@@ -442,7 +442,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
     </div>
     <div class="city-grid">
       <div class="city-card" onclick="quickSearch('Barcelona','bg-bcn')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1583422409516-42ff9b72c05d?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1464790719320-516ecd75af6c?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div><span class="city-badge hot">Trending</span>
         <div class="city-info"><div class="city-name">Barcelona</div><div class="city-meta">Spain &middot; 18 services</div></div>
       </div>
@@ -828,6 +828,20 @@ function setLang(code,flag,label){
   if(fb) fb.textContent=t('btn');
   var cl=document.querySelector('.chips-label');
   if(cl) cl.textContent=t('popular');
+  // Re-render results if on results page
+  var rp=document.getElementById('page-results');
+  if(rp&&rp.classList.contains('active')){
+    var title=document.getElementById('tripTitle');
+    if(title){
+      var dest=title.querySelector('em');
+      var destText=dest?dest.textContent:'';
+      var days=document.getElementById('tripTagDays');
+      var daysNum=days?days.textContent.replace(/[^0-9]/g,''):'5';
+      var who=document.getElementById('travellers');
+      var budget=document.getElementById('budget');
+      if(destText&&who&&budget) renderResults(destText,daysNum,who.value,budget.value);
+    }
+  }
 }
 
 // Restore saved lang on load — ONLY update button, don't touch DOM
@@ -1503,6 +1517,7 @@ function buildKit(){
   var who=document.getElementById('travellers').value;
   var budget=document.getElementById('budget').value;
   document.getElementById('loadingDest').textContent=dest;
+  var lt=document.getElementById('loadingText');if(lt)lt.textContent=t('loading');
   document.getElementById('loading').classList.add('show');
   setTimeout(function(){
     document.getElementById('loading').classList.remove('show');
@@ -1544,10 +1559,15 @@ function renderResults(dest,days,who,budget){
   else if(who==='couple'){extraKeys=['health','fashion','food'];}
   else{extraKeys=['fashion','electronics','health'];}
 
-  var maybeLabels={toys:'Toys & Games',baby:'Baby & Toddler',health:'Health & Beauty',
-    software:'Software & Apps',luggage:'Luggage & Bags',electronics:'Electronics',
-    sport:'Sporting Goods',food:'Food & Drink',cameras:'Cameras & Optics',
-    fashion:'Clothing & Fashion',pets:'Pets & Supplies',home:'Home & Garden'};
+  var catKeyMap={stay:'cat_stay',transport:'cat_transport',activities:'cat_activities',
+    gear:'cat_gear',insurance:'cat_insurance',fashion:'cat_fashion',health:'cat_health',
+    cameras:'cat_cameras',electronics:'cat_electronics',toys:'cat_toys',pets:'cat_pets',
+    food:'cat_food',home:'cat_home',luggage:'cat_luggage',baby:'cat_baby',
+    sport:'cat_sport',software:'cat_software'};
+  var maybeLabels={};
+  ['toys','baby','health','software','luggage','electronics','sport','food','cameras','fashion','pets','home'].forEach(function(k){
+    maybeLabels[k]=t(catKeyMap[k])||k;
+  });
 
   var activeCats=[];
   mainKeys.forEach(function(k){if(CATS[k])activeCats.push({key:k,data:CATS[k]});});
@@ -1567,6 +1587,9 @@ function renderResults(dest,days,who,budget){
   activeCats.forEach(function(c){
     var cat=c.data;
     var key=c.key;
+    var tkey='cat_'+key;
+    var tlabel=t(tkey);
+    if(tlabel && tlabel!==tkey) cat=Object.assign({},cat,{title:tlabel});
     var icon=CAT_ICONS[key]||'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>';
 
     // Get all available (not yet shown on this page)
@@ -1608,7 +1631,7 @@ function renderResults(dest,days,who,budget){
   if(remainingMaybe.length>0){
     html+='<div class="maybe-section">'
       +'<div class="maybe-head"><span class="maybe-icon">&#10024;</span>'
-      +'<span class="maybe-title">Also useful for your trip</span>'
+      +'<span class="maybe-title">'+t('also')+'</span>'
       +'<span class="maybe-sub">Tap to explore</span></div>'
       +'<div class="maybe-cats">'
       +remainingMaybe.map(function(k){
