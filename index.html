@@ -1333,8 +1333,11 @@ function applyLang(){
     budSel.options[3].text=t('budget_luxury');
   }
   // Adults/children labels
-  qsa('.te-item span').forEach(function(el,i){
-    el.textContent=i===0?t('adults'):t('children');
+  qsa('.te-item').forEach(function(el,i){
+    var label=el.querySelector?el.querySelector('span:first-child'):null;
+    if(label&&!label.classList.contains('te-val')&&!label.id){
+      label.textContent=i===0?t('adults'):t('children');
+    }
   });
   // Build btn
   var btn=qs('.form-btn span:first-child');
