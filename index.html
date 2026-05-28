@@ -64,7 +64,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 
 /* SEARCH FORM — glass card */
 .search-card{background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.8);border-radius:var(--r3);padding:18px;box-shadow:var(--sh2);max-width:640px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--text);border-radius:var(--r2) var(--r2) 0 0;margin-bottom:0;position:relative;z-index:1}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--text);border-radius:var(--r2);margin-bottom:12px;position:relative;z-index:1}
 .form-field{padding:11px 14px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white);transition:background .15s;position:relative}
 .form-field:focus-within{background:var(--off);z-index:1}
 .form-field:nth-child(2){border-right:none}
@@ -84,8 +84,8 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 .dur-label{font-size:12px;color:var(--text3)}
 
 /* Travellers expand */
-.travellers-extra{overflow:hidden;max-height:0;transition:max-height .35s ease,padding .35s ease,opacity .3s ease;opacity:0;border-radius:0 0 var(--r2) var(--r2);border:0 solid var(--line);margin-bottom:0}
-.travellers-extra.open{max-height:80px;opacity:1;padding:10px 16px;border:1px solid var(--line2);border-top:none;background:var(--off);margin-bottom:10px}
+.travellers-extra{overflow:hidden;max-height:0;transition:max-height .35s ease,padding .35s ease,opacity .3s ease;opacity:0;border-radius:var(--r2);border:0 solid var(--line);margin-bottom:0}
+.travellers-extra.open{max-height:80px;opacity:1;padding:10px 16px;border:1px solid var(--line2);background:var(--off);border-radius:var(--r2);margin-bottom:12px}
 .te-row{display:flex;gap:16px;align-items:center}
 .te-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2)}
 .te-counter{display:flex;align-items:center;gap:6px}
