@@ -2096,6 +2096,7 @@ function buildKit(){
     document.getElementById('loading').classList.remove('show');
     renderResults(dest,days,who,budget);
     showPage('results');
+    alert('showPage results called, active page: '+document.querySelector('.page.active')?.id);
   },1400);
 }
 
