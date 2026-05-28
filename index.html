@@ -786,7 +786,9 @@ var MAYBE_ADVS={
     {name:'Refurbed',domain:'refurbed.de',tag:'Certified refurb cameras. Save up to 40%. Warranty included.',country:'AT'},
     {name:'B&H Photo',domain:'bhphotovideo.com',tag:'Professional photography and video equipment.',country:'US',featured:true},
     {name:'Foto Koch',domain:'fotokoch.de',tag:'German photography specialist. Wide selection.',country:'DE'},
+    {name:'Amazon Cameras',domain:'amazon.de',tag:'Huge range. Fast delivery. Camera and lens bundles.',country:'DE'},
     {name:'Calumet',domain:'calumetphoto.de',tag:'Professional photo and video equipment.',country:'DE'},
+    {name:'MediaMarkt',domain:'mediamarkt.de',tag:'Electronics retail. Cameras, lenses and accessories.',country:'DE'},
     {name:'Pixum',domain:'pixum.de',tag:'Photo printing and photo books.',country:'DE'},
             {name:'Saturn',domain:'saturn.de',tag:'Electronics specialist. Expert advice in-store.',country:'DE'},
     {name:'Canon',domain:'canon.de',tag:'Official Canon store. Cameras, lenses, printers.',country:'JP'},
@@ -819,6 +821,7 @@ var MAYBE_ADVS={
     {name:'Saturn',domain:'saturn.de',tag:'Electronics specialist. Wide product range.',country:'DE'},
     {name:'Conrad',domain:'conrad.de',tag:'Electronics, components and tech accessories.',country:'DE'},
     {name:'Cyberport',domain:'cyberport.de',tag:'IT and consumer electronics. Expert advice.',country:'DE'},
+    {name:'Eneba',domain:'eneba.com',tag:'Digital codes, software and gift cards.',country:'LT'},
     {name:'Notebooksbilliger',domain:'notebooksbilliger.de',tag:'Laptops and IT equipment at great prices.',country:'DE'},
     {name:'Alternate',domain:'alternate.de',tag:'PC components and electronics. Gamer favourite.',country:'DE'},
     {name:'Apple',domain:'apple.com',tag:'Official Apple store. iPhones, MacBooks, iPads.',country:'US'},
@@ -848,6 +851,7 @@ var MAYBE_ADVS={
     {name:'Bader',domain:'bader.de',tag:'Toys for all ages. Wide selection.',country:'DE'},
     {name:'Mytoys',domain:'mytoys.de',tag:'Germany&#39;s largest toy online shop.',country:'DE'},
         {name:'Smyths',domain:'smythstoys.com',tag:'Toy superstore. Competitive prices.',country:'IE'},
+    {name:'Amazon Toys',domain:'amazon.de',tag:'Huge toy selection. Fast delivery.',country:'DE'},
     {name:'Toys R Us',domain:'toysrus.de',tag:'Classic toy retailer. Wide range.',country:'DE'},
     {name:'Lego',domain:'lego.com',tag:'Official Lego store. Exclusive sets.',country:'DK'},
     {name:'Mattel',domain:'mattel.com',tag:'Barbie, Hot Wheels and more.',country:'US'},
@@ -878,6 +882,7 @@ var MAYBE_ADVS={
     {name:'Bader',domain:'bader.de',tag:'Pet accessories and supplies. Wide selection.',country:'DE',},
     {name:'Zooplus',domain:'zooplus.de',tag:'Europe&#39;s largest online pet shop. 8,000+ products.',country:'DE',featured:true},
     {name:'Fressnapf',domain:'fressnapf.de',tag:'Germany&#39;s leading pet supplies chain.',country:'DE'},
+    {name:'Amazon Pets',domain:'amazon.de',tag:'Huge range of pet supplies. Subscribe &amp; save.',country:'DE'},
     {name:'Petco',domain:'petco.com',tag:'Full-service pet store. Food, accessories and more.',country:'US'},
     {name:'Pets at Home',domain:'petsathome.com',tag:'UK pet superstore. Vet services available.',country:'UK'},
         {name:'Tiierisch',domain:'tiierisch.de',tag:'Online pet shop. All species covered.',country:'DE'},
@@ -942,6 +947,7 @@ var MAYBE_ADVS={
     {name:'Bader',domain:'bader.de',tag:'Home goods, furnishings and lifestyle.',country:'DE'},
     {name:'IKEA',domain:'ikea.de',tag:'Affordable Scandinavian home furnishing.',country:'SE',featured:true},
     {name:'Otto Home',domain:'otto.de',tag:'Furniture and home accessories. Wide range.',country:'DE'},
+    {name:'Amazon Home',domain:'amazon.de',tag:'Home and kitchen. Fast delivery.',country:'DE'},
     {name:'Home24',domain:'home24.de',tag:'Online furniture specialist. 200,000+ products.',country:'DE'},
     {name:'Wayfair',domain:'wayfair.de',tag:'Furniture and home decor. Huge selection.',country:'US'},
         {name:'Tchibo Home',domain:'tchibo.de',tag:'Weekly home drops. Quality at good prices.',country:'DE'},
@@ -972,6 +978,7 @@ var MAYBE_ADVS={
         {name:'Rose Bikes',domain:'rosebikes.de',tag:'Cycling and panniers bags. Active travel.',country:'DE'},
     {name:'Samsonite',domain:'samsonite.de',tag:'Premium luggage and travel bags. Built to last.',country:'US',featured:true},
     {name:'Rimowa',domain:'rimowa.com',tag:'Iconic aluminium suitcases. German luxury.',country:'DE'},
+    {name:'MandM Direct',domain:'mandmdirect.com',tag:'Discounted bags and travel accessories.',country:'UK'},
     {name:'Tumi',domain:'tumi.de',tag:'Premium business and travel bags.',country:'US'},
     {name:'Delsey',domain:'delsey.com',tag:'French luggage. Lightweight and durable.',country:'FR'},
     {name:'American Tourister',domain:'americantourister.de',tag:'Affordable quality luggage. Samsonite sister brand.',country:'US'},
@@ -1036,6 +1043,7 @@ var MAYBE_ADVS={
         {name:'Fanatics',domain:'fanatics.com',tag:'Official team kits and football gear.',country:'US'},
     {name:'Decathlon',domain:'decathlon.de',tag:'All sports, all budgets. 80+ sports covered.',country:'FR',featured:true},
     {name:'Nike',domain:'nike.com',tag:'Performance sportswear and footwear.',country:'US'},
+    {name:'MandM Direct',domain:'mandmdirect.com',tag:'Sports clothing at huge discounts.',country:'UK'},
     {name:'Adidas',domain:'adidas.de',tag:'Iconic sportswear. German heritage.',country:'DE'},
     {name:'Puma',domain:'puma.com',tag:'Sports and lifestyle. German brand.',country:'DE'},
     {name:'Under Armour',domain:'underarmour.de',tag:'Performance athletic wear.',country:'US'},
@@ -1167,7 +1175,7 @@ function buildKit(){
 function cardHTML(a){
   var d=a.domain;
   var el=document.createElement('div');
-  el.className='adv-card'+(a.featured?' featured':'');
+  el.className='adv-card'+((a.featured||a._promoted)?' featured':'');
   el.setAttribute('onclick','visit("'+d+'")');
   var badge='';
   if(a.featured) badge='<div class="adv-badge best">Best match</div>';
@@ -1222,22 +1230,24 @@ function renderResults(dest,days,who,budget){
     var key=c.key;
     var icon=CAT_ICONS[key]||'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>';
 
-    // Featured ALWAYS shows regardless of dedup
-    var feat=cat.advs.filter(function(a){return a.featured;});
-    // Non-featured: skip already used domains
-    var rest=shuffle(cat.advs.filter(function(a){return !a.featured && !usedDomains[a.domain];}));
-    var top3=feat.concat(rest).slice(0,3);
-
-    // If less than 3, fill from any non-featured
+    // Get all available (not yet shown on this page)
+    var available=cat.advs.filter(function(a){return !usedDomains[a.domain];});
+    // Featured first among available, then shuffle rest
+    var featAvail=available.filter(function(a){return a.featured;});
+    var restAvail=shuffle(available.filter(function(a){return !a.featured;}));
+    // If featured is blocked, promote first available as best match
+    var top3=featAvail.concat(restAvail).slice(0,3);
+    // Mark first as best match if featured was blocked
+    if(top3.length>0 && featAvail.length===0 && top3[0]){
+      top3[0]=Object.assign({},top3[0],{_promoted:true});
+    }
+    // Fill to 3 if needed
     if(top3.length<3){
-      var extra=shuffle(cat.advs.filter(function(a){
-        return !a.featured && top3.indexOf(a)===-1;
-      }));
+      var extra=shuffle(cat.advs.filter(function(a){return !usedDomains[a.domain]&&top3.indexOf(a)===-1;}));
       top3=top3.concat(extra).slice(0,3);
     }
-
-    // Only mark NON-featured domains as used (featured can appear in other categories too)
-    top3.filter(function(a){return !a.featured;}).forEach(function(a){usedDomains[a.domain]=true;});
+    // Mark all shown as used
+    top3.forEach(function(a){usedDomains[a.domain]=true;});
 
     html+='<div class="kit-section">'
       +'<div class="kit-head"><div class="kit-head-left">'
