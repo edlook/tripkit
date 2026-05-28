@@ -919,11 +919,10 @@ function setLang(code,flag,label){
   var smEl=document.getElementById('i18n-show-more');
   if(smEl) smEl.textContent=isExp?t('show_less'):t('show_more');
 
-  // ── Re-render results if visible ─────────────────────────────
-  var rp=document.querySelector('.page.active');
-  if(rp&&rp.id==='page-results'){
-    var title=document.getElementById('tripTitle');
-    if(title&&title._query) renderResults(title._query,title._trav,title._dur,title._budget);
+  // ── Re-render results if on results page ────────────────────────────
+  var _rp=document.getElementById('page-results');
+  if(_rp&&_rp.classList.contains('active')){
+    if(window._lastDest) renderResults(window._lastDest,window._lastDays,window._lastWho,window._lastBudget);
   }
 }
 
@@ -1603,7 +1602,7 @@ function buildKit(){
   document.getElementById('loading').classList.add('show');
   setTimeout(function(){
     document.getElementById('loading').classList.remove('show');
-    renderResults(dest,days,who,budget);
+    window._lastDest=dest;window._lastDays=days;window._lastWho=who;window._lastBudget=budget;renderResults(dest,days,who,budget);
     showPage('results');
   },1400);
 }
@@ -1614,14 +1613,14 @@ function cardHTML(a){
   el.className='adv-card'+((a.featured||a._promoted)?' featured':'');
   el.setAttribute('onclick','visit("'+d+'")');
   var badge='';
-  if(a.featured) badge='<div class="adv-badge best">Best match</div>';
-  else if(a.badge==='pop') badge='<div class="adv-badge pop">Popular</div>';
+  if(a.featured||a._promoted) badge='<div class="adv-badge best">'+t('badge_best')+'</div>';
+  else if(a.badge==='pop') badge='<div class="adv-badge pop">'+t('badge_pop')+'</div>';
   el.innerHTML=badge
     +'<div class="adv-logo-wrap"><img src="'+fav(d)+'" alt="" onerror="this.style.display=\x27none\x27;this.nextElementSibling.style.display=\x27flex\x27"><div class="adv-fallback" style="display:none">'+a.name.charAt(0)+'</div></div>'
     +'<div class="adv-name">'+a.name+'</div>'
     +'<div class="adv-tagline">'+a.tag+'</div>'
     +'<div class="adv-footer"><span class="adv-country">'+(a.country||'')+'</span>'
-    +'<button class="adv-btn" onclick="event.stopPropagation();visit(\''+d+'\')">Visit &#8594;</button></div>';
+    +'<button class="adv-btn" onclick="event.stopPropagation();visit(\''+d+'\')">'+t('visit')+' &#8594;</button></div>';
   return el.outerHTML;
 }
 
