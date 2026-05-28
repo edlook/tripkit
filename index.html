@@ -5,7 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TripKit — Everything for your next trip</title>
 <meta name="description" content="Tell us where you're going. We assemble everything you need — hotels, transport, gear, activities and more.">
+<meta name="description" content="Tell us where you're going. We assemble hotels, transport, gear, activities and more. Your complete trip kit in seconds.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://edlook.github.io/tripkit/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TripKit — Everything for your next trip">
+<meta property="og:description" content="Your complete trip kit in seconds. Hotels, transport, gear, activities and more.">
+<meta property="og:url" content="https://edlook.github.io/tripkit/">
+<meta property="og:image" content="https://images.unsplash.com/photo-1583422409516-42ff9b72c05d?w=1200&q=80">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="description" content="Tell us where you're going. We assemble hotels, transport, gear, activities and more. Your complete trip kit in seconds.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://edlook.github.io/tripkit/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TripKit — Everything for your next trip">
+<meta property="og:description" content="Your complete trip kit in seconds. Hotels, transport, gear, activities and more.">
+<meta property="og:url" content="https://edlook.github.io/tripkit/">
+<meta property="og:image" content="https://images.unsplash.com/photo-1583422409516-42ff9b72c05d?w=1200&q=80">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -48,6 +66,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 .nav-links{display:flex;gap:6px}
 .nav-link{font-size:13px;padding:6px 12px;border-radius:var(--r);cursor:pointer;transition:all .15s;color:rgba(255,255,255,.7)}
 .nav.scrolled .nav-link{color:var(--text2)}
+.nav.scrolled #lbtn{color:var(--text2)!important;background:var(--off)!important;border-color:var(--line)!important}
 .nav-link:hover{background:rgba(255,255,255,.12);color:#fff}
 .nav.scrolled .nav-link:hover{background:var(--off);color:var(--text)}
 
@@ -100,7 +119,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 /* Chips */
 .chips-wrap{margin-top:16px}
 .chips-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.5);margin-bottom:8px;position:relative;z-index:1}
-.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chips-wrap-outer{position:relative;overflow:hidden}.chips{display:flex;gap:7px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:2px}.chips::-webkit-scrollbar{display:none}.chips-fade{position:absolute;right:0;top:0;bottom:2px;width:60px;background:linear-gradient(to left,rgba(8,6,4,.7),transparent);pointer-events:none}
 .chip{font-size:12px;font-weight:500;color:rgba(255,255,255,.8);background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:6px 14px;cursor:pointer;transition:all .2s}
 .chip:hover{background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.35)}
 
@@ -272,6 +291,27 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
     <span class="nav-link" onclick="showPage('home')">Home</span>
     <span class="nav-link" onclick="showPage('privacy')">Privacy</span>
     <span class="nav-link" onclick="showPage('impressum')">Impressum</span>
+    <div style="position:relative;margin-left:4px">
+      <button onclick="var lm=document.getElementById('lm');lm.style.display=lm.style.display==='block'?'none':'block'" style="display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:rgba(255,255,255,.9);background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:5px 10px;cursor:pointer;font-family:inherit;white-space:nowrap" id="lbtn">
+        <span id="lf">&#127468;&#127463;</span><span id="lc">EN</span>
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <div id="lm" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid #e8e5e0;border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,.12);min-width:190px;z-index:500;overflow-y:auto;max-height:340px">
+        <div onclick="setLang('en','&#127468;&#127463;','EN')" style="padding:9px 16px;font-size:13px;color:#5a574f;cursor:pointer" onmouseover="this.style.background='#f7f6f3'" onmouseout="this.style.background=''">&#127468;&#127463; EN &mdash; English</div>
+        <div onclick="setLang('de','&#127465;&#127466;','DE')" style="padding:9px 16px;font-size:13px;color:#5a574f;cursor:pointer" onmouseover="this.style.background='#f7f6f3'" onmouseout="this.style.background=''">&#127465;&#127466; DE &mdash; Deutsch</div>
+        <div onclick="setLang('fr','&#127467;&#127479;','FR')" style="padding:9px 16px;font-size:13px;color:#5a574f;cursor:pointer" onmouseover="this.style.background='#f7f6f3'" onmouseout="this.style.background=''">&#127467;&#127479; FR &mdash; Fran&ccedil;ais</div>
+        <div onclick="setLang('es','&#127466;&#127480;','ES')" style="padding:9px 16px;font-size:13px;color:#5a574f;cursor:pointer" onmouseover="this.style.background='#f7f6f3'" onmouseout="this.style.background=''">&#127466;&#127480; ES &mdash; Espa&ntilde;ol</div>
+        <div onclick="setLang('it','&#127470;&#127481;','IT')" style="padding:9px 16px;font-size:13px;color:#5a574f;cursor:pointer" onmouseover="this.style.background='#f7f6f3'" onmouseout="this.style.background=''">&#127470;&#127481; IT &mdash; Italiano</div>
+        <div onclick="setLang('nl','&#127475;&#127473;','NL')" style="padding:9px 16px;font-size:13px;color:#5a574f;cursor:pointer" onmouseover="this.style.background='#f7f6f3'" onmouseout="this.style.background=''">&#127475;&#127473; NL &mdash; Nederlands</div>
+        <div onclick="setLang('pl','&#127477;&#127473;','PL')" style="padding:9px 16px;font-size:13px;color:#5a574f;cursor:pointer" onmouseover="this.style.background='#f7f6f3'" onmouseout="this.style.background=''">&#127477;&#127473; PL &mdash; Polski</div>
+        <div onclick="setLang('pt','&#127477;&#127481;','PT')" style="padding:9px 16px;font-size:13px;color:#5a574f;cursor:pointer" onmouseover="this.style.background='#f7f6f3'" onmouseout="this.style.background=''">&#127477;&#127481; PT &mdash; Portugu&ecirc;s</div>
+        <div onclick="setLang('cs','&#127464;&#127487;','CS')" style="padding:9px 16px;font-size:13px;color:#5a574f;cursor:pointer" onmouseover="this.style.background='#f7f6f3'" onmouseout="this.style.background=''">&#127464;&#127487; CS &mdash; &Ccaron;e&scaron;tina</div>
+        <div onclick="setLang('sv','&#127480;&#127466;','SV')" style="padding:9px 16px;font-size:13px;color:#5a574f;cursor:pointer" onmouseover="this.style.background='#f7f6f3'" onmouseout="this.style.background=''">&#127480;&#127466; SV &mdash; Svenska</div>
+        <div onclick="setLang('da','&#127465;&#127472;','DA')" style="padding:9px 16px;font-size:13px;color:#5a574f;cursor:pointer" onmouseover="this.style.background='#f7f6f3'" onmouseout="this.style.background=''">&#127465;&#127472; DA &mdash; Dansk</div>
+        <div onclick="setLang('no','&#127475;&#127476;','NO')" style="padding:9px 16px;font-size:13px;color:#5a574f;cursor:pointer" onmouseover="this.style.background='#f7f6f3'" onmouseout="this.style.background=''">&#127475;&#127476; NO &mdash; Norsk</div>
+        <div onclick="setLang('fi','&#127467;&#127470;','FI')" style="padding:9px 16px;font-size:13px;color:#5a574f;cursor:pointer" onmouseover="this.style.background='#f7f6f3'" onmouseout="this.style.background=''">&#127467;&#127470; FI &mdash; Suomi</div>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -364,6 +404,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
       </div>
       <div class="chips-wrap">
         <p class="chips-label">Popular right now</p>
+        <div class="chips-wrap-outer">
         <div class="chips">
           <span class="chip" onclick="quickSearch('Barcelona','bg-bcn')">Barcelona</span>
           <span class="chip" onclick="quickSearch('Amsterdam','bg-ams')">Amsterdam</span>
@@ -373,6 +414,22 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
           <span class="chip" onclick="quickSearch('Vienna','bg-vie')">Vienna</span>
           <span class="chip" onclick="quickSearch('Paris','bg-bcn')">Paris</span>
           <span class="chip" onclick="quickSearch('Istanbul','bg-rom')">Istanbul</span>
+          <span class="chip" onclick="quickSearch('London')">London</span>
+          <span class="chip" onclick="quickSearch('Berlin')">Berlin</span>
+          <span class="chip" onclick="quickSearch('Madrid')">Madrid</span>
+          <span class="chip" onclick="quickSearch('Dubai')">Dubai</span>
+          <span class="chip" onclick="quickSearch('Tokyo')">Tokyo</span>
+          <span class="chip" onclick="quickSearch('Bali')">Bali</span>
+          <span class="chip" onclick="quickSearch('New York')">New York</span>
+          <span class="chip" onclick="quickSearch('Bangkok')">Bangkok</span>
+          <span class="chip" onclick="quickSearch('Athens')">Athens</span>
+          <span class="chip" onclick="quickSearch('Budapest')">Budapest</span>
+          <span class="chip" onclick="quickSearch('Florence')">Florence</span>
+          <span class="chip" onclick="quickSearch('Copenhagen')">Copenhagen</span>
+          <span class="chip" onclick="quickSearch('Munich')">Munich</span>
+          <span class="chip" onclick="quickSearch('Tenerife')">Tenerife</span>
+        </div>
+        <div class="chips-fade"></div>
         </div>
       </div>
     </div>
@@ -385,12 +442,12 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
     </div>
     <div class="city-grid">
       <div class="city-card" onclick="quickSearch('Barcelona','bg-bcn')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1583422409516-42ff9b72c05d?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div><span class="city-badge hot">Trending</span>
         <div class="city-info"><div class="city-name">Barcelona</div><div class="city-meta">Spain &middot; 18 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Amsterdam','bg-ams')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div><span class="city-badge new">New kits</span>
         <div class="city-info"><div class="city-name">Amsterdam</div><div class="city-meta">Netherlands &middot; 14 services</div></div>
       </div>
@@ -410,9 +467,39 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
         <div class="city-info"><div class="city-name">Lisbon</div><div class="city-meta">Portugal &middot; 13 services</div></div>
       </div>
       <div class="city-card" onclick="quickSearch('Vienna','bg-vie')">
-        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&w=1600&q=80&ixlib=rb-4.0.3')"></div>
         <div class="city-grad"></div>
         <div class="city-info"><div class="city-name">Vienna</div><div class="city-meta">Austria &middot; 11 services</div></div>
+      </div>
+      <div class="city-card" onclick="quickSearch('London')">
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="city-grad"></div><span class="city-badge hot">Trending</span>
+        <div class="city-info"><div class="city-name">London</div><div class="city-meta">UK &middot; 16 services</div></div>
+      </div>
+      <div class="city-card" onclick="quickSearch('Berlin')">
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="city-grad"></div>
+        <div class="city-info"><div class="city-name">Berlin</div><div class="city-meta">Germany &middot; 14 services</div></div>
+      </div>
+      <div class="city-card" onclick="quickSearch('Dubai')">
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="city-grad"></div><span class="city-badge top">Top rated</span>
+        <div class="city-info"><div class="city-name">Dubai</div><div class="city-meta">UAE &middot; 13 services</div></div>
+      </div>
+      <div class="city-card" onclick="quickSearch('Tokyo')">
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="city-grad"></div><span class="city-badge new">New kits</span>
+        <div class="city-info"><div class="city-name">Tokyo</div><div class="city-meta">Japan &middot; 12 services</div></div>
+      </div>
+      <div class="city-card" onclick="quickSearch('Bali')">
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="city-grad"></div><span class="city-badge hot">Trending</span>
+        <div class="city-info"><div class="city-name">Bali</div><div class="city-meta">Indonesia &middot; 11 services</div></div>
+      </div>
+      <div class="city-card" onclick="quickSearch('Madrid')">
+        <div class="city-img" style="background-image:url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="city-grad"></div>
+        <div class="city-info"><div class="city-name">Madrid</div><div class="city-meta">Spain &middot; 13 services</div></div>
       </div>
     </div>
   </section>
@@ -519,6 +606,250 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
 </div>
 
 <script>
+var LANGS={
+  en:{flag:'&#127468;&#127463;',code:'EN',
+    dest_ph:'Barcelona, Rome, Tokyo…',dur_unit:'days',
+    trav_solo:'Solo',trav_couple:'Couple',trav_family:'Family',trav_group:'Group',trav_business:'Business',
+    budget_budget:'Budget',budget_mid:'Mid-range',budget_comfort:'Comfort',budget_luxury:'Luxury',
+    btn:'Build my trip kit',popular:'Popular right now',
+    badge_best:'Best match',badge_pop:'Popular',visit:'Visit',
+    see_all:'See all',options:'options',also:'Also useful for your trip',tap:'Tap to explore',
+    edit_trip:'Edit trip →',days:'days',loading:'Building your trip kit…',
+    cat_stay:'Where to stay',cat_transport:'Getting there',cat_activities:'Things to do',
+    cat_gear:'What to pack',cat_insurance:'Travel insurance',cat_fashion:'Clothing & Fashion',
+    cat_health:'Health & Beauty',cat_cameras:'Cameras & Optics',cat_electronics:'Electronics',
+    cat_toys:'Toys & Games',cat_pets:'Pets & Supplies',cat_food:'Food & Drink',
+    cat_home:'Home & Garden',cat_luggage:'Luggage & Bags',cat_baby:'Baby & Toddler',
+    cat_sport:'Sporting Goods',cat_software:'Software & Apps'},
+  de:{flag:'&#127465;&#127466;',code:'DE',
+    dest_ph:'Barcelona, Rom, Tokio…',dur_unit:'Tage',
+    trav_solo:'Allein',trav_couple:'Paar',trav_family:'Familie',trav_group:'Gruppe',trav_business:'Geschäft',
+    budget_budget:'Günstig',budget_mid:'Mittelklasse',budget_comfort:'Komfort',budget_luxury:'Luxus',
+    btn:'Mein Reisekit erstellen',popular:'Gerade beliebt',
+    badge_best:'Beste Wahl',badge_pop:'Beliebt',visit:'Besuchen',
+    see_all:'Alle anzeigen',options:'Optionen',also:'Auch nützlich für deine Reise',tap:'Zum Erkunden tippen',
+    edit_trip:'Reise bearbeiten →',days:'Tage',loading:'Dein Reisekit wird erstellt…',
+    cat_stay:'Unterkunft',cat_transport:'Anreise',cat_activities:'Aktivitäten',
+    cat_gear:'Was einpacken',cat_insurance:'Reiseversicherung',cat_fashion:'Kleidung & Mode',
+    cat_health:'Gesundheit & Schönheit',cat_cameras:'Kameras & Optik',cat_electronics:'Elektronik',
+    cat_toys:'Spielzeug & Spiele',cat_pets:'Haustiere',cat_food:'Essen & Trinken',
+    cat_home:'Haus & Garten',cat_luggage:'Gepäck & Taschen',cat_baby:'Baby & Kleinkind',
+    cat_sport:'Sportartikel',cat_software:'Software & Apps'},
+  fr:{flag:'&#127467;&#127479;',code:'FR',
+    dest_ph:'Barcelone, Rome, Tokyo…',dur_unit:'jours',
+    trav_solo:'Solo',trav_couple:'Couple',trav_family:'Famille',trav_group:'Groupe',trav_business:'Affaires',
+    budget_budget:'Économique',budget_mid:'Milieu de gamme',budget_comfort:'Confort',budget_luxury:'Luxe',
+    btn:'Créer mon kit de voyage',popular:'Populaire en ce moment',
+    badge_best:'Meilleur choix',badge_pop:'Populaire',visit:'Visiter',
+    see_all:'Voir tout',options:'options',also:'Aussi utile pour votre voyage',tap:'Appuyez pour explorer',
+    edit_trip:'Modifier →',days:'jours',loading:'Création de votre kit…',
+    cat_stay:'Hébergement',cat_transport:'Transport',cat_activities:'Activités',
+    cat_gear:'Quoi emporter',cat_insurance:'Assurance voyage',cat_fashion:'Mode',
+    cat_health:'Santé & Beauté',cat_cameras:'Appareils photo',cat_electronics:'Électronique',
+    cat_toys:'Jouets',cat_pets:'Animaux',cat_food:'Alimentation',
+    cat_home:'Maison',cat_luggage:'Bagages',cat_baby:'Bébé',
+    cat_sport:'Sport',cat_software:'Logiciels'},
+  es:{flag:'&#127466;&#127480;',code:'ES',
+    dest_ph:'Barcelona, Roma, Tokio…',dur_unit:'días',
+    trav_solo:'Solo',trav_couple:'Pareja',trav_family:'Familia',trav_group:'Grupo',trav_business:'Negocios',
+    budget_budget:'Económico',budget_mid:'Gama media',budget_comfort:'Confort',budget_luxury:'Lujo',
+    btn:'Crear mi kit de viaje',popular:'Popular ahora mismo',
+    badge_best:'Mejor opción',badge_pop:'Popular',visit:'Visitar',
+    see_all:'Ver todo',options:'opciones',also:'También útil para tu viaje',tap:'Toca para explorar',
+    edit_trip:'Editar →',days:'días',loading:'Creando tu kit…',
+    cat_stay:'Alojamiento',cat_transport:'Transporte',cat_activities:'Actividades',
+    cat_gear:'Qué empacar',cat_insurance:'Seguro de viaje',cat_fashion:'Moda',
+    cat_health:'Salud & Belleza',cat_cameras:'Cámaras',cat_electronics:'Electrónica',
+    cat_toys:'Juguetes',cat_pets:'Mascotas',cat_food:'Comida',
+    cat_home:'Hogar',cat_luggage:'Equipaje',cat_baby:'Bebé',
+    cat_sport:'Deporte',cat_software:'Software'},
+  it:{flag:'&#127470;&#127481;',code:'IT',
+    dest_ph:'Barcellona, Roma, Tokyo…',dur_unit:'giorni',
+    trav_solo:'Solo',trav_couple:'Coppia',trav_family:'Famiglia',trav_group:'Gruppo',trav_business:'Lavoro',
+    budget_budget:'Economico',budget_mid:'Media gamma',budget_comfort:'Comfort',budget_luxury:'Lusso',
+    btn:'Crea il mio kit viaggio',popular:'Popolare adesso',
+    badge_best:'Migliore scelta',badge_pop:'Popolare',visit:'Visita',
+    see_all:'Vedi tutto',options:'opzioni',also:'Utile anche per il tuo viaggio',tap:'Tocca per esplorare',
+    edit_trip:'Modifica →',days:'giorni',loading:'Creazione kit…',
+    cat_stay:'Alloggio',cat_transport:'Trasporto',cat_activities:'Attività',
+    cat_gear:'Cosa portare',cat_insurance:'Assicurazione',cat_fashion:'Moda',
+    cat_health:'Salute & Bellezza',cat_cameras:'Fotocamere',cat_electronics:'Elettronica',
+    cat_toys:'Giocattoli',cat_pets:'Animali',cat_food:'Cibo',
+    cat_home:'Casa',cat_luggage:'Bagagli',cat_baby:'Neonati',
+    cat_sport:'Sport',cat_software:'Software'},
+  nl:{flag:'&#127475;&#127473;',code:'NL',
+    dest_ph:'Barcelona, Rome, Tokio…',dur_unit:'dagen',
+    trav_solo:'Solo',trav_couple:'Stel',trav_family:'Familie',trav_group:'Groep',trav_business:'Zakelijk',
+    budget_budget:'Budget',budget_mid:'Middensegment',budget_comfort:'Comfort',budget_luxury:'Luxe',
+    btn:'Maak mijn reiskit',popular:'Nu populair',
+    badge_best:'Beste keuze',badge_pop:'Populair',visit:'Bezoeken',
+    see_all:'Alles zien',options:'opties',also:'Ook handig voor je reis',tap:'Tik om te verkennen',
+    edit_trip:'Bewerken →',days:'dagen',loading:'Reiskit samenstellen…',
+    cat_stay:'Verblijf',cat_transport:'Vervoer',cat_activities:'Activiteiten',
+    cat_gear:'Wat inpakken',cat_insurance:'Reisverzekering',cat_fashion:'Mode',
+    cat_health:'Gezondheid',cat_cameras:'Camera&#39;s',cat_electronics:'Elektronica',
+    cat_toys:'Speelgoed',cat_pets:'Huisdieren',cat_food:'Eten',
+    cat_home:'Huis',cat_luggage:'Bagage',cat_baby:'Baby',
+    cat_sport:'Sport',cat_software:'Software'},
+  pl:{flag:'&#127477;&#127473;',code:'PL',
+    dest_ph:'Barcelona, Rzym, Tokio…',dur_unit:'dni',
+    trav_solo:'Sam',trav_couple:'Para',trav_family:'Rodzina',trav_group:'Grupa',trav_business:'Biznes',
+    budget_budget:'Budżetowy',budget_mid:'Średnio',budget_comfort:'Komfort',budget_luxury:'Luksus',
+    btn:'Utwórz zestaw podróżny',popular:'Popularne teraz',
+    badge_best:'Najlepszy wybór',badge_pop:'Popularny',visit:'Odwiedź',
+    see_all:'Pokaż wszystkie',options:'opcji',also:'Przydatne też na Twoją podróż',tap:'Dotknij, aby odkryć',
+    edit_trip:'Edytuj →',days:'dni',loading:'Tworzenie zestawu…',
+    cat_stay:'Nocleg',cat_transport:'Transport',cat_activities:'Atrakcje',
+    cat_gear:'Co spakować',cat_insurance:'Ubezpieczenie',cat_fashion:'Odzież',
+    cat_health:'Zdrowie',cat_cameras:'Aparaty',cat_electronics:'Elektronika',
+    cat_toys:'Zabawki',cat_pets:'Zwierzęta',cat_food:'Jedzenie',
+    cat_home:'Dom',cat_luggage:'Bagaż',cat_baby:'Niemowlęta',
+    cat_sport:'Sport',cat_software:'Oprogramowanie'},
+  pt:{flag:'&#127477;&#127481;',code:'PT',
+    dest_ph:'Barcelona, Roma, Tóquio…',dur_unit:'dias',
+    trav_solo:'Solo',trav_couple:'Casal',trav_family:'Família',trav_group:'Grupo',trav_business:'Negócios',
+    budget_budget:'Económico',budget_mid:'Médio',budget_comfort:'Conforto',budget_luxury:'Luxo',
+    btn:'Criar o meu kit de viagem',popular:'Popular agora',
+    badge_best:'Melhor escolha',badge_pop:'Popular',visit:'Visitar',
+    see_all:'Ver tudo',options:'opções',also:'Também útil para a tua viagem',tap:'Toca para explorar',
+    edit_trip:'Editar →',days:'dias',loading:'A criar o kit…',
+    cat_stay:'Alojamento',cat_transport:'Transporte',cat_activities:'Atividades',
+    cat_gear:'O que levar',cat_insurance:'Seguro',cat_fashion:'Moda',
+    cat_health:'Saúde',cat_cameras:'Câmeras',cat_electronics:'Electrónica',
+    cat_toys:'Brinquedos',cat_pets:'Animais',cat_food:'Comida',
+    cat_home:'Casa',cat_luggage:'Bagagem',cat_baby:'Bebé',
+    cat_sport:'Desporto',cat_software:'Software'},
+  cs:{flag:'&#127464;&#127487;',code:'CS',
+    dest_ph:'Barcelona, Řím, Tokio…',dur_unit:'dní',
+    trav_solo:'Sám',trav_couple:'Pár',trav_family:'Rodina',trav_group:'Skupina',trav_business:'Služebně',
+    budget_budget:'Rozpočtový',budget_mid:'Střední',budget_comfort:'Komfort',budget_luxury:'Luxus',
+    btn:'Vytvořit cestovní kit',popular:'Populární teď',
+    badge_best:'Nejlepší volba',badge_pop:'Oblíbené',visit:'Navštívit',
+    see_all:'Zobrazit vše',options:'možností',also:'Také užitečné',tap:'Klepni pro průzkum',
+    edit_trip:'Upravit →',days:'dní',loading:'Vytváří se kit…',
+    cat_stay:'Ubytování',cat_transport:'Doprava',cat_activities:'Aktivity',
+    cat_gear:'Co sbalit',cat_insurance:'Pojištění',cat_fashion:'Móda',
+    cat_health:'Zdraví',cat_cameras:'Fotoaparáty',cat_electronics:'Elektronika',
+    cat_toys:'Hračky',cat_pets:'Zvířata',cat_food:'Jídlo',
+    cat_home:'Dům',cat_luggage:'Zavazadla',cat_baby:'Kojenci',
+    cat_sport:'Sport',cat_software:'Software'},
+  sv:{flag:'&#127480;&#127466;',code:'SV',
+    dest_ph:'Barcelona, Rom, Tokyo…',dur_unit:'dagar',
+    trav_solo:'Ensam',trav_couple:'Par',trav_family:'Familj',trav_group:'Grupp',trav_business:'Affärsresa',
+    budget_budget:'Budget',budget_mid:'Mellanklass',budget_comfort:'Komfort',budget_luxury:'Lyx',
+    btn:'Skapa mitt resekit',popular:'Populärt just nu',
+    badge_best:'Bästa valet',badge_pop:'Populär',visit:'Besök',
+    see_all:'Visa alla',options:'alternativ',also:'Också användbart',tap:'Tryck för att utforska',
+    edit_trip:'Redigera →',days:'dagar',loading:'Skapar resekit…',
+    cat_stay:'Boende',cat_transport:'Transport',cat_activities:'Aktiviteter',
+    cat_gear:'Vad packa',cat_insurance:'Reseförsäkring',cat_fashion:'Mode',
+    cat_health:'Hälsa',cat_cameras:'Kameror',cat_electronics:'Elektronik',
+    cat_toys:'Leksaker',cat_pets:'Husdjur',cat_food:'Mat',
+    cat_home:'Hem',cat_luggage:'Bagage',cat_baby:'Spädbarn',
+    cat_sport:'Sport',cat_software:'Mjukvara'},
+  da:{flag:'&#127465;&#127472;',code:'DA',
+    dest_ph:'Barcelona, Rom, Tokyo…',dur_unit:'dage',
+    trav_solo:'Alene',trav_couple:'Par',trav_family:'Familie',trav_group:'Gruppe',trav_business:'Forretning',
+    budget_budget:'Budget',budget_mid:'Mellemklasse',budget_comfort:'Komfort',budget_luxury:'Luksus',
+    btn:'Opret mit rejsesæt',popular:'Populært lige nu',
+    badge_best:'Bedste valg',badge_pop:'Populær',visit:'Besøg',
+    see_all:'Se alle',options:'muligheder',also:'Også nyttigt',tap:'Tryk for at udforske',
+    edit_trip:'Rediger →',days:'dage',loading:'Opretter rejsesæt…',
+    cat_stay:'Overnatning',cat_transport:'Transport',cat_activities:'Aktiviteter',
+    cat_gear:'Hvad pakkes',cat_insurance:'Rejseforsikring',cat_fashion:'Mode',
+    cat_health:'Sundhed',cat_cameras:'Kameraer',cat_electronics:'Elektronik',
+    cat_toys:'Legetøj',cat_pets:'Kæledyr',cat_food:'Mad',
+    cat_home:'Hjem',cat_luggage:'Bagage',cat_baby:'Baby',
+    cat_sport:'Sport',cat_software:'Software'},
+  no:{flag:'&#127475;&#127476;',code:'NO',
+    dest_ph:'Barcelona, Roma, Tokyo…',dur_unit:'dager',
+    trav_solo:'Alene',trav_couple:'Par',trav_family:'Familie',trav_group:'Gruppe',trav_business:'Forretning',
+    budget_budget:'Budsjett',budget_mid:'Mellomklasse',budget_comfort:'Komfort',budget_luxury:'Luksus',
+    btn:'Lag mitt reisesett',popular:'Populært akkurat nå',
+    badge_best:'Beste valg',badge_pop:'Populær',visit:'Besøk',
+    see_all:'Se alle',options:'alternativer',also:'Også nyttig',tap:'Trykk for å utforske',
+    edit_trip:'Rediger →',days:'dager',loading:'Lager reisesett…',
+    cat_stay:'Overnatting',cat_transport:'Transport',cat_activities:'Aktiviteter',
+    cat_gear:'Hva pakkes',cat_insurance:'Reiseforsikring',cat_fashion:'Klær',
+    cat_health:'Helse',cat_cameras:'Kameraer',cat_electronics:'Elektronikk',
+    cat_toys:'Leker',cat_pets:'Kjæledyr',cat_food:'Mat',
+    cat_home:'Hjem',cat_luggage:'Bagasje',cat_baby:'Baby',
+    cat_sport:'Sport',cat_software:'Programvare'},
+  fi:{flag:'&#127467;&#127470;',code:'FI',
+    dest_ph:'Barcelona, Rooma, Tokio…',dur_unit:'päivää',
+    trav_solo:'Yksin',trav_couple:'Pariskunta',trav_family:'Perhe',trav_group:'Ryhmä',trav_business:'Työ',
+    budget_budget:'Budjetti',budget_mid:'Keskiluokka',budget_comfort:'Mukavuus',budget_luxury:'Luksus',
+    btn:'Luo matkapakettini',popular:'Suosittua juuri nyt',
+    badge_best:'Paras valinta',badge_pop:'Suosittu',visit:'Vieraile',
+    see_all:'Näytä kaikki',options:'vaihtoehtoa',also:'Hyödyllinen myös',tap:'Napauta tutkiaksesi',
+    edit_trip:'Muokkaa →',days:'päivää',loading:'Luodaan matkapakettia…',
+    cat_stay:'Majoitus',cat_transport:'Liikenne',cat_activities:'Aktiviteetit',
+    cat_gear:'Mitä pakata',cat_insurance:'Matkavakuutus',cat_fashion:'Muoti',
+    cat_health:'Terveys',cat_cameras:'Kamerat',cat_electronics:'Elektroniikka',
+    cat_toys:'Lelut',cat_pets:'Lemmikit',cat_food:'Ruoka',
+    cat_home:'Koti',cat_luggage:'Matkalaukut',cat_baby:'Vauva',
+    cat_sport:'Urheilu',cat_software:'Ohjelmistot'}
+};
+
+var currentLang='en';
+
+function t(k){return(LANGS[currentLang]||LANGS.en)[k]||(LANGS.en[k]||k);}
+
+function setLang(code,flag,label){
+  currentLang=code;
+  var lf=document.getElementById('lf');
+  var lc=document.getElementById('lc');
+  var lm=document.getElementById('lm');
+  if(lf) lf.innerHTML=flag;
+  if(lc) lc.textContent=label;
+  if(lm) lm.style.display='none';
+  try{localStorage.setItem('tk_lang',code+'|'+flag+'|'+label);}catch(e){}
+  // Update form placeholders and selects
+  var di=document.getElementById('dest');
+  if(di) di.placeholder=t('dest_ph');
+  var dl=document.querySelector('.dur-label');
+  if(dl) dl.textContent=t('dur_unit');
+  var ts=document.getElementById('travellers');
+  if(ts&&ts.options.length>=5){
+    ts.options[0].text=t('trav_solo');
+    ts.options[1].text=t('trav_couple');
+    ts.options[2].text=t('trav_family');
+    ts.options[3].text=t('trav_group');
+    ts.options[4].text=t('trav_business');
+  }
+  var bs=document.getElementById('budget');
+  if(bs&&bs.options.length>=4){
+    bs.options[0].text=t('budget_budget');
+    bs.options[1].text=t('budget_mid');
+    bs.options[2].text=t('budget_comfort');
+    bs.options[3].text=t('budget_luxury');
+  }
+  var fb=document.querySelector('.form-btn span:first-child');
+  if(fb) fb.textContent=t('btn');
+  var cl=document.querySelector('.chips-label');
+  if(cl) cl.textContent=t('popular');
+}
+
+// Restore saved lang on load — ONLY update button, don't touch DOM
+(function(){
+  try{
+    var saved=localStorage.getItem('tk_lang');
+    if(!saved){
+      var bl=(navigator.language||'en').slice(0,2).toLowerCase();
+      if(LANGS[bl]) saved=bl+'|'+LANGS[bl].flag+'|'+LANGS[bl].code;
+    }
+    if(saved){
+      var parts=saved.split('|');
+      if(parts.length>=3&&LANGS[parts[0]]){
+        currentLang=parts[0];
+        window.addEventListener('DOMContentLoaded',function(){
+          setLang(parts[0],parts[1],parts[2]);
+        });
+      }
+    }
+  }catch(e){}
+})();
+
 function shuffle(arr){
   var a=arr.slice();
   for(var i=a.length-1;i>0;i--){
@@ -1116,6 +1447,14 @@ function showPage(id){
   if(id==='home'){nav.classList.remove('scrolled')}else{nav.classList.add('scrolled')}
 }
 
+document.addEventListener('click',function(e){
+  var lm=document.getElementById('lm');
+  var lb=document.getElementById('lbtn');
+  if(lm&&lb&&!lb.contains(e.target)&&!lm.contains(e.target)){
+    lm.style.display='none';
+    lm.classList.remove('lmopen');
+  }
+});
 window.addEventListener('scroll',function(){
   var nav=document.getElementById('mainNav');
   var home=document.getElementById('page-home');
