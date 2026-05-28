@@ -1234,24 +1234,22 @@ function renderResults(dest,days,who,budget){
     var key=c.key;
     var icon=CAT_ICONS[key]||'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>';
 
-    // Get available ads (not yet used in another category)
-    var available=cat.advs.filter(function(a){return !usedDomains[a.domain];});
-
-    // Sort: featured first, then shuffle rest
-    var feat=available.filter(function(a){return a.featured;});
-    var rest=shuffle(available.filter(function(a){return !a.featured;}));
+    // Featured ALWAYS shows regardless of dedup
+    var feat=cat.advs.filter(function(a){return a.featured;});
+    // Non-featured: skip already used domains
+    var rest=shuffle(cat.advs.filter(function(a){return !a.featured && !usedDomains[a.domain];}));
     var top3=feat.concat(rest).slice(0,3);
 
-    // If we couldn't fill 3 (all used), grab from full list as fallback
+    // If less than 3, fill from any non-featured
     if(top3.length<3){
-      var fallback=shuffle(cat.advs.filter(function(a){
-        return top3.indexOf(a)===-1;
+      var extra=shuffle(cat.advs.filter(function(a){
+        return !a.featured && top3.indexOf(a)===-1;
       }));
-      top3=top3.concat(fallback).slice(0,3);
+      top3=top3.concat(extra).slice(0,3);
     }
 
-    // Mark ALL shown domains as used
-    top3.forEach(function(a){usedDomains[a.domain]=true;});
+    // Only mark NON-featured domains as used (featured can appear in other categories too)
+    top3.filter(function(a){return !a.featured;}).forEach(function(a){usedDomains[a.domain]=true;});
 
     html+='<div class="kit-section">'
       +'<div class="kit-head"><div class="kit-head-left">'
