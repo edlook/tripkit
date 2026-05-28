@@ -443,7 +443,7 @@ button{font-family:var(--ff-body);cursor:pointer;border:none;background:none}
     <div class="trip-hero">
       <div class="trip-hero-inner">
         <div>
-          <div class="trip-title" id="tripTitle"><em>Barcelona</em></div>
+          <div class="trip-title" id="tripTitle"></div>
           <div class="trip-tags">
             <span class="trip-tag" id="tripTagDays">5 days</span>
             <span class="trip-tag" id="tripTagWho">Couple</span>
@@ -643,8 +643,9 @@ var CATS={
     {name:'AutoEurope',domain:'autoeurope.de',tag:'Car hire specialists for Europe. Best rate guarantee.',country:'DE'},
   ]},
   activities:{title:'Things to do',icon:'activities',cls:'activities',advs:[
+    {name:'Legoland',domain:'legoland.de',tag:'Theme parks across Europe. Great for the whole family.',country:'DE',featured:true},
     
-    {name:'Fanatics',domain:'fanatics.com',tag:'Official team merchandise and stadium gear.',country:'US',badge:'pop'},
+    {name:'Fanatics',domain:'fanatics.com',tag:'Official team merchandise and stadium gear.',country:'US'},
     {name:'GetYourGuide',domain:'getyourguide.com',tag:'Tours, tickets and experiences in 150+ cities.',country:'DE'},
     {name:'Viator',domain:'viator.com',tag:'Day trips, excursions and local experiences.',country:'US'},
     {name:'Joyn',domain:'joyn.de',tag:'German streaming. Films and series for the journey.',country:'DE'},
@@ -820,7 +821,7 @@ var MAYBE_ADVS={
   electronics:[
     {name:'Refurbed',domain:'refurbed.de',tag:'Certified refurb phones, tablets and laptops.',country:'AT'},
     {name:'Allegro',domain:'allegro.pl',tag:'Electronics marketplace. Competitive prices.',country:'PL'},
-    {name:'Eneba',domain:'eneba.com',tag:'Digital codes, software and gift cards.',country:'LT',featured:true},
+    {name:'Eneba',domain:'eneba.com',tag:'Digital codes, software and gift cards.',country:'LT'},
     {name:'MediaMarkt',domain:'mediamarkt.de',tag:'Germany&#39;s largest electronics retailer.',country:'DE',featured:true},
     {name:'Saturn',domain:'saturn.de',tag:'Electronics specialist. Wide product range.',country:'DE'},
     {name:'Conrad',domain:'conrad.de',tag:'Electronics, components and tech accessories.',country:'DE'},
@@ -850,7 +851,7 @@ var MAYBE_ADVS={
     {name:'Dyson',domain:'dyson.de',tag:'Innovative vacuums, hair tools and air purifiers.',country:'UK'},
   ],
   toys:[
-    {name:'Legoland',domain:'legoland.de',tag:'Lego sets and theme park tickets.',country:'DE',featured:true},
+    
     {name:'Bader',domain:'bader.de',tag:'Toys for all ages. Wide selection.',country:'DE'},
     {name:'Mytoys',domain:'mytoys.de',tag:'Germany&#39;s largest toy online shop.',country:'DE'},
     {name:'Amazon Toys',domain:'amazon.de',tag:'Huge toy selection. Fast delivery.',country:'DE'},
@@ -1074,7 +1075,7 @@ var MAYBE_ADVS={
     {name:'POC',domain:'pocsports.com',tag:'Safety-focused cycling and ski helmets.',country:'SE'},
   ],
   software:[
-    {name:'Eneba',domain:'eneba.com',tag:'Games, software keys and subscriptions. Best prices.',country:'LT'},
+    {name:'Eneba',domain:'eneba.com',tag:'Games, software keys and subscriptions. Best prices.',country:'LT',featured:true},
     {name:'Joyn',domain:'joyn.de',tag:'Free streaming. German TV and films.',country:'DE'},
     {name:'Verivox',domain:'verivox.de',tag:'Compare mobile and internet plans.',country:'DE'},
     {name:'Check24',domain:'check24.de',tag:'Compare all digital services and tariffs.',country:'DE'},
@@ -1162,7 +1163,7 @@ function quickSearch(dest,bgClass){
 }
 
 function buildKit(){
-  var dest=document.getElementById('dest').value.trim()||'Your destination';
+  var dest=document.getElementById('dest').value.trim()||'destination';
   var days=document.getElementById('days').value;
   var who=document.getElementById('travellers').value;
   var budget=document.getElementById('budget').value;
