@@ -1133,106 +1133,106 @@ var CAT_ICONS={
 };
 var CATS={
   stay:{title:'Where to stay',icon:'stay',cls:'stay',advs:[
-    {name:'Marriott',domain:'marriott.com',tag:'Premium hotels worldwide. Loyalty points every stay.',country:'US',featured:true},
-    {name:'B&B Hotels',domain:'hotel-bb.com',tag:'Smart budget city hotels. Great locations across Europe.',country:'DE',badge:'pop'},
-    {name:'e-hoi',domain:'e-hoi.de',tag:'Cruise + hotel packages. Ideal for coastal destinations.',country:'DE'},
-    {name:'DerTour',domain:'dertour.de',tag:'Full holiday packages. Hotel, flights and transfers combined.',country:'DE'},
-    {name:'Reisen Aktuell',domain:'reisenaktuell.com',tag:'Bundled travel deals. Great value for longer stays.',country:'DE'},
-    {name:'Allegro',domain:'allegro.pl',tag:'Eastern Europe accommodation and travel deals.',country:'PL'},
-    {name:'Hotels.com',domain:'hotels.com',tag:'Huge selection. Collect 10 nights, get 1 free.',country:'US'},
-    {name:'Hostelworld',domain:'hostelworld.com',tag:'Hostels and budget stays. Perfect for solo travellers.',country:'IE'},
-    {name:'Adagio',domain:'adagio-city.com',tag:'Serviced apartments. Great for longer stays.',country:'FR'},
-    {name:'Novotel',domain:'novotel.com',tag:'Accor mid-range hotels. Reliable quality worldwide.',country:'FR'},
-    {name:'Ibis',domain:'ibis.com',tag:'Budget-friendly Accor hotels in 75 countries.',country:'FR'},
-    {name:'Radisson',domain:'radissonhotels.com',tag:'Upper-midscale hotels. Strong in Europe and Asia.',country:'US'},
-    {name:'NH Hotels',domain:'nh-hotels.com',tag:'Urban hotels across Europe. Business and leisure.',country:'ES'},
-    {name:'Melia',domain:'melia.com',tag:'Spanish hotel chain. Strong in Mediterranean destinations.',country:'ES'},
-    {name:'Travelodge',domain:'travelodge.co.uk',tag:'UK budget hotels. Simple, clean, affordable.',country:'UK'},
-    {name:'Premier Inn',domain:'premierinn.com',tag:'UK and Germany. Consistently rated top budget chain.',country:'UK'},
-    {name:'Hyatt',domain:'hyatt.com',tag:'Upscale global chain. World of Hyatt rewards.',country:'US'},
-    {name:'Hilton',domain:'hilton.com',tag:'Global premium hotels. Hilton Honors loyalty program.',country:'US'},
-    {name:'InterContinental',domain:'ihg.com',tag:'IHG hotels worldwide. Holiday Inn to InterContinental.',country:'UK'},
-    {name:'Best Western',domain:'bestwestern.com',tag:'Independent hotels network. 4,000+ properties worldwide.',country:'US'},
+    {name:'Marriott',domain:'marriott.com',tag:'Premium hotels worldwide. Loyalty points every stay.',country:'US',featured:true,b:[3,4],w:['solo','couple','business'],m:['en','de','fr','es','it']},
+    {name:'B&B Hotels',domain:'hotel-bb.com',tag:'Smart budget city hotels. Great locations across Europe.',country:'DE',badge:'pop',b:[1,2],w:['solo','couple','group'],m:['de','fr','it','nl','pl']},
+    {name:'e-hoi',domain:'e-hoi.de',tag:'Cruise + hotel packages. Ideal for coastal destinations.',country:'DE',b:[2,3],w:['couple','family','group'],m:['de','at','ch']},
+    {name:'DerTour',domain:'dertour.de',tag:'Full holiday packages. Hotel, flights and transfers combined.',country:'DE',b:[2,3,4],w:['couple','family','group'],m:['de','at','ch']},
+    {name:'Reisen Aktuell',domain:'reisenaktuell.com',tag:'Bundled travel deals. Great value for longer stays.',country:'DE',b:[2,3],w:['couple','family','group'],m:['de','at']},
+    {name:'Allegro',domain:'allegro.pl',tag:'Eastern Europe accommodation and travel deals.',country:'PL',b:[1,2],w:['solo','couple','family'],m:['pl']},
+    {name:'Hotels.com',domain:'hotels.com',tag:'Huge selection. Collect 10 nights, get 1 free.',country:'US',b:[2,3],w:['solo','couple','family','group','business'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi']},
+    {name:'Hostelworld',domain:'hostelworld.com',tag:'Hostels and budget stays. Perfect for solo travellers.',country:'IE',b:[1],w:['solo','couple','group'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi']},
+    {name:'Adagio',domain:'adagio-city.com',tag:'Serviced apartments. Great for longer stays.',country:'FR',b:[2,3],w:['solo','couple','family'],m:['fr','de','es','it']},
+    {name:'Novotel',domain:'novotel.com',tag:'Accor mid-range hotels. Reliable quality worldwide.',country:'FR',b:[3],w:['couple','family','business'],m:['fr','de','es','it']},
+    {name:'Ibis',domain:'ibis.com',tag:'Budget-friendly Accor hotels in 75 countries.',country:'FR',b:[1,2],w:['solo','couple'],m:['fr','de','es','it','pl']},
+    {name:'Radisson',domain:'radissonhotels.com',tag:'Upper-midscale hotels. Strong in Europe and Asia.',country:'US',b:[3,4],w:['couple','business'],m:['en','de','nl','sv','da','no']},
+    {name:'NH Hotels',domain:'nh-hotels.com',tag:'Urban hotels across Europe. Business and leisure.',country:'ES',b:[3],w:['couple','business'],m:['es','de','it','nl']},
+    {name:'Melia',domain:'melia.com',tag:'Spanish hotel chain. Strong in Mediterranean destinations.',country:'ES',b:[3,4],w:['couple','family'],m:['es','de','fr','it','pt']},
+    {name:'Travelodge',domain:'travelodge.co.uk',tag:'UK budget hotels. Simple, clean, affordable.',country:'UK',b:[1,2],w:['solo','couple'],m:['en']},
+    {name:'Premier Inn',domain:'premierinn.com',tag:'UK and Germany. Consistently rated top budget chain.',country:'UK',b:[2],w:['solo','couple','family'],m:['en']},
+    {name:'Hyatt',domain:'hyatt.com',tag:'Upscale global chain. World of Hyatt rewards.',country:'US',b:[4],w:['couple','business'],m:['en','de','fr']},
+    {name:'Hilton',domain:'hilton.com',tag:'Global premium hotels. Hilton Honors loyalty program.',country:'US',b:[3,4],w:['couple','business'],m:['en','de','fr','es','it']},
+    {name:'InterContinental',domain:'ihg.com',tag:'IHG hotels worldwide. Holiday Inn to InterContinental.',country:'UK',b:[4],w:['couple','business'],m:['en','de','fr']},
+    {name:'Best Western',domain:'bestwestern.com',tag:'Independent hotels network. 4,000+ properties worldwide.',country:'US',b:[2,3],w:['solo','couple','family'],m:['en','de','fr','es','it']},
   ]},
   transport:{title:'Getting there',icon:'transport',cls:'transport',advs:[
     {name:'DerTour',domain:'dertour.de',tag:'Flights + hotels combined. Often the cheapest option.',country:'DE',featured:true},
-    {name:'AnyVan',domain:'anyvan.com',tag:'Airport transfers and city transport. Fixed pricing.',country:'UK',badge:'pop'},
+    {name:'AnyVan',domain:'anyvan.com',tag:'Airport transfers and city transport. Fixed pricing.',country:'UK',badge:'pop',b:[1,2],w:['solo','couple','family','group'],m:['en']},
     {name:'e-hoi',domain:'e-hoi.de',tag:'Ferry and cruise routes across Europe.',country:'DE'},
-    {name:'Europcar',domain:'europcar.com',tag:'Car rental across Europe. Flexible pick-up and drop-off.',country:'FR'},
-    {name:'Sixt',domain:'sixt.de',tag:'Premium car rental. Airport and city centre locations.',country:'DE'},
-    {name:'FlixBus',domain:'flixbus.de',tag:'Budget coach travel across Europe. 2,500 destinations.',country:'DE'},
-    {name:'Trainline',domain:'thetrainline.com',tag:'European rail tickets. Compare and book in minutes.',country:'UK'},
+    {name:'Europcar',domain:'europcar.com',tag:'Car rental across Europe. Flexible pick-up and drop-off.',country:'FR',b:[2,3],w:['solo','couple','family','group'],m:['fr','de','es','it','nl','pt']},
+    {name:'Sixt',domain:'sixt.de',tag:'Premium car rental. Airport and city centre locations.',country:'DE',b:[3,4],w:['couple','business'],m:['de','en','fr','es','it']},
+    {name:'FlixBus',domain:'flixbus.de',tag:'Budget coach travel across Europe. 2,500 destinations.',country:'DE',b:[1],w:['solo','couple','group'],m:['de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi']},
+    {name:'Trainline',domain:'thetrainline.com',tag:'European rail tickets. Compare and book in minutes.',country:'UK',b:[1,2,3],w:['solo','couple','family','group','business'],m:['en','fr','de','es','it']},
     {name:'Reisen Aktuell',domain:'reisenaktuell.com',tag:'Organised coach tours across Europe.',country:'DE'},
-    {name:'Hertz',domain:'hertz.com',tag:'Global car rental. Trusted for business and leisure.',country:'US'},
-    {name:'Avis',domain:'avis.com',tag:'Worldwide car rental. Avis Preferred loyalty program.',country:'US'},
-    {name:'Budget Car Rental',domain:'budget.com',tag:'Affordable car hire at airports and cities.',country:'US'},
-    {name:'Rentalcars',domain:'rentalcars.com',tag:'Compare car hire from all major providers.',country:'UK'},
-    {name:'BlaBlaCar',domain:'blablacar.de',tag:'Carpooling across Europe. Cheap and social.',country:'FR'},
-    {name:'Omio',domain:'omio.com',tag:'Book trains, buses and flights across Europe.',country:'DE'},
-    {name:'Busbud',domain:'busbud.com',tag:'Intercity bus tickets worldwide. 12,000+ destinations.',country:'CA'},
-    {name:'GoEuro',domain:'goeuro.com',tag:'Compare all transport options across Europe.',country:'DE'},
-    {name:'Alamo',domain:'alamo.com',tag:'Car rental with great leisure rates.',country:'US'},
-    {name:'Enterprise',domain:'enterprise.com',tag:'Largest car rental company. Global coverage.',country:'US'},
-    {name:'National Car Rental',domain:'nationalcar.com',tag:'Business-focused car rental worldwide.',country:'US'},
-    {name:'AutoEurope',domain:'autoeurope.de',tag:'Car hire specialists for Europe. Best rate guarantee.',country:'DE'},
+    {name:'Hertz',domain:'hertz.com',tag:'Global car rental. Trusted for business and leisure.',country:'US',b:[3,4],w:['couple','business'],m:['en','de','fr','es']},
+    {name:'Avis',domain:'avis.com',tag:'Worldwide car rental. Avis Preferred loyalty program.',country:'US',b:[3,4],w:['couple','business'],m:['en','de','fr','es','it']},
+    {name:'Budget Car Rental',domain:'budget.com',tag:'Affordable car hire at airports and cities.',country:'US',b:[1,2],w:['solo','couple'],m:['en','de','fr']},
+    {name:'Rentalcars',domain:'rentalcars.com',tag:'Compare car hire from all major providers.',country:'UK',b:[2,3],w:['solo','couple','family'],m:['en','de','fr','es','nl','pl','pt']},
+    {name:'BlaBlaCar',domain:'blablacar.de',tag:'Carpooling across Europe. Cheap and social.',country:'FR',b:[1],w:['solo','couple'],m:['fr','de','es','it','pl','pt','cs','ru']},
+    {name:'Omio',domain:'omio.com',tag:'Book trains, buses and flights across Europe.',country:'DE',b:[1,2,3],w:['solo','couple','family','group'],m:['de','en','fr','es','it','nl','pl','pt','cs','sv']},
+    {name:'Busbud',domain:'busbud.com',tag:'Intercity bus tickets worldwide. 12,000+ destinations.',country:'CA',b:[1],w:['solo','couple','group'],m:['en','fr','pt','es']},
+    {name:'GoEuro',domain:'goeuro.com',tag:'Compare all transport options across Europe.',country:'DE',b:[1,2],w:['solo','couple','group'],m:['de','en','fr','es','it','nl','pl']},
+    {name:'Alamo',domain:'alamo.com',tag:'Car rental with great leisure rates.',country:'US',b:[2],w:['couple','family'],m:['en']},
+    {name:'Enterprise',domain:'enterprise.com',tag:'Largest car rental company. Global coverage.',country:'US',b:[2,3],w:['couple','family','business'],m:['en']},
+    {name:'National Car Rental',domain:'nationalcar.com',tag:'Business-focused car rental worldwide.',country:'US',b:[3,4],w:['business'],m:['en']},
+    {name:'AutoEurope',domain:'autoeurope.de',tag:'Car hire specialists for Europe. Best rate guarantee.',country:'DE',b:[2,3],w:['couple','family'],m:['de','en','fr','es','it','nl','pt']},
   ]},
   activities:{title:'Things to do',icon:'activities',cls:'activities',advs:[
-    {name:'Legoland',domain:'legoland.de',tag:'Theme parks across Europe. Great for the whole family.',country:'DE',featured:true},
+    {name:'Legoland',domain:'legoland.de',tag:'Theme parks across Europe. Great for the whole family.',country:'DE',featured:true,b:[2,3],w:['family'],m:['de','en','nl','da','sv']},
     
-    {name:'Fanatics',domain:'fanatics.com',tag:'Official team merchandise and stadium gear.',country:'US'},
-    {name:'GetYourGuide',domain:'getyourguide.com',tag:'Tours, tickets and experiences in 150+ cities.',country:'DE'},
-    {name:'Viator',domain:'viator.com',tag:'Day trips, excursions and local experiences.',country:'US'},
-    {name:'Joyn',domain:'joyn.de',tag:'German streaming. Films and series for the journey.',country:'DE'},
+    {name:'Fanatics',domain:'fanatics.com',tag:'Official team merchandise and stadium gear.',country:'US',b:[1,2,3],w:['solo','couple','group'],m:['en','de']},
+    {name:'GetYourGuide',domain:'getyourguide.com',tag:'Tours, tickets and experiences in 150+ cities.',country:'DE',b:[1,2,3,4],w:['solo','couple','family','group','business'],m:['de','en','fr','es','it','nl','pl','pt','cs','sv','da','no','fi']},
+    {name:'Viator',domain:'viator.com',tag:'Day trips, excursions and local experiences.',country:'US',b:[2,3,4],w:['couple','family','group'],m:['en','de','fr','es','it','pt']},
+    {name:'Joyn',domain:'joyn.de',tag:'German streaming. Films and series for the journey.',country:'DE',b:[2,3],w:['solo','couple','family'],m:['de']},
 
-    {name:'Klook',domain:'klook.com',tag:'Activities and attraction passes. Best for Asia.',country:'HK'},
-    {name:'Musement',domain:'musement.com',tag:'Museum tickets and cultural experiences across Europe.',country:'IT'},
-    {name:'Tiqets',domain:'tiqets.com',tag:'Instant tickets to museums and attractions.',country:'NL'},
-    {name:'Airbnb Experiences',domain:'airbnb.com',tag:'Unique local experiences hosted by locals.',country:'US'},
-    {name:'Cookly',domain:'cookly.me',tag:'Cooking classes and food tours worldwide.',country:'TH'},
-    {name:'Peek',domain:'peek.com',tag:'Adventure activities and tours. Book instantly.',country:'US'},
-    {name:'Expedia Activities',domain:'expedia.com',tag:'Tours and activities bundled with hotel deals.',country:'US'},
-    {name:'Isango',domain:'isango.com',tag:'Sightseeing tours and day trips. 5,000+ experiences.',country:'UK'},
-    {name:'Trip.com Activities',domain:'trip.com',tag:'Local experiences. Strong in Asia and Europe.',country:'CN'},
-    {name:'Civitatis',domain:'civitatis.com',tag:'Tours and activities. Very strong for Spain and LatAm.',country:'ES'},
-    {name:'Veltra',domain:'veltra.com',tag:'Tours from locals. Unique experiences off the beaten path.',country:'JP'},
-    {name:'FareHarbor',domain:'fareharbor.com',tag:'Water sports, cycling tours and outdoor activities.',country:'US'},
-    {name:'Rezdy',domain:'rezdy.com',tag:'Local operator activities. Authentic experiences.',country:'AU'},
-    {name:'Headout',domain:'headout.com',tag:'Last-minute tickets and instant booking for attractions.',country:'US'},
+    {name:'Klook',domain:'klook.com',tag:'Activities and attraction passes. Best for Asia.',country:'HK',b:[1,2,3],w:['solo','couple','family','group'],m:['en']},
+    {name:'Musement',domain:'musement.com',tag:'Museum tickets and cultural experiences across Europe.',country:'IT',b:[2,3],w:['couple','family'],m:['it','de','fr','es']},
+    {name:'Tiqets',domain:'tiqets.com',tag:'Instant tickets to museums and attractions.',country:'NL',b:[2,3],w:['couple','family'],m:['nl','de','fr','es','it','en']},
+    {name:'Airbnb Experiences',domain:'airbnb.com',tag:'Unique local experiences hosted by locals.',country:'US',b:[2,3,4],w:['solo','couple','family','group'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi']},
+    {name:'Cookly',domain:'cookly.me',tag:'Cooking classes and food tours worldwide.',country:'TH',b:[2,3],w:['couple','family','group'],m:['en']},
+    {name:'Peek',domain:'peek.com',tag:'Adventure activities and tours. Book instantly.',country:'US',b:[2,3],w:['solo','couple','family'],m:['en']},
+    {name:'Expedia Activities',domain:'expedia.com',tag:'Tours and activities bundled with hotel deals.',country:'US',b:[2,3,4],w:['solo','couple','family','group','business'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi']},
+    {name:'Isango',domain:'isango.com',tag:'Sightseeing tours and day trips. 5,000+ experiences.',country:'UK',b:[2,3],w:['couple','family','group'],m:['en']},
+    {name:'Trip.com Activities',domain:'trip.com',tag:'Local experiences. Strong in Asia and Europe.',country:'CN',b:[1,2,3],w:['solo','couple','family','group'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi']},
+    {name:'Civitatis',domain:'civitatis.com',tag:'Tours and activities. Very strong for Spain and LatAm.',country:'ES',b:[1,2,3],w:['solo','couple','family','group'],m:['es','pt','it','fr']},
+    {name:'Veltra',domain:'veltra.com',tag:'Tours from locals. Unique experiences off the beaten path.',country:'JP',b:[2,3],w:['couple','family'],m:['en','ja']},
+    {name:'FareHarbor',domain:'fareharbor.com',tag:'Water sports, cycling tours and outdoor activities.',country:'US',b:[2,3],w:['solo','couple','family','group'],m:['en']},
+    {name:'Rezdy',domain:'rezdy.com',tag:'Local operator activities. Authentic experiences.',country:'AU',b:[2,3],w:['couple','family','group'],m:['en']},
+    {name:'Headout',domain:'headout.com',tag:'Last-minute tickets and instant booking for attractions.',country:'US',b:[2,3],w:['solo','couple','family'],m:['en']},
   ]},
   gear:{title:'What to pack',icon:'gear',cls:'gear',advs:[
-    {name:'Refurbed',domain:'refurbed.de',tag:'Certified refurbished tech. Cameras, phones, tablets.',country:'AT',featured:true},
-        {name:'Rose Bikes',domain:'rosebikes.de',tag:'Cycling gear and accessories for active travel.',country:'DE'},
+    {name:'Refurbed',domain:'refurbed.de',tag:'Certified refurbished tech. Cameras, phones, tablets.',country:'AT',featured:true,b:[1,2],w:['solo','couple','business'],m:['de','at','it']},
+        {name:'Rose Bikes',domain:'rosebikes.de',tag:'Cycling gear and accessories for active travel.',country:'DE',b:[2,3],w:['solo','couple','group'],m:['de','en']},
     {name:'Fanatics',domain:'fanatics.com',tag:'Branded sportswear and travel gear.',country:'US'},
-    {name:'Bader',domain:'bader.de',tag:'Fashion, accessories and travel essentials.',country:'DE'},
-        {name:'wirkaufendeinauto',domain:'wirkaufendeinauto.de',tag:'Sell your car before a long trip abroad.',country:'DE'},
-        {name:'Columbia',domain:'columbiasportswear.de',tag:'Outdoor clothing and footwear. Weatherproof gear.',country:'US'},
-    {name:'The North Face',domain:'thenorthface.com',tag:'Premium outdoor gear and travel clothing.',country:'US'},
-    {name:'Berghaus',domain:'berghaus.com',tag:'Technical outdoor clothing. UK brand, global quality.',country:'UK'},
-    {name:'Osprey',domain:'ospreyeurope.com',tag:'Travel backpacks and luggage. Lifetime guarantee.',country:'US'},
-    {name:'Sea to Summit',domain:'seatosummit.eu',tag:'Ultralight travel gear and packing accessories.',country:'AU'},
-    {name:'Craghoppers',domain:'craghoppers.com',tag:'Packable travel clothing with bug and sun protection.',country:'UK'},
-    {name:'Trespass',domain:'trespass.com',tag:'Affordable outdoor clothing and equipment.',country:'UK'},
-    {name:'Quiksilver',domain:'quiksilver.com',tag:'Beach and surf travel gear. Bags and clothing.',country:'US'},
-    {name:'Salomon',domain:'salomon.com',tag:'Trail running shoes and outdoor clothing.',country:'FR'},
-    {name:'Ortlieb',domain:'ortlieb.com',tag:'Waterproof bags and panniers. German engineering.',country:'DE'},
-    {name:'Thule',domain:'thule.com',tag:'Luggage and travel cases. Innovative Scandinavian design.',country:'SE'},
+    {name:'Bader',domain:'bader.de',tag:'Fashion, accessories and travel essentials.',country:'DE',b:[1,2],w:['solo','couple','family'],m:['de','at','ch']},
+        {name:'wirkaufendeinauto',domain:'wirkaufendeinauto.de',tag:'Sell your car before a long trip abroad.',country:'DE',b:[1,2],w:['solo','couple'],m:['de']},
+        {name:'Columbia',domain:'columbiasportswear.de',tag:'Outdoor clothing and footwear. Weatherproof gear.',country:'US',b:[2,3],w:['solo','couple','family','group'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi']},
+    {name:'The North Face',domain:'thenorthface.com',tag:'Premium outdoor gear and travel clothing.',country:'US',b:[3,4],w:['solo','couple','group'],m:['en','de','fr','es','it','nl']},
+    {name:'Berghaus',domain:'berghaus.com',tag:'Technical outdoor clothing. UK brand, global quality.',country:'UK',b:[3],w:['solo','couple','group'],m:['en']},
+    {name:'Osprey',domain:'ospreyeurope.com',tag:'Travel backpacks and luggage. Lifetime guarantee.',country:'US',b:[3,4],w:['solo','couple','group'],m:['en','de']},
+    {name:'Sea to Summit',domain:'seatosummit.eu',tag:'Ultralight travel gear and packing accessories.',country:'AU',b:[3,4],w:['solo','couple'],m:['en','de']},
+    {name:'Craghoppers',domain:'craghoppers.com',tag:'Packable travel clothing with bug and sun protection.',country:'UK',b:[2,3],w:['solo','couple','family'],m:['en']},
+    {name:'Trespass',domain:'trespass.com',tag:'Affordable outdoor clothing and equipment.',country:'UK',b:[1,2],w:['solo','couple','family'],m:['en']},
+    {name:'Quiksilver',domain:'quiksilver.com',tag:'Beach and surf travel gear. Bags and clothing.',country:'US',b:[2,3],w:['solo','couple','group'],m:['en','fr','de','es']},
+    {name:'Salomon',domain:'salomon.com',tag:'Trail running shoes and outdoor clothing.',country:'FR',b:[3,4],w:['solo','couple','group'],m:['fr','de','en','es','it']},
+    {name:'Ortlieb',domain:'ortlieb.com',tag:'Waterproof bags and panniers. German engineering.',country:'DE',b:[3,4],w:['solo','couple'],m:['de','en','nl']},
+    {name:'Thule',domain:'thule.com',tag:'Luggage and travel cases. Innovative Scandinavian design.',country:'SE',b:[3,4],w:['family','group'],m:['sv','da','no','de','en']},
       ]},
   insurance:{title:'Travel insurance',icon:'insurance',cls:'insurance',advs:[
-    {name:'Verivox',domain:'verivox.de',tag:'Compare all travel insurance plans side by side.',country:'DE',featured:true},
-    {name:'Check24',domain:'check24.de',tag:'Full insurance comparison. Best rates guaranteed.',country:'DE',badge:'pop'},
-    {name:'HanseMerkur',domain:'hansemerkur.de',tag:'Comprehensive travel insurance. Widely trusted in Germany.',country:'DE'},
-    {name:'ADAC',domain:'adac.de',tag:'Travel insurance and breakdown cover. ADAC membership perks.',country:'DE'},
-    {name:'Allianz',domain:'allianz-reiseversicherung.de',tag:'Global travel insurance. Medical and cancellation cover.',country:'DE'},
-    {name:'ERV',domain:'erv.de',tag:'European travel insurance specialist since 1884.',country:'DE'},
-    {name:'AXA',domain:'axa.de',tag:'Comprehensive travel insurance. Global AXA network.',country:'FR'},
-    {name:'Generali',domain:'generali.de',tag:'Full travel insurance. Medical, cancellation, baggage.',country:'DE'},
-    {name:'Signal Iduna',domain:'signal-iduna.de',tag:'German insurer. Strong travel protection packages.',country:'DE'},
-    {name:'Weltreise Versicherung',domain:'weltreise-versicherung.de',tag:'Specialist long-trip and backpacker insurance.',country:'DE'},
-    {name:'World Nomads',domain:'worldnomads.com',tag:'Adventure travel insurance. Covers extreme sports.',country:'AU'},
-    {name:'InsureandGo',domain:'insureandgo.de',tag:'Multi-trip annual insurance. Great for frequent travellers.',country:'UK'},
-    {name:'Columbus Direct',domain:'columbusdirect.com',tag:'Specialist travel insurance. 30+ years experience.',country:'UK'},
-    {name:'TravelGuard',domain:'travelguard.com',tag:'US-based travel insurance with worldwide coverage.',country:'US'},
-    {name:'Covermore',domain:'covermore.com',tag:'Comprehensive cover for leisure and adventure travel.',country:'AU'},
+    {name:'Verivox',domain:'verivox.de',tag:'Compare all travel insurance plans side by side.',country:'DE',featured:true,b:[1,2,3,4],w:['solo','couple','family','group','business'],m:['de']},
+    {name:'Check24',domain:'check24.de',tag:'Full insurance comparison. Best rates guaranteed.',country:'DE',badge:'pop',b:[1,2,3,4],w:['solo','couple','family','group','business'],m:['de','at']},
+    {name:'HanseMerkur',domain:'hansemerkur.de',tag:'Comprehensive travel insurance. Widely trusted in Germany.',country:'DE',b:[1,2,3],w:['solo','couple','family','group'],m:['de']},
+    {name:'ADAC',domain:'adac.de',tag:'Travel insurance and breakdown cover. ADAC membership perks.',country:'DE',b:[2,3],w:['couple','family','group'],m:['de']},
+    {name:'Allianz',domain:'allianz-reiseversicherung.de',tag:'Global travel insurance. Medical and cancellation cover.',country:'DE',b:[2,3,4],w:['solo','couple','family','group','business'],m:['de','fr','es','it','nl','pt','pl','cs','sv','da','no','fi']},
+    {name:'ERV',domain:'erv.de',tag:'European travel insurance specialist since 1884.',country:'DE',b:[2,3],w:['solo','couple','family'],m:['de','at']},
+    {name:'AXA',domain:'axa.de',tag:'Comprehensive travel insurance. Global AXA network.',country:'FR',b:[2,3,4],w:['solo','couple','family','group','business'],m:['fr','de','es','it','nl','pt','pl','cs','sv','da','no','fi']},
+    {name:'Generali',domain:'generali.de',tag:'Full travel insurance. Medical, cancellation, baggage.',country:'DE',b:[2,3],w:['solo','couple','family'],m:['de','it','fr']},
+    {name:'Signal Iduna',domain:'signal-iduna.de',tag:'German insurer. Strong travel protection packages.',country:'DE',b:[1,2,3],w:['solo','couple','family','group'],m:['de']},
+    {name:'Weltreise Versicherung',domain:'weltreise-versicherung.de',tag:'Specialist long-trip and backpacker insurance.',country:'DE',b:[2,3,4],w:['solo','couple','family','group'],m:['de']},
+    {name:'World Nomads',domain:'worldnomads.com',tag:'Adventure travel insurance. Covers extreme sports.',country:'AU',b:[2,3,4],w:['solo','couple','group'],m:['en','de','fr','es','it','nl','pt','pl','cs','sv','da','no','fi']},
+    {name:'InsureandGo',domain:'insureandgo.de',tag:'Multi-trip annual insurance. Great for frequent travellers.',country:'UK',b:[1,2,3],w:['solo','couple','family'],m:['en']},
+    {name:'Columbus Direct',domain:'columbusdirect.com',tag:'Specialist travel insurance. 30+ years experience.',country:'UK',b:[2,3],w:['solo','couple','family'],m:['en']},
+    {name:'TravelGuard',domain:'travelguard.com',tag:'US-based travel insurance with worldwide coverage.',country:'US',b:[3,4],w:['couple','business'],m:['en']},
+    {name:'Covermore',domain:'covermore.com',tag:'Comprehensive cover for leisure and adventure travel.',country:'AU',b:[2,3],w:['solo','couple','family'],m:['en','au']},
   ]},
 };
 
@@ -1733,6 +1733,41 @@ function cardHTML(a){
 }
 
 function renderResults(dest,days,who,budget){
+  // ── Personalization maps ─────────────────────────────────────────
+  var bLevel={budget:1,mid:2,comfort:3,luxury:4}[budget]||2;
+  var lang=currentLang||'en';
+
+  // Score an advertiser: higher = more relevant
+  function scoreAdv(a){
+    var score=0;
+    // Market match: +30 if lang in m[], +10 if 'en' or 'global' in m[]
+    if(a.m){
+      if(a.m.indexOf(lang)>=0) score+=30;
+      else if(a.m.indexOf('en')>=0||a.m.indexOf('global')>=0) score+=10;
+      else score-=5; // not available in this market
+    }
+    // Budget match: +20 if budget level in b[]
+    if(a.b){
+      if(a.b.indexOf(bLevel)>=0) score+=20;
+      else if(Math.abs(a.b[0]-bLevel)<=1) score+=5; // close enough
+      else score-=10;
+    }
+    // Who match: +15 if who in w[]
+    if(a.w){
+      if(a.w.indexOf(who)>=0) score+=15;
+      else score-=5;
+    }
+    // Featured bonus
+    if(a.featured||a._promoted) score+=25;
+    return score;
+  }
+
+  // Sort function: by score desc, featured always first
+  function sortAdvs(advs){
+    return advs.slice().sort(function(a,b){
+      return scoreAdv(b)-scoreAdv(a);
+    });
+  }
   document.getElementById('tripTitle').innerHTML=t('your_kit')+' <em>'+dest+'</em> '+t('kit');
   var wm={solo:t('trav_solo_r'),couple:t('trav_couple_r'),family:t('trav_family_r'),group:t('trav_group_r'),business:t('trav_business_r')};
   var bm={budget:t('budget_budget_r'),mid:t('budget_mid_r'),comfort:t('budget_comfort_r'),luxury:t('budget_luxury_r')};
@@ -1741,12 +1776,16 @@ function renderResults(dest,days,who,budget){
   document.getElementById('tripTagBudget').textContent=bm[budget]||budget;
 
   var mainKeys=['stay','transport','activities','gear','insurance'];
-  var extraKeys=[];
-  if(who==='family'){extraKeys=['toys','baby','health'];}
-  else if(who==='business'){extraKeys=['software','luggage','electronics'];}
-  else if(who==='solo'){extraKeys=['sport','food','cameras'];}
-  else if(who==='couple'){extraKeys=['health','fashion','food'];}
-  else{extraKeys=['fashion','electronics','health'];}
+  // Days-aware extra categories: short trip = fewer extras
+  var maxExtra=days<=3?0:days<=5?2:days<=7?3:4;
+  var whoExtras={
+    family:['baby','toys','health','luggage'],
+    business:['software','electronics','luggage'],
+    solo:['sport','cameras','software','luggage'],
+    couple:['fashion','cameras','health','luggage'],
+    group:['sport','luggage','health']
+  };
+  var extraKeys=(whoExtras[who]||['fashion','health']).slice(0,maxExtra);
 
   var catKeyMap={stay:'cat_stay',transport:'cat_transport',activities:'cat_activities',
     gear:'cat_gear',insurance:'cat_insurance',fashion:'cat_fashion',health:'cat_health',
@@ -1781,21 +1820,12 @@ function renderResults(dest,days,who,budget){
     if(tlabel && tlabel!==tkey) cat=Object.assign({},cat,{title:tlabel});
     var icon=CAT_ICONS[key]||'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>';
 
-    // Get all available (not yet shown on this page)
+    // Get available (not yet shown), sort by personalization score
     var available=cat.advs.filter(function(a){return !usedDomains[a.domain];});
-    // Featured first among available, then shuffle rest
-    var featAvail=available.filter(function(a){return a.featured;});
-    var restAvail=shuffle(available.filter(function(a){return !a.featured;}));
-    // If featured is blocked, promote first available as best match
-    var top3=featAvail.concat(restAvail).slice(0,3);
-    // Mark first as best match if featured was blocked
-    if(top3.length>0 && featAvail.length===0 && top3[0]){
+    var top3=sortAdvs(available).slice(0,3);
+    // Promote first as best match if none are featured
+    if(top3.length>0&&!top3[0].featured){
       top3[0]=Object.assign({},top3[0],{_promoted:true});
-    }
-    // Fill to 3 if needed
-    if(top3.length<3){
-      var extra=shuffle(cat.advs.filter(function(a){return !usedDomains[a.domain]&&top3.indexOf(a)===-1;}));
-      top3=top3.concat(extra).slice(0,3);
     }
     // Mark all shown as used
     top3.forEach(function(a){usedDomains[a.domain]=true;});
