@@ -1737,28 +1737,35 @@ function renderResults(dest,days,who,budget){
   var bLevel={budget:1,mid:2,comfort:3,luxury:4}[budget]||2;
   var lang=currentLang||'en';
 
-  // Score an advertiser: higher = more relevant
+  // Score an advertiser: market + budget + who are primary signals
+  // featured/promoted is only a tiebreaker within same relevance tier
   function scoreAdv(a){
     var score=0;
-    // Market match: +30 if lang in m[], +10 if 'en' or 'global' in m[]
+    // ── Market (0-40 pts) ────────────────────────────────────────
     if(a.m){
-      if(a.m.indexOf(lang)>=0) score+=30;
-      else if(a.m.indexOf('en')>=0||a.m.indexOf('global')>=0) score+=10;
-      else score-=5; // not available in this market
+      if(a.m.indexOf(lang)>=0) score+=40;        // perfect market match
+      else if(a.m.indexOf('en')>=0) score+=15;   // global/english available
+      else score-=20;                             // wrong market — penalize hard
+    } else {
+      score+=10; // no market data → treat as global
     }
-    // Budget match: +20 if budget level in b[]
+    // ── Budget (0-30 pts) ────────────────────────────────────────
     if(a.b){
-      if(a.b.indexOf(bLevel)>=0) score+=20;
-      else if(Math.abs(a.b[0]-bLevel)<=1) score+=5; // close enough
-      else score-=10;
+      if(a.b.indexOf(bLevel)>=0) score+=30;      // exact budget match
+      else if(a.b.some(function(v){return Math.abs(v-bLevel)===1;})) score+=10; // one tier off
+      else score-=25;                             // wrong budget tier — strong penalty
+    } else {
+      score+=10; // no budget data
     }
-    // Who match: +15 if who in w[]
+    // ── Who (0-20 pts) ───────────────────────────────────────────
     if(a.w){
-      if(a.w.indexOf(who)>=0) score+=15;
-      else score-=5;
+      if(a.w.indexOf(who)>=0) score+=20;
+      else score-=10;
+    } else {
+      score+=5;
     }
-    // Featured bonus
-    if(a.featured||a._promoted) score+=25;
+    // ── Featured: tiebreaker only (+3) ───────────────────────────
+    if(a.featured||a._promoted) score+=3;
     return score;
   }
 
