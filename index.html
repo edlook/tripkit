@@ -1680,7 +1680,22 @@ var MAYBE_ADVS={
 
 var adults=2,children=0;
 
-function fav(d){return'https://www.google.com/s2/favicons?domain='+d+'&sz=64'}
+function fav(d){
+  var overrides={
+    'booking.com':'https://cf.bstatic.com/static/img/favicon/favicon-32x32.png',
+    'hotels.com':'https://uk.hotels.com/favicon.ico',
+    'hostelworld.com':'https://www.hostelworld.com/favicon.ico',
+    'getyourguide.com':'https://cdn.getyourguide.com/tf/assets/static/favicon/favicon-32x32.png',
+    'omio.com':'https://www.omio.com/favicon.ico',
+    'rentalcars.com':'https://www.rentalcars.com/favicon.ico',
+    'flixbus.de':'https://global.flixbus.com/favicon.ico',
+    'omio.com':'https://www.omio.com/favicon-32x32.png',
+    'worldnomads.com':'https://www.worldnomads.com/favicon.ico',
+    'allianz.com':'https://www.allianz.com/favicon.ico',
+    'mapfre.com':'https://www.mapfre.com/favicon.ico'
+  };
+  return overrides[d]||'https://www.google.com/s2/favicons?domain='+d+'&sz=64';
+}
 
 function showPage(id){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
