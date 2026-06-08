@@ -1827,6 +1827,7 @@ function renderResults(dest,days,who,budget){
   // ── Personalization maps ─────────────────────────────────────────
   var bLevel={budget:1,mid:2,comfort:3,luxury:4}[budget]||2;
   var lang=currentLang||'en';
+  console.log('[TripKit] renderResults: lang='+lang+' budget='+budget+'('+bLevel+') who='+who);
 
   // ── Scoring: higher = more relevant for this user ──────────────
   function scoreAdv(a){
@@ -1945,6 +1946,7 @@ function renderResults(dest,days,who,budget){
     // Get available (not yet shown), sort by personalization score
     // Each category independently picks best 3 — no cross-category dedup
     var top3=sortAdvs(cat.advs).slice(0,3);
+    if(key==='stay') console.log('[TripKit] stay top3:',top3.map(function(a){return a.name+'('+scoreAdv(a)+')'}).join(', '));
     // Promote first as best match if none are featured
     if(top3.length>0&&!top3[0].featured){
       top3[0]=Object.assign({},top3[0],{_promoted:true});
