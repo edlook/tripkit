@@ -1893,7 +1893,7 @@ function renderResults(dest,days,who,budget){
     });
   }
 
-  document.getElementById('tripTitle').innerHTML=t('your_kit')+' <em>'+dest+'</em> '+t('kit');
+  document.getElementById('tripTitle').innerHTML=t('your_kit')+' <em>'+dest+'</em> '+t('kit')+' [lang='+lang+'/b='+bLevel+']';
   var wm={solo:t('trav_solo_r'),couple:t('trav_couple_r'),family:t('trav_family_r'),group:t('trav_group_r'),business:t('trav_business_r')};
   var bm={budget:t('budget_budget_r'),mid:t('budget_mid_r'),comfort:t('budget_comfort_r'),luxury:t('budget_luxury_r')};
   document.getElementById('tripTagDays').textContent=days+' '+t('days_unit');
