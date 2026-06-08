@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!-- v3.0-final -->
+<!-- v2.1 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>TripKit — Plan Your Trip: Hotels, Transport, Gear & Activities</title>
@@ -1134,7 +1134,7 @@ var CAT_ICONS={
 };
 var CATS={
   stay:{title:'Where to stay',icon:'stay',cls:'stay',advs:[
-    {name:'Marriott',domain:'marriott.com',tag:'Premium hotels worldwide. Loyalty points every stay.',country:'US',featured:true,b:[3,4],w:['solo','couple','business'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi',
+    {name:'Marriott',domain:'marriott.com',tag:'Premium hotels worldwide. Loyalty points every stay.',country:'US',b:[3,4],w:['solo','couple','business'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi',
     {name:'Scandic Hotels',domain:'scandichotels.com',tag:'Leading Scandinavian hotel chain. Sustainable stays.',country:'SE',b:[2,3],w:['solo','couple','family','business'],m:['sv','da','no','fi','de','en',
     {name:'Accor Hotels',domain:'accor.com',tag:'French hotel giant. Sofitel, Novotel, Ibis and more.',country:'FR',b:[1,2,3,4],w:['solo','couple','family','group','business'],m:['fr'],q:12},
     {name:'Logis Hotels',domain:'logishotels.com',tag:'Independent French hotel network. Authentic local stays.',country:'FR',b:[2,3],w:['solo','couple','family','group','business'],m:['fr','be','nl'],q:12},
@@ -1174,7 +1174,7 @@ var CATS={
     {name:'Best Western',domain:'bestwestern.com',tag:'Independent hotels network. 4,000+ properties worldwide.',country:'US',b:[2,3],w:['solo','couple','family'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi']},
   ]},
   transport:{title:'Getting there',icon:'transport',cls:'transport',advs:[
-    {name:'DerTour',domain:'dertour.de',tag:'Flights + hotels combined. Often the cheapest option.',country:'DE',featured:true},
+    {name:'DerTour',domain:'dertour.de',tag:'Flights + hotels combined. Often the cheapest option.',country:'DE'},
     {name:'AnyVan',domain:'anyvan.com',tag:'Airport transfers and city transport. Fixed pricing.',country:'UK',badge:'pop',b:[1,2],w:['solo','couple','family','group'],m:['en'],w:['solo','couple','family','group','business'],m:['en'],w:['solo','couple','family','group','business'],m:['en'],q:3},
     {name:'BlaBlaCar Bus',domain:'blablacar.fr',tag:'French rideshare and bus. Affordable intercity travel.',country:'FR',b:[1],w:['solo','couple','group'],m:['fr','es','pt','it','pl','de'],q:8},
     {name:'NS International',domain:'nsinternational.com',tag:'Dutch international rail. Thalys, Eurostar and ICE.',country:'NL',b:[2,3,4],w:['solo','couple','family','business'],m:['nl','be','fr'],q:12},
@@ -1207,7 +1207,7 @@ var CATS={
     {name:'Budget Car Rental',domain:'budget.com',tag:'Affordable car hire at airports and cities.',country:'US',b:[1,2],w:['solo','couple'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi']},
     {name:'Rentalcars',domain:'rentalcars.com',tag:'Compare car hire from all major providers.',country:'UK',b:[2,3],w:['solo','couple','family'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi'],q:8},
     {name:'BlaBlaCar',domain:'blablacar.de',tag:'Carpooling across Europe. Cheap and social.',country:'FR',b:[1],w:['solo','couple'],m:['fr','de','es','it','pl','pt','cs','ru']},
-    {name:'Omio',domain:'omio.com',tag:'Book trains, buses and flights across Europe.',country:'DE',featured:true,b:[1,2,3,4],w:['solo','couple','family','group','business'],m:['de','en','fr','es','it','nl','pl','pt','cs','sv','da','no','fi'],q:15},
+    {name:'Omio',domain:'omio.com',tag:'Book trains, buses and flights across Europe.',country:'DE',b:[1,2,3,4],w:['solo','couple','family','group','business'],m:['de','en','fr','es','it','nl','pl','pt','cs','sv','da','no','fi'],q:15},
     {name:'Busbud',domain:'busbud.com',tag:'Intercity bus tickets worldwide. 12,000+ destinations.',country:'CA',b:[1],w:['solo','couple','group'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi']},
     {name:'GoEuro',domain:'goeuro.com',tag:'Compare all transport options across Europe.',country:'DE',b:[1,2],w:['solo','couple','group'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi']},
     {name:'Alamo',domain:'alamo.com',tag:'Car rental with great leisure rates.',country:'US',b:[2],w:['couple','family'],m:['en','de','fr','es','pt']},
@@ -1216,7 +1216,7 @@ var CATS={
     {name:'AutoEurope',domain:'autoeurope.de',tag:'Car hire specialists for Europe. Best rate guarantee.',country:'DE',b:[2,3],w:['couple','family'],m:['de','en','fr','es','it','nl','pt']},
   ]},
   activities:{title:'Things to do',icon:'activities',cls:'activities',advs:[
-    {name:'Legoland',domain:'legoland.de',tag:'Theme parks across Europe. Great for the whole family.',country:'DE',featured:true,b:[2,3],w:['family'],m:['de','en','nl','da','sv',
+    {name:'Legoland',domain:'legoland.de',tag:'Theme parks across Europe. Great for the whole family.',country:'DE',b:[2,3],w:['family'],m:['de','en','nl','da','sv',
     {name:'Invia',domain:'invia.cz',tag:'Czech travel agency. Tours and activities in Czech Republic.',country:'CZ',b:[1,2,3],w:['solo','couple','family','group'],m:['cs','sk','pl','de',
     {name:'Fnac Spectacles',domain:'fnacspectacles.com',tag:'French culture and entertainment tickets. Concerts, theatre, museums.',country:'FR',b:[2,3],w:['solo','couple','family'],m:['fr'],q:15},
     {name:'Voyages-sncf',domain:'oui.sncf',tag:'French travel experiences and tours.',country:'FR',b:[2,3],w:['couple','family','group'],m:['fr'],q:5},
@@ -1252,7 +1252,7 @@ var CATS={
     {name:'Visit Finland',domain:'visitfinland.com',tag:'Official Finnish tourism. Experiences and activities in Finland.',country:'FI',b:[2,3],w:['solo','couple','family'],m:['fi'],q:15},
     {name:'Ticketmaster',domain:'ticketmaster.com',tag:'Concerts, events and experiences worldwide.',country:'US',b:[1,2,3,4],w:['solo','couple','family','group'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi'],q:8}]},
   gear:{title:'What to pack',icon:'gear',cls:'gear',advs:[
-    {name:'Refurbed',domain:'refurbed.de',tag:'Certified refurbished tech. Cameras, phones, tablets.',country:'AT',featured:true,b:[1,2],w:['solo','couple','business'],m:['de','at','it',
+    {name:'Refurbed',domain:'refurbed.de',tag:'Certified refurbished tech. Cameras, phones, tablets.',country:'AT',b:[1,2],w:['solo','couple','business'],m:['de','at','it',
     {name:'Fjällräven',domain:'fjallraven.com',tag:'Swedish outdoor brand. Iconic Kånken bags and outdoor gear.',country:'SE',b:[2,3,4],w:['solo','couple','group'],m:['sv','no','da','fi','de','nl','en','fr','es','it','pl','pt','cs'],q:12},
     {name:'Helly Hansen',domain:'hellyhansen.com',tag:'Norwegian performance outdoor gear. Trusted since 1877.',country:'NO',b:[3,4],w:['solo','couple','group'],m:['no','sv','da','fi','de','nl','en','fr','es','it'],q:12},
     {name:'Bever',domain:'bever.nl',tag:'Dutch outdoor specialist. Gear, clothing and footwear.',country:'NL',b:[2,3],w:['solo','couple','family','group'],m:['nl','be'],q:15},
@@ -1280,7 +1280,7 @@ var CATS={
     {name:'Ferrino',domain:'ferrino.it',tag:'Italian outdoor brand. Tents, backpacks and sleeping bags.',country:'IT',b:[2,3],w:['solo','couple','group'],m:['it'],q:15},
     {name:'Altus',domain:'altus.es',tag:'Spanish outdoor brand. Trekking and camping gear.',country:'ES',b:[1,2],w:['solo','couple','group'],m:['es','pt'],q:15}]},
   insurance:{title:'Travel insurance',icon:'insurance',cls:'insurance',advs:[
-    {name:'Verivox',domain:'verivox.de',tag:'Compare all travel insurance plans side by side.',country:'DE',featured:true,b:[1,2,3,4],w:['solo','couple','family','group','business'],m:['de','at'],w:['solo','couple','family','group','business'],m:['de','at'],w:['solo','couple','family','group','business'],m:['de','at'],q:15},
+    {name:'Verivox',domain:'verivox.de',tag:'Compare all travel insurance plans side by side.',country:'DE',b:[1,2,3,4],w:['solo','couple','family','group','business'],m:['de','at'],w:['solo','couple','family','group','business'],m:['de','at'],w:['solo','couple','family','group','business'],m:['de','at'],q:15},
     {name:'Groupama',domain:'groupama.fr',tag:'French mutual insurer. Travel and cancellation cover.',country:'FR',b:[1,2,3,4],w:['solo','couple','family','group','business'],m:['fr'],q:15},
     {name:'Genertel',domain:'genertel.it',tag:'Italian online insurer. Quick travel insurance.',country:'IT',b:[1,2,3,4],w:['solo','couple','family','group','business'],m:['it'],q:15},
     {name:'Centraal Beheer',domain:'centraalbeheer.nl',tag:'Dutch insurer. Travel coverage for Europe and worldwide.',country:'NL',b:[1,2,3,4],w:['solo','couple','family','group','business'],m:['nl','be'],q:15},
@@ -1329,7 +1329,7 @@ var MAYBE=[
 
 var MAYBE_ADVS={
   fashion:[
-    {name:'MandM Direct',domain:'mandmdirect.com',tag:'Designer brands up to 75% off. Adidas, Nike, The North Face.',country:'UK',featured:true,b:[1,2],w:['solo','couple','family'],m:['en','sv','da','no','fi'],q:8},
+    {name:'MandM Direct',domain:'mandmdirect.com',tag:'Designer brands up to 75% off. Adidas, Nike, The North Face.',country:'UK',b:[1,2],w:['solo','couple','family'],m:['en','sv','da','no','fi'],q:8},
     {name:'Bader',domain:'bader.de',tag:'Fashion, accessories and homewear. German mail-order pioneer.',country:'DE',b:[1,2,3],w:['solo','couple','family'],m:['de','at','ch'],q:8},
     {name:'Fanatics',domain:'fanatics.com',tag:'Official team kits and branded clothing.',country:'US',b:[1,2,3],w:['solo','couple','family'],m:['en'],q:3},
     {name:'ASOS',domain:'asos.com',tag:'Huge fashion range. Free delivery on orders over threshold.',country:'UK',b:[1,2,3],w:['solo','couple','family'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi'],q:5},
@@ -1363,7 +1363,7 @@ var MAYBE_ADVS={
   health:[
     {name:'Bader',domain:'bader.de',tag:'Health and beauty essentials. Wide range.',country:'DE',b:[1,2,3],w:['solo','couple','family'],m:['de','at','ch'],q:8},
     {name:'Matratzen Concord',domain:'matratzen-concord.de',tag:'Sleep better. Mattresses, pillows and sleep accessories.',country:'DE',b:[1,2,3],w:['solo','couple','family','group'],m:['de','at','ch'],q:8},
-    {name:'Rossmann',domain:'rossmann.de',tag:'Germany&#39;s leading drugstore. Cosmetics and health.',country:'DE',featured:true,b:[1,2],w:['solo','couple','family'],m:['de','at','pl'],q:8},
+    {name:'Rossmann',domain:'rossmann.de',tag:'Germany&#39;s leading drugstore. Cosmetics and health.',country:'DE',b:[1,2],w:['solo','couple','family'],m:['de','at','pl'],q:8},
     {name:'dm',domain:'dm.de',tag:'Drugstore chain. Natural cosmetics and health products.',country:'DE',b:[1,2,3],w:['solo','couple','family','group'],m:['de','at','ch'],q:8},
     {name:'Notino',domain:'notino.de',tag:'Perfumes and cosmetics. 50,000+ products.',country:'CZ',b:[1,2,3],w:['solo','couple','family','group'],m:['cs'],q:8},
     {name:'Douglas',domain:'douglas.de',tag:'Premium beauty. Largest perfumery chain in Europe.',country:'DE',b:[1,2,3],w:['solo','couple','family','group'],m:['de','at','ch'],q:8},
@@ -1394,7 +1394,7 @@ var MAYBE_ADVS={
   ],
   cameras:[
     {name:'Refurbed',domain:'refurbed.de',tag:'Certified refurb cameras. Save up to 40%. Warranty included.',country:'AT',b:[2,3,4],w:['solo','couple','group'],m:['de','at'],q:8},
-    {name:'B&H Photo',domain:'bhphotovideo.com',tag:'Professional photography and video equipment.',country:'US',featured:true,b:[2,3,4],w:['solo','couple'],m:['en'],q:8},
+    {name:'B&H Photo',domain:'bhphotovideo.com',tag:'Professional photography and video equipment.',country:'US',b:[2,3,4],w:['solo','couple'],m:['en'],q:8},
     {name:'Foto Koch',domain:'fotokoch.de',tag:'German photography specialist. Wide selection.',country:'DE',b:[2,3,4],w:['solo','couple','group'],m:['de','at','ch'],q:8},
     {name:'Amazon Cameras',domain:'amazon.de',tag:'Huge range. Fast delivery. Camera and lens bundles.',country:'DE',b:[1,2],w:['solo','couple','group'],m:['de','at','ch'],q:8},
     {name:'Calumet',domain:'calumetphoto.de',tag:'Professional photo and video equipment.',country:'DE',b:[2,3,4],w:['solo','couple','group'],m:['de','at','ch'],q:8},
@@ -1427,7 +1427,7 @@ var MAYBE_ADVS={
   electronics:[
     {name:'Refurbed',domain:'refurbed.de',tag:'Certified refurb phones, tablets and laptops.',country:'AT',b:[1,2,3],w:['solo','couple','business'],m:['de','at'],q:8},
     {name:'Allegro',domain:'allegro.pl',tag:'Electronics marketplace. Competitive prices.',country:'PL',b:[1,2,3],w:['solo','couple','business'],m:['pl'],q:8},
-        {name:'MediaMarkt',domain:'mediamarkt.de',tag:'Germany&#39;s largest electronics retailer.',country:'DE',featured:true,b:[2,3],w:['solo','couple','family','business'],m:['de','at','nl','es','it'],q:8},
+        {name:'MediaMarkt',domain:'mediamarkt.de',tag:'Germany&#39;s largest electronics retailer.',country:'DE',b:[2,3],w:['solo','couple','family','business'],m:['de','at','nl','es','it'],q:8},
     {name:'Saturn',domain:'saturn.de',tag:'Electronics specialist. Wide product range.',country:'DE',b:[1,2,3],w:['solo','couple','business'],m:['de','at','ch'],q:8},
     {name:'Conrad',domain:'conrad.de',tag:'Electronics, components and tech accessories.',country:'DE',b:[1,2,3],w:['solo','couple','business'],m:['de','at','ch'],q:8},
     {name:'Cyberport',domain:'cyberport.de',tag:'IT and consumer electronics. Expert advice.',country:'DE',b:[1,2,3],w:['solo','couple','business'],m:['de','at','ch'],q:8},
@@ -1457,7 +1457,7 @@ var MAYBE_ADVS={
     {name:'Dyson',domain:'dyson.de',tag:'Innovative vacuums, hair tools and air purifiers.',country:'UK',b:[1,2,3],w:['solo','couple','business'],m:['en'],q:3},
   ],
   toys:[
-    {name:'Legoland',domain:'legoland.de',tag:'Lego sets and theme park tickets.',country:'DE',featured:true,b:[2,3],w:['family'],m:['de','nl','da','sv','en'],q:9},
+    {name:'Legoland',domain:'legoland.de',tag:'Lego sets and theme park tickets.',country:'DE',b:[2,3],w:['family'],m:['de','nl','da','sv','en'],q:9},
     {name:'Bader',domain:'bader.de',tag:'Toys for all ages. Wide selection.',country:'DE',b:[1,2,3],w:['family'],m:['de','at','ch'],q:8},
     {name:'Mytoys',domain:'mytoys.de',tag:'Germany&#39;s largest toy online shop.',country:'DE',b:[1,2,3],w:['family'],m:['de','at','ch'],q:8},
         {name:'Smyths',domain:'smythstoys.com',tag:'Toy superstore. Competitive prices.',country:'IE',b:[1,2],w:['family'],m:['en'],q:3},
@@ -1490,7 +1490,7 @@ var MAYBE_ADVS={
   ],
   pets:[
     {name:'Bader',domain:'bader.de',tag:'Pet accessories and supplies. Wide selection.',country:'DE',b:[1,2,3],w:['solo','couple','family'],m:['de','at','ch'],q:8},
-    {name:'Zooplus',domain:'zooplus.de',tag:'Europe&#39;s largest online pet shop. 8,000+ products.',country:'DE',featured:true,b:[1,2,3],w:['solo','couple','family'],m:['de','at','fr','nl','pl'],q:8},
+    {name:'Zooplus',domain:'zooplus.de',tag:'Europe&#39;s largest online pet shop. 8,000+ products.',country:'DE',b:[1,2,3],w:['solo','couple','family'],m:['de','at','fr','nl','pl'],q:8},
     {name:'Fressnapf',domain:'fressnapf.de',tag:'Germany&#39;s leading pet supplies chain.',country:'DE',b:[1,2,3],w:['solo','couple','family'],m:['de','at','ch'],q:8},
     {name:'Amazon Pets',domain:'amazon.de',tag:'Huge range of pet supplies. Subscribe &amp; save.',country:'DE',b:[1,2],w:['solo','couple','family'],m:['de','at','ch'],q:8},
     {name:'Petco',domain:'petco.com',tag:'Full-service pet store. Food, accessories and more.',country:'US',b:[1,2,3],w:['solo','couple','family'],m:['en'],q:3},
@@ -1523,7 +1523,7 @@ var MAYBE_ADVS={
   food:[
     {name:'Allegro',domain:'allegro.pl',tag:'Food and beverages delivered. Eastern Europe focus.',country:'PL',b:[1,2,3],w:['solo','couple','family','group'],m:['pl'],q:8},
     {name:'Bader',domain:'bader.de',tag:'Speciality food gifts and hampers.',country:'DE',b:[1,2,3],w:['solo','couple','family','group'],m:['de','at','ch'],q:8},
-    {name:'Amazon Fresh',domain:'amazon.de',tag:'Grocery delivery. Available in major German cities.',country:'DE',featured:true,b:[1,2,3],w:['solo','couple','family'],m:['de'],q:6},
+    {name:'Amazon Fresh',domain:'amazon.de',tag:'Grocery delivery. Available in major German cities.',country:'DE',b:[1,2,3],w:['solo','couple','family'],m:['de'],q:6},
     {name:'Rewe',domain:'rewe.de',tag:'Online supermarket. German retail giant.',country:'DE',b:[1,2,3],w:['solo','couple','family','group'],m:['de','at','ch'],q:8},
     {name:'Edeka',domain:'edeka.de',tag:'Quality German supermarket online.',country:'DE',b:[1,2,3],w:['solo','couple','family','group'],m:['de','at','ch'],q:8},
     {name:'Gourmio',domain:'gourmio.de',tag:'Premium food marketplace. Artisan producers.',country:'DE',b:[1,2,3],w:['solo','couple','family','group'],m:['de','at','ch'],q:8},
@@ -1555,7 +1555,7 @@ var MAYBE_ADVS={
   home:[
     {name:'Matratzen Concord',domain:'matratzen-concord.de',tag:'Mattresses, pillows and sleep systems.',country:'DE',b:[1,2,3,4],w:['couple','family'],m:['de','at','ch'],q:8},
     {name:'Bader',domain:'bader.de',tag:'Home goods, furnishings and lifestyle.',country:'DE',b:[1,2,3,4],w:['couple','family'],m:['de','at','ch'],q:8},
-    {name:'IKEA',domain:'ikea.de',tag:'Affordable Scandinavian home furnishing.',country:'SE',featured:true,b:[1,2,3],w:['couple','family'],m:['de','at','ch','nl','sv','da','no','fi','pl'],q:8},
+    {name:'IKEA',domain:'ikea.de',tag:'Affordable Scandinavian home furnishing.',country:'SE',b:[1,2,3],w:['couple','family'],m:['de','at','ch','nl','sv','da','no','fi','pl'],q:8},
     {name:'Otto Home',domain:'otto.de',tag:'Furniture and home accessories. Wide range.',country:'DE',b:[1,2,3,4],w:['couple','family'],m:['de','at','ch'],q:8},
     {name:'Amazon Home',domain:'amazon.de',tag:'Home and kitchen. Fast delivery.',country:'DE',b:[1,2],w:['couple','family'],m:['de','at','ch'],q:8},
     {name:'Home24',domain:'home24.de',tag:'Online furniture specialist. 200,000+ products.',country:'DE',b:[1,2,3,4],w:['couple','family'],m:['de','at','ch'],q:8},
@@ -1586,7 +1586,7 @@ var MAYBE_ADVS={
   ],
   luggage:[
         {name:'Rose Bikes',domain:'rosebikes.de',tag:'Cycling and panniers bags. Active travel.',country:'DE',b:[2,3],w:['solo','couple','family','group','business'],m:['de','at','ch'],q:8},
-    {name:'Samsonite',domain:'samsonite.de',tag:'Premium luggage and travel bags. Built to last.',country:'US',featured:true,b:[3,4],w:['solo','couple','family','business'],m:['de','at','ch'],q:8},
+    {name:'Samsonite',domain:'samsonite.de',tag:'Premium luggage and travel bags. Built to last.',country:'US',b:[3,4],w:['solo','couple','family','business'],m:['de','at','ch'],q:8},
     {name:'Rimowa',domain:'rimowa.com',tag:'Iconic aluminium suitcases. German luxury.',country:'DE',b:[3,4],w:['solo','couple','family','group','business'],m:['de','at','ch','fr','nl'],q:8},
     {name:'MandM Direct',domain:'mandmdirect.com',tag:'Discounted bags and travel accessories.',country:'UK',b:[1,2],w:['solo','couple','family','group','business'],m:['en'],q:3},
     {name:'Tumi',domain:'tumi.de',tag:'Premium business and travel bags.',country:'US',b:[3,4],w:['solo','couple','family','group','business'],m:['en'],q:3},
@@ -1620,7 +1620,7 @@ var MAYBE_ADVS={
     {name:'Bader',domain:'bader.de',tag:'Baby clothing and accessories.',country:'DE',b:[1,2,3],w:['family'],m:['de','at','ch'],q:8},
     {name:'Allegro',domain:'allegro.pl',tag:'Baby products and toys at great prices.',country:'PL',b:[1,2,3],w:['family'],m:['pl'],q:8},
     {name:'Mytoys',domain:'mytoys.de',tag:'Toys and baby gear. Germany&#39;s largest.',country:'DE',b:[1,2,3],w:['family'],m:['de','at','ch'],q:8},
-    {name:'Babymarkt',domain:'babymarkt.de',tag:'Largest online baby shop in Germany.',country:'DE',featured:true,b:[1,2,3],w:['family'],m:['de','at','ch','nl'],q:8},
+    {name:'Babymarkt',domain:'babymarkt.de',tag:'Largest online baby shop in Germany.',country:'DE',b:[1,2,3],w:['family'],m:['de','at','ch','nl'],q:8},
     {name:'Baby One',domain:'babyone.de',tag:'Baby equipment and furniture specialist.',country:'DE',b:[1,2,3],w:['family'],m:['de','at','ch'],q:8},
     {name:'Jako-O',domain:'jako-o.de',tag:'Family brand. Baby to teen. Quality products.',country:'DE',b:[1,2,3],w:['family'],m:['de','at','ch'],q:8},
     {name:'Tchibo Baby',domain:'tchibo.de',tag:'Baby clothing and essentials. Good prices.',country:'DE',b:[1,2,3],w:['family'],m:['de','at','ch'],q:8},
@@ -1651,7 +1651,7 @@ var MAYBE_ADVS={
   sport:[
     {name:'Rose Bikes',domain:'rosebikes.de',tag:'Bikes, cycling gear and accessories.',country:'DE',b:[1,2,3],w:['solo','couple','group'],m:['de','at','ch'],q:8},
         {name:'Fanatics',domain:'fanatics.com',tag:'Official team kits and football gear.',country:'US',b:[1,2,3],w:['solo','couple','group'],m:['en'],q:3},
-    {name:'Decathlon',domain:'decathlon.de',tag:'All sports, all budgets. 80+ sports covered.',country:'FR',featured:true,b:[1,2,3],w:['solo','couple','family','group'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi'],q:8},
+    {name:'Decathlon',domain:'decathlon.de',tag:'All sports, all budgets. 80+ sports covered.',country:'FR',b:[1,2,3],w:['solo','couple','family','group'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi'],q:8},
     {name:'Nike',domain:'nike.com',tag:'Performance sportswear and footwear.',country:'US',b:[1,2,3],w:['solo','couple','group'],m:['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi'],q:5},
     {name:'MandM Direct',domain:'mandmdirect.com',tag:'Sports clothing at huge discounts.',country:'UK',b:[1,2],w:['solo','couple','group'],m:['en'],q:3},
     {name:'Adidas',domain:'adidas.de',tag:'Iconic sportswear. German heritage.',country:'DE',b:[1,2,3],w:['solo','couple','group'],m:['de','at','ch','nl','pl','cs'],q:5},
@@ -1681,7 +1681,7 @@ var MAYBE_ADVS={
     {name:'POC',domain:'pocsports.com',tag:'Safety-focused cycling and ski helmets.',country:'SE',b:[1,2,3],w:['solo','couple','group'],m:['sv','no','da','fi','de'],q:10},
   ],
   software:[
-    {name:'Eneba',domain:'eneba.com',tag:'Games, software keys and subscriptions. Best prices.',country:'LT',featured:true,b:[1,2],w:['solo','couple','business'],m:['en','de','pl','cs','lt'],q:6},
+    {name:'Eneba',domain:'eneba.com',tag:'Games, software keys and subscriptions. Best prices.',country:'LT',b:[1,2],w:['solo','couple','business'],m:['en','de','pl','cs','lt'],q:6},
     {name:'Joyn',domain:'joyn.de',tag:'Free streaming. German TV and films.',country:'DE',b:[1,2,3,4],w:['solo','couple','business'],m:['de','at','ch'],q:8},
     {name:'Verivox',domain:'verivox.de',tag:'Compare mobile and internet plans.',country:'DE',b:[1,2,3,4],w:['solo','couple','business'],m:['de','at','ch'],q:8},
     {name:'Check24',domain:'check24.de',tag:'Compare all digital services and tariffs.',country:'DE',b:[1,2,3,4],w:['solo','couple','business'],m:['de','at','ch'],q:8},
@@ -1827,7 +1827,6 @@ function renderResults(dest,days,who,budget){
   // ── Personalization maps ─────────────────────────────────────────
   var bLevel={budget:1,mid:2,comfort:3,luxury:4}[budget]||2;
   var lang=currentLang||'en';
-  console.log('[TripKit] renderResults: lang='+lang+' budget='+budget+'('+bLevel+') who='+who);
 
   // ── Scoring: higher = more relevant for this user ──────────────
   function scoreAdv(a){
@@ -1946,11 +1945,8 @@ function renderResults(dest,days,who,budget){
     // Get available (not yet shown), sort by personalization score
     // Each category independently picks best 3 — no cross-category dedup
     var top3=sortAdvs(cat.advs).slice(0,3);
-    if(key==='stay') console.log('[TripKit] stay top3:',top3.map(function(a){return a.name+'('+scoreAdv(a)+')'}).join(', '));
-    // Promote first as best match if none are featured
-    if(top3.length>0&&!top3[0].featured){
-      top3[0]=Object.assign({},top3[0],{_promoted:true});
-    }
+    // Only ONE badge per category — _promoted = best match
+    top3[0]=Object.assign({},top3[0],{_promoted:true});
 
 
     html+='<div class="kit-section">'
