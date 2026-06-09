@@ -1831,6 +1831,7 @@ function renderResults(dest,days,who,budget,forceLang){
   // Validate it's a known lang
   var knownLangs=['en','de','fr','es','it','nl','pl','pt','cs','sv','da','no','fi'];
   if(knownLangs.indexOf(lang)<0) lang='en';
+  console.log('TK renderResults: lang='+lang+' bLevel='+bLevel+' who='+who);
 
   // ── Scoring: higher = more relevant for this user ──────────────
   function scoreAdv(a){
