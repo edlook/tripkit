@@ -1890,9 +1890,12 @@ function renderResults(dest,days,who,budget,forceLang){
 
   // Sort by score descending
   function sortAdvs(advs){
-    return advs.slice().sort(function(a, b){
+    var sorted=advs.slice().sort(function(a, b){
       return scoreAdv(b) - scoreAdv(a);
     });
+    // Log first 3 scores
+    if(sorted.length>0) console.log('TK sortAdvs top3:',sorted.slice(0,3).map(function(a){return a.name+':'+Math.round(scoreAdv(a))}).join(', '));
+    return sorted;
   }
 
   document.getElementById('tripTitle').innerHTML=t('your_kit')+' <em>'+dest+'</em> '+t('kit');
