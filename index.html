@@ -1951,6 +1951,7 @@ function renderResults(dest,days,who,budget,forceLang){
     // Get available (not yet shown), sort by personalization score
     // Each category independently picks best 3 — no cross-category dedup
     var top3=sortAdvs(cat.advs).slice(0,3);
+    console.log('TK ['+key+'] top3:',top3.map(function(a){return a.name+'('+Math.round(scoreAdv(a))+')'}).join(', '));
     // Only ONE badge per category — _promoted = best match
     top3[0]=Object.assign({},top3[0],{_promoted:true});
 
